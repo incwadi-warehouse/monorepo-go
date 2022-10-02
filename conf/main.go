@@ -13,30 +13,39 @@ func main() {
 	if len(os.Args) >= 4 {
 		action = os.Args[3]
 	}
-    if len(os.Args) == 2 && os.Args[1] == "help" {
-        action = "help"
-    }
+	if len(os.Args) == 2 && os.Args[1] == "help" {
+		action = "help"
+	}
 
 	switch action {
-    case "get":
-		s := settings.Load(os.Args[1], os.Args[2])
+	case "get":
+		s, err := settings.LoadFromUrl(os.Args[1], os.Args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
 		v := s.Get(os.Args[4])
-        fmt.Println(v)
+		fmt.Println(v)
 	case "add":
-		s := settings.Load(os.Args[1], os.Args[2])
+		s, err := settings.LoadFromUrl(os.Args[1], os.Args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
 		s.Add(os.Args[4], os.Args[5])
 		s.Write()
 	case "rem":
-		s := settings.Load(os.Args[1], os.Args[2])
+		s, err := settings.LoadFromUrl(os.Args[1], os.Args[2])
+		if err != nil {
+			log.Fatal(err)
+		}
 		s.Rem(os.Args[4])
 		s.Write()
-    case "help":
-        help()
-	default:
-        log.Println("Arguments missing")
-        fmt.Println("")
+	case "help":
 		help()
-        os.Exit(1)
+	default:
+		log.Println("Arguments missing")
+		fmt.Println("")
+		help()
+		os.Exit(1)
 	}
 }
 
