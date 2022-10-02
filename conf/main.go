@@ -32,12 +32,12 @@ func main() {
 		}
 		s.Add(os.Args[4], os.Args[5])
 		s.Write()
-	case "rem":
+	case "rm":
 		s, err := settings.LoadFromUrl(os.Args[1], os.Args[2])
 		if err != nil {
 			log.Fatal(err)
 		}
-		s.Rem(os.Args[4])
+		s.Rm(os.Args[4])
 		s.Write()
 	case "help":
 		help()
@@ -57,5 +57,5 @@ func help() {
 	fmt.Println("Actions")
 	fmt.Println("get - Get the value of an entry")
 	fmt.Println("add - Add new entry")
-	fmt.Println("rem - Remove an entry")
+	fmt.Println("rm - Remove an entry")
 }

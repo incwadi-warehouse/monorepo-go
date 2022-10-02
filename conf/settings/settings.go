@@ -120,7 +120,7 @@ func (c *Config) Add(key string, value interface{}) {
 	c.Value.(map[string]interface{})[s[0]].(map[string]interface{})[s[1]] = value
 }
 
-func (c *Config) Rem(key string) {
+func (c *Config) Rm(key string) {
 	s := strings.Split(key, ".")
 	delete(c.Value.(map[string]interface{})[s[0]].(map[string]interface{}), s[1])
 }

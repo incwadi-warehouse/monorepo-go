@@ -75,14 +75,14 @@ func TestAdd(t *testing.T) {
 	}
 }
 
-func TestRem(t *testing.T) {
+func TestRm(t *testing.T) {
 	data, err := LoadFromUrl("./example.schema.json", "./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	data.Add("app.key", '1')
-	data.Rem("app.key")
+	data.Rm("app.key")
 
 	if data.Value == nil {
 		t.Fatal("Data is nil")
