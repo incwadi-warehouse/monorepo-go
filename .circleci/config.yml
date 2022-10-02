@@ -10,6 +10,9 @@ jobs:
       - run:  
           name: tidy
           command: cd ./conf && go mod tidy
+      - run:
+          name: test
+          command: cd ./conf && go test ./...
 
 workflows:
   test:
