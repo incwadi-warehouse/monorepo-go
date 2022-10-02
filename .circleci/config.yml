@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/go:1.19.1
+    steps:
+      - checkout
+      - run:  
+          name: Install dependencies
+          command: cd ./conf && go mod tidy
+      - run:
+          name: Run the tests
+          command: cd ./conf && go test ./...
+
+workflows:
+  test:
+    jobs:
+      - test
