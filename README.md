@@ -10,9 +10,7 @@ incwadi is a book database to manage your books.
 
 - The config goes only two levels deep.
 
-## Example
-
-Run in conf dir.
+## Example for module conf
 
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/conf/settings"
@@ -32,6 +30,8 @@ fmt.PrintLn(v)
 data.Add("app.key2", '1')
 data.Rem("app.key2")
 ```
+
+Run in conf dir.
 
 ```shell
 go run . ./settings/example.schema.json ./settings/example.json add app.key2 value
