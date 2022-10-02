@@ -17,6 +17,15 @@ func TestValidate(t *testing.T) {
 	}
 }
 
+func TestGet(t *testing.T) {
+	data := Load("./example.schema.json", "./example.json")
+	v := data.Get("app.key")
+
+	if v != "value" {
+		t.Fatal("Value equals not 'value'")
+	}
+}
+
 func TestAdd(t *testing.T) {
 	data := Load("./example.schema.json", "./example.json")
 	data.Add("app.key", '1')

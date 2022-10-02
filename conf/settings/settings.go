@@ -88,6 +88,11 @@ func (c *Config) Validate() error {
 	return nil
 }
 
+func (c *Config) Get(key string) interface{} {
+    s := strings.Split(key, ".")
+	return c.Value.(map[string]interface{})[s[0]].(map[string]interface{})[s[1]]
+}
+
 func (c *Config) Add(key string, value interface{}) {
     s := strings.Split(key, ".")
 	c.Value.(map[string]interface{})[s[0]].(map[string]interface{})[s[1]] = value

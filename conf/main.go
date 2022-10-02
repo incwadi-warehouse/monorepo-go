@@ -18,6 +18,10 @@ func main() {
     }
 
 	switch action {
+    case "get":
+		s := settings.Load(os.Args[1], os.Args[2])
+		v := s.Get(os.Args[4])
+        fmt.Println(v)
 	case "add":
 		s := settings.Load(os.Args[1], os.Args[2])
 		s.Add(os.Args[4], os.Args[5])
@@ -42,6 +46,7 @@ func help() {
 	fmt.Println("Usage: conf [schema-url] [file-url] [action]")
 	fmt.Println("")
 	fmt.Println("Actions")
+	fmt.Println("get - Get the value of an entry")
 	fmt.Println("add - Add new entry")
 	fmt.Println("rem - Remove an entry")
 }

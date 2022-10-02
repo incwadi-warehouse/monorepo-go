@@ -16,5 +16,6 @@ Run in conf dir.
 
 ```shell
 go run . ./settings/example.schema.json ./settings/example.json add app.key2 value
+go run . ./settings/example.schema.json ./settings/example.json get app.key2
 go run . ./settings/example.schema.json ./settings/example.json rem app.key2
 ```
