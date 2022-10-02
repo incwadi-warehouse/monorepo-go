@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run: go version
+      - run:  
+          name: tidy
+          command: cd ./conf && go mod tidy
 
 workflows:
   test:
