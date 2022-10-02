@@ -6,12 +6,11 @@ jobs:
       - image: cimg/go:1.19.1
     steps:
       - checkout
-      - run: go version
       - run:  
-          name: tidy
+          name: Install dependencies
           command: cd ./conf && go mod tidy
       - run:
-          name: test
+          name: Run the tests
           command: cd ./conf && go test ./...
 
 workflows:
