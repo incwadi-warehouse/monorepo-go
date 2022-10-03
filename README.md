@@ -6,7 +6,15 @@ incwadi is a book database to manage your books.
 
 [Installing](https://github.com/incwadi-warehouse/docu)
 
-## Example for module conf
+## conf
+
+Usage: conf [action]
+
+Actions
+
+get [key] [value] [schema-url] [file-url] - Get the value of an entry
+add [key] [schema-url] [file-url] - Add or update entry
+rm [key] [schema-url] [file-url] - Remove an entry
 
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/conf/settings"
@@ -34,7 +42,7 @@ data.Write()
 Run in conf dir.
 
 ```shell
-go run . ./settings/example.schema.json ./settings/example.json add app.key2 value
-go run . ./settings/example.schema.json ./settings/example.json get app.key2
-go run . ./settings/example.schema.json ./settings/example.json rem app.key2
+go run . add app.key2 value ./settings/example.schema.json ./settings/example.json
+go run . get app.key2 ./settings/example.schema.json ./settings/example.json
+go run . rm app.key2 ./settings/example.schema.json ./settings/example.json
 ```
