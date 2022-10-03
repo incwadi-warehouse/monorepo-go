@@ -6,10 +6,6 @@ incwadi is a book database to manage your books.
 
 [Installing](https://github.com/incwadi-warehouse/docu)
 
-## Limitations
-
-- The config goes only two levels deep.
-
 ## Example for module conf
 
 ```go

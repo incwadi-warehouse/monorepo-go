@@ -110,17 +110,32 @@ func (c *Config) Validate() error {
 }
 
 func (c *Config) Get(key string) interface{} {
-	s := strings.Split(key, ".")
+	v, l := c.findLastKey(key)
 
-	return c.Value.(map[string]interface{})[s[0]].(map[string]interface{})[s[1]]
+	return v.(map[string]interface{})[l]
 }
 
 func (c *Config) Add(key string, value interface{}) {
-	s := strings.Split(key, ".")
-	c.Value.(map[string]interface{})[s[0]].(map[string]interface{})[s[1]] = value
+	v, l := c.findLastKey(key)
+
+	v.(map[string]interface{})[l] = value
 }
 
 func (c *Config) Rm(key string) {
-	s := strings.Split(key, ".")
-	delete(c.Value.(map[string]interface{})[s[0]].(map[string]interface{}), s[1])
+	v, l := c.findLastKey(key)
+
+	delete(v.(map[string]interface{}), l)
+}
+
+func (c *Config) findLastKey(name string) (interface{}, string) {
+	s := strings.Split(name, ".")
+	v := c.Value
+
+	for key, value := range s {
+		if key < len(s)-1 {
+			v = v.(map[string]interface{})[value]
+		}
+	}
+
+	return v, s[len(s)-1]
 }

@@ -56,6 +56,6 @@ func help() {
 	fmt.Println("")
 	fmt.Println("Actions")
 	fmt.Println("get - Get the value of an entry")
-	fmt.Println("add - Add new entry")
+	fmt.Println("add - Add or update entry")
 	fmt.Println("rm - Remove an entry")
 }
