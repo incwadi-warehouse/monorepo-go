@@ -21,10 +21,14 @@ if err != nil {
     log.Fatal(err)
 }
 
+// Manipulation
 v := data.Get("app.key")
 fmt.PrintLn(v)
 data.Add("app.key2", '1')
 data.Rem("app.key2")
+
+// Works only in conjunction with LoadFromUrl()
+data.Write()
 ```
 
 Run in conf dir.
