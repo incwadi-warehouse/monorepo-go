@@ -13,7 +13,9 @@ Usage: conf [action]
 Actions
 
 get [key] [value] [schema-url] [file-url] - Get the value of an entry
+
 add [key] [schema-url] [file-url] - Add or update entry
+
 rm [key] [schema-url] [file-url] - Remove an entry
 
 ```go
