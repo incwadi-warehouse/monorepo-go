@@ -17,10 +17,10 @@ func init() {
 
 type Config struct {
     SchemaUrl string
-	FileUrl string
+	DatabaseUrl string
 
 	SchemaString []byte
-	FileString   []byte
+	DatabaseString   []byte
 
 	Schema *jsonschema.Schema
 	Value  interface{}
@@ -37,7 +37,7 @@ func LoadFromUrl(schema, file string) (*Config, error) {
 		return nil, err
 	}
 
-	c := &Config{SchemaUrl: schema, FileUrl: file, SchemaString: s, FileString: v}
+	c := &Config{SchemaUrl: schema, DatabaseUrl: file, SchemaString: s, DatabaseString: v}
 
 	if err := c.parse(); err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func LoadFromUrl(schema, file string) (*Config, error) {
 }
 
 func LoadFromString(schema, file []byte) (*Config, error) {
-	c := &Config{SchemaString: schema, FileString: file}
+	c := &Config{SchemaString: schema, DatabaseString: file}
 
 	if err := c.parse(); err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (c *Config) parse() error {
 		return err
 	}
 
-	if err := json.Unmarshal(c.FileString, &c.Value); err != nil {
+	if err := json.Unmarshal(c.DatabaseString, &c.Value); err != nil {
 		return err
 	}
 
@@ -76,7 +76,7 @@ func (c *Config) parse() error {
 }
 
 func (c *Config) Write() error {
-	if c.FileUrl == "" {
+	if c.DatabaseUrl == "" {
 		return errors.New("NO FILE URL GIVEN")
 	}
 
@@ -94,7 +94,7 @@ func (c *Config) Write() error {
 		return err
 	}
 
-	if err := os.WriteFile(c.FileUrl, out.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(c.DatabaseUrl, out.Bytes(), 0644); err != nil {
 		return err
 	}
 
