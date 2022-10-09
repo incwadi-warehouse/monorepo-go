@@ -32,12 +32,12 @@ func LoadFromUrl(schema, file string) (*Config, error) {
 		return nil, err
 	}
 
-	v, err := os.ReadFile(file)
+	f, err := os.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
 
-	c := &Config{SchemaUrl: schema, DatabaseUrl: file, SchemaString: s, DatabaseString: v}
+	c := &Config{SchemaUrl: schema, DatabaseUrl: file, SchemaString: s, DatabaseString: f}
 
 	if err := c.parse(); err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func LoadFromString(schema, file []byte) (*Config, error) {
 }
 
 func (c *Config) parse() error {
-	sch, err := jsonschema.CompileString("schema.json", string(c.SchemaString))
+	s, err := jsonschema.CompileString("schema.json", string(c.SchemaString))
 	if err != nil {
 		return err
 	}
@@ -66,7 +66,7 @@ func (c *Config) parse() error {
 		return err
 	}
 
-	c.Schema = sch
+	c.Schema = s
 
 	if err := c.Validate(); err != nil {
 		return errors.New("INVALID VALUES")
@@ -110,32 +110,32 @@ func (c *Config) Validate() error {
 }
 
 func (c *Config) Get(key string) interface{} {
-	v, l := c.findLastKey(key)
+	k, l := c.findLastKey(key)
 
-	return v.(map[string]interface{})[l]
+	return k.(map[string]interface{})[l]
 }
 
 func (c *Config) Add(key string, value interface{}) {
-	v, l := c.findLastKey(key)
+	k, l := c.findLastKey(key)
 
-	v.(map[string]interface{})[l] = value
+	k.(map[string]interface{})[l] = value
 }
 
 func (c *Config) Rm(key string) {
-	v, l := c.findLastKey(key)
+	k, l := c.findLastKey(key)
 
-	delete(v.(map[string]interface{}), l)
+	delete(k.(map[string]interface{}), l)
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {
 	s := strings.Split(name, ".")
-	v := c.Value
+	key := c.Value
 
-	for key, value := range s {
-		if key < len(s)-1 {
-			v = v.(map[string]interface{})[value]
+	for k, v := range s {
+		if k < len(s)-1 {
+			key = key.(map[string]interface{})[v]
 		}
 	}
 
-	return v, s[len(s)-1]
+	return key, s[len(s)-1]
 }
