@@ -13,7 +13,6 @@ import (
 
 func init() {
 	log.SetPrefix("settings: ")
-	log.SetFlags(0)
 }
 
 type Config struct {
