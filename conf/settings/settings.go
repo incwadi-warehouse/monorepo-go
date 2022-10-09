@@ -16,6 +16,7 @@ func init() {
 }
 
 type Config struct {
+    SchemaUrl string
 	FileUrl string
 
 	SchemaString []byte
@@ -36,7 +37,7 @@ func LoadFromUrl(schema, file string) (*Config, error) {
 		return nil, err
 	}
 
-	c := &Config{FileUrl: file, SchemaString: s, FileString: v}
+	c := &Config{SchemaUrl: schema, FileUrl: file, SchemaString: s, FileString: v}
 
 	if err := c.parse(); err != nil {
 		return nil, err
