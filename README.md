@@ -48,3 +48,19 @@ go run . add app.key2 value ./settings/example.schema.json ./settings/example.js
 go run . get app.key2 ./settings/example.schema.json ./settings/example.json
 go run . rm app.key2 ./settings/example.schema.json ./settings/example.json
 ```
+
+## settings
+
+Create a `.env` file to define some settings.
+
+```env
+// .env
+
+ENV=prod
+FILE_PATH=./
+CORS_ALLOW_ORIGIN=http://localhost:8080
+```
+
+- ENV - Set to `prod`, `dev` or `test`
+- FILE_PATH - Path where to store the files
+- CORS_ALLOW_ORIGIN - Allowed origins
