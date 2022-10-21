@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20221019165036-dcff965c6692
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20221021094640-297774bb65a5
 	github.com/joho/godotenv v1.4.0
 )
 
