@@ -5,11 +5,11 @@ go 1.19
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20221021203227-64f9550b92db
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20221025154536-92a2aa2dcbdc
 	github.com/joho/godotenv v1.4.0
 )
 
-require github.com/santhosh-tekuri/jsonschema/v5 v5.0.1 // indirect
+require github.com/santhosh-tekuri/jsonschema/v5 v5.0.2 // indirect
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
