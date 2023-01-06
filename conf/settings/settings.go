@@ -4,23 +4,18 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"log"
 	"os"
 	"strings"
 
 	"github.com/santhosh-tekuri/jsonschema/v5"
 )
 
-func init() {
-	log.SetPrefix("settings: ")
-}
-
 type Config struct {
-    SchemaUrl string
+	SchemaUrl   string
 	DatabaseUrl string
 
-	SchemaString []byte
-	DatabaseString   []byte
+	SchemaString   []byte
+	DatabaseString []byte
 
 	Schema *jsonschema.Schema
 	Value  interface{}
