@@ -38,9 +38,9 @@ func writeBaseConfig() error {
 		return err
 	}
 
-    if err := storage.Write(getDatabaseUrl(), out.Bytes()); err != nil{
-        return err
-    }
+	if err := storage.Write(getDatabaseUrl(), out.Bytes()); err != nil {
+		return err
+	}
 
 	return nil
 }

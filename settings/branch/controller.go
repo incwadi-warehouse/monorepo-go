@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/conf/settings"
@@ -20,7 +21,17 @@ func init() {
 }
 
 func Show(c *gin.Context) {
-	s, err := settings.LoadFromUrl(getSchemaUrl(), getDatabaseUrl())
+    schema, err := os.ReadFile(getSchemaUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
+    file, err1 := os.ReadFile(getDatabaseUrl())
+    if err1 != nil {
+        c.AbortWithStatus(404)
+    }
+
+	s, err := settings.LoadFromString(schema, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}
@@ -31,7 +42,17 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-	s, err := settings.LoadFromUrl(getSchemaUrl(), getDatabaseUrl())
+    schema, err := os.ReadFile(getSchemaUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
+    file, err1 := os.ReadFile(getDatabaseUrl())
+    if err1 != nil {
+        c.AbortWithStatus(404)
+    }
+
+	s, err := settings.LoadFromString(schema, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}
@@ -62,7 +83,17 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	s, err := settings.LoadFromUrl(getSchemaUrl(), getDatabaseUrl())
+    schema, err := os.ReadFile(getSchemaUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
+    file, err1 := os.ReadFile(getDatabaseUrl())
+    if err1 != nil {
+        c.AbortWithStatus(404)
+    }
+
+	s, err := settings.LoadFromString(schema, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}

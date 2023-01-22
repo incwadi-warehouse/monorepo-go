@@ -5,6 +5,20 @@ import (
 	"testing"
 )
 
+func LoadFromUrl(schema, file string) (*Config, error) {
+	s, err := os.ReadFile(schema)
+	if err != nil {
+		return nil, err
+	}
+
+	f, err := os.ReadFile(file)
+	if err != nil {
+		return nil, err
+	}
+
+    return LoadFromString(s, f)
+}
+
 func TestLoadFromUrl(t *testing.T) {
 	data, err := LoadFromUrl("./example.schema.json", "./example.json")
 	if err != nil {
