@@ -5,47 +5,18 @@ import (
 	"testing"
 )
 
-func LoadFromUrl(schema, file string) (*Config, error) {
-	s, err := os.ReadFile(schema)
-	if err != nil {
-		return nil, err
-	}
-
-	f, err := os.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-
-    return LoadFromString(s, f)
-}
-
-func TestLoadFromUrl(t *testing.T) {
-	data, err := LoadFromUrl("./example.schema.json", "./example.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if err := data.Validate(); err != nil {
-		t.Fatal(err)
-	}
-
-	if data.Value == nil {
-		t.Fatal("Data is nil")
-	}
-}
-
 func TestLoadFromString(t *testing.T) {
 	s, err := os.ReadFile("./example.schema.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	v, err := os.ReadFile("./example.json")
+	f, err := os.ReadFile("./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	data, err := LoadFromString(s, v)
+    data, err := LoadFromString(s, f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +31,17 @@ func TestLoadFromString(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	data, err := LoadFromUrl("./example.schema.json", "./example.json")
+	s, err := os.ReadFile("./example.schema.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	f, err := os.ReadFile("./example.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    data, err := LoadFromString(s, f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -73,7 +54,17 @@ func TestGet(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	data, err := LoadFromUrl("./example.schema.json", "./example.json")
+	s, err := os.ReadFile("./example.schema.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	f, err := os.ReadFile("./example.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    data, err := LoadFromString(s, f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -90,7 +81,17 @@ func TestAdd(t *testing.T) {
 }
 
 func TestRm(t *testing.T) {
-	data, err := LoadFromUrl("./example.schema.json", "./example.json")
+	s, err := os.ReadFile("./example.schema.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	f, err := os.ReadFile("./example.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    data, err := LoadFromString(s, f)
 	if err != nil {
 		t.Fatal(err)
 	}
