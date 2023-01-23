@@ -10,20 +10,34 @@ import (
 )
 
 type Config struct {
-	SchemaString   []byte
-	DatabaseString []byte
-    DatabaseDefaultsString []byte
+	SchemaString           []byte
+	DatabaseString         []byte
+	DatabaseDefaultsString []byte
 
-	Schema *jsonschema.Schema
-	Value  interface{}
-    Defaults interface{}
+	Schema   *jsonschema.Schema
+	Value    interface{}
+	Defaults interface{}
 }
 
 func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 	c := &Config{SchemaString: schema, DatabaseDefaultsString: defaults, DatabaseString: file}
 
-	if err := c.parse(); err != nil {
+	if err := c.loadSchema(); err != nil {
 		return nil, err
+	}
+	if err := c.loadDefaults(); err != nil {
+		return nil, err
+	}
+	if err := c.loadValue(); err != nil {
+		return nil, err
+	}
+
+	if err := c.merge(); err != nil {
+		return nil, err
+	}
+
+	if err := c.Validate(); err != nil {
+		return nil, errors.New("INVALID VALUES")
 	}
 
 	return c, nil
@@ -55,43 +69,42 @@ func (c *Config) Rm(key string) {
 	delete(k.(map[string]interface{}), l)
 }
 
-func (c *Config) parse() error {
-    // Load Schema
+func (c *Config) loadSchema() error {
 	s, err := jsonschema.CompileString("schema.json", string(c.SchemaString))
 	if err != nil {
 		return err
 	}
 
-    // Load Value
-	if err := json.Unmarshal(c.DatabaseString, &c.Value); err != nil {
-		return err
-	}
+	c.Schema = s
 
-    // Load Defaults
+	return nil
+}
+
+func (c *Config) loadDefaults() error {
 	if err := json.Unmarshal(c.DatabaseDefaultsString, &c.Defaults); err != nil {
 		return err
 	}
 
-    c.merge()
+	return nil
+}
 
-	c.Schema = s
-
-	if err := c.Validate(); err != nil {
-		return errors.New("INVALID VALUES")
+func (c *Config) loadValue() error {
+	if err := json.Unmarshal(c.DatabaseString, &c.Value); err != nil {
+		return err
 	}
 
 	return nil
 }
 
 func (c *Config) merge() error {
-    data, info := merge.Merge(c.Defaults, c.Value)
-    if len(info.Errors) != 0 {
-        return errors.New("ERROR MERGING DEFAULT VALUES")
-    }
+	data, info := merge.Merge(c.Defaults, c.Value)
+	if len(info.Errors) != 0 {
+		return errors.New("ERROR MERGING DEFAULT VALUES")
+	}
 
-    c.Value = data
+	c.Value = data
 
-    return nil
+	return nil
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {
