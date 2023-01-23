@@ -9,6 +9,7 @@ import (
 )
 
 var schema = "schema/branch.schema.json"
+var defaults = "schema/branch.defaults.json"
 var database = "database/branch.json"
 
 type Config struct {
@@ -21,6 +22,10 @@ type BaseConfig struct {
 
 func getSchemaUrl() string {
 	return os.Getenv("FILE_PATH") + schema
+}
+
+func getDefaultsUrl() string {
+	return os.Getenv("FILE_PATH") + defaults
 }
 
 func getDatabaseUrl() string {

@@ -1,0 +1,7 @@
+{
+	"$schema": "example.schema.json",
+	"app": {
+		"key": "value2",
+		"key2": "value"
+	}
+}

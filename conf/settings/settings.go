@@ -5,19 +5,22 @@ import (
 	"errors"
 	"strings"
 
+	merge "github.com/RaveNoX/go-jsonmerge"
 	"github.com/santhosh-tekuri/jsonschema/v5"
 )
 
 type Config struct {
 	SchemaString   []byte
 	DatabaseString []byte
+    DatabaseDefaultsString []byte
 
 	Schema *jsonschema.Schema
 	Value  interface{}
+    Defaults interface{}
 }
 
-func LoadFromString(schema, file []byte) (*Config, error) {
-	c := &Config{SchemaString: schema, DatabaseString: file}
+func LoadFromString(schema, defaults, file []byte) (*Config, error) {
+	c := &Config{SchemaString: schema, DatabaseDefaultsString: defaults, DatabaseString: file}
 
 	if err := c.parse(); err != nil {
 		return nil, err
@@ -53,14 +56,23 @@ func (c *Config) Rm(key string) {
 }
 
 func (c *Config) parse() error {
+    // Load Schema
 	s, err := jsonschema.CompileString("schema.json", string(c.SchemaString))
 	if err != nil {
 		return err
 	}
 
+    // Load Value
 	if err := json.Unmarshal(c.DatabaseString, &c.Value); err != nil {
 		return err
 	}
+
+    // Load Defaults
+	if err := json.Unmarshal(c.DatabaseDefaultsString, &c.Defaults); err != nil {
+		return err
+	}
+
+    c.merge()
 
 	c.Schema = s
 
@@ -69,6 +81,17 @@ func (c *Config) parse() error {
 	}
 
 	return nil
+}
+
+func (c *Config) merge() error {
+    data, info := merge.Merge(c.Defaults, c.Value)
+    if len(info.Errors) != 0 {
+        return errors.New("ERROR MERGING DEFAULT VALUES")
+    }
+
+    c.Value = data
+
+    return nil
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {

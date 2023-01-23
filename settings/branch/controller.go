@@ -26,12 +26,17 @@ func Show(c *gin.Context) {
         c.AbortWithStatus(404)
     }
 
+    defaults, err := os.ReadFile(getDefaultsUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
     file, err1 := os.ReadFile(getDatabaseUrl())
     if err1 != nil {
         c.AbortWithStatus(404)
     }
 
-	s, err := settings.LoadFromString(schema, file)
+	s, err := settings.LoadFromString(schema, defaults, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}
@@ -47,12 +52,17 @@ func Update(c *gin.Context) {
         c.AbortWithStatus(404)
     }
 
+    defaults, err := os.ReadFile(getDefaultsUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
     file, err1 := os.ReadFile(getDatabaseUrl())
     if err1 != nil {
         c.AbortWithStatus(404)
     }
 
-	s, err := settings.LoadFromString(schema, file)
+	s, err := settings.LoadFromString(schema, defaults, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}
@@ -88,12 +98,17 @@ func Delete(c *gin.Context) {
         c.AbortWithStatus(404)
     }
 
+    defaults, err := os.ReadFile(getDefaultsUrl())
+    if err != nil {
+        c.AbortWithStatus(404)
+    }
+
     file, err1 := os.ReadFile(getDatabaseUrl())
     if err1 != nil {
         c.AbortWithStatus(404)
     }
 
-	s, err := settings.LoadFromString(schema, file)
+	s, err := settings.LoadFromString(schema, defaults, file)
 	if err != nil {
 		c.AbortWithStatus(404)
 	}

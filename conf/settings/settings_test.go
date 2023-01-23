@@ -11,12 +11,17 @@ func TestLoadFromString(t *testing.T) {
 		t.Fatal(err)
 	}
 
+    d, err := os.ReadFile("./example.defaults.json")
+    if err != nil {
+        t.Fatal(err)
+    }
+
 	f, err := os.ReadFile("./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-    data, err := LoadFromString(s, f)
+    data, err := LoadFromString(s, d, f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,12 +41,17 @@ func TestGet(t *testing.T) {
 		t.Fatal(err)
 	}
 
+    d, err := os.ReadFile("./example.defaults.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	f, err := os.ReadFile("./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-    data, err := LoadFromString(s, f)
+    data, err := LoadFromString(s, d,f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -49,6 +59,12 @@ func TestGet(t *testing.T) {
 	v := data.Get("app.key")
 
 	if v != "value" {
+		t.Fatal("Value equals not 'value'")
+	}
+
+    v2 := data.Get("app.key2")
+
+	if v2 != "value" {
 		t.Fatal("Value equals not 'value'")
 	}
 }
@@ -59,12 +75,17 @@ func TestAdd(t *testing.T) {
 		t.Fatal(err)
 	}
 
+    d, err := os.ReadFile("./example.defaults.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	f, err := os.ReadFile("./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-    data, err := LoadFromString(s, f)
+    data, err := LoadFromString(s, d,f)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -86,12 +107,17 @@ func TestRm(t *testing.T) {
 		t.Fatal(err)
 	}
 
+    d, err := os.ReadFile("./example.defaults.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	f, err := os.ReadFile("./example.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-    data, err := LoadFromString(s, f)
+    data, err := LoadFromString(s, d,f)
 	if err != nil {
 		t.Fatal(err)
 	}
