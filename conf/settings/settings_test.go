@@ -30,7 +30,7 @@ func TestLoadFromString(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if data.Value == nil {
+	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 }
@@ -92,11 +92,11 @@ func TestAdd(t *testing.T) {
 
 	data.Add("app.key", '1')
 
-	if data.Value == nil {
+	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Value.(map[string]interface{})["app"].(map[string]interface{})["key"] != '1' {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key"] != '1' {
 		t.Fatal("Value not set")
 	}
 }
@@ -125,11 +125,11 @@ func TestRm(t *testing.T) {
 	data.Add("app.key", '1')
 	data.Rm("app.key")
 
-	if data.Value == nil {
+	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Value.(map[string]interface{})["app"].(map[string]interface{})["key"] == '1' {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key"] == '1' {
 		t.Fatal("Value not removed")
 	}
 }

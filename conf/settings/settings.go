@@ -10,17 +10,17 @@ import (
 )
 
 type Config struct {
-	SchemaString           []byte
-	DatabaseString         []byte
-	DatabaseDefaultsString []byte
+	JsonSchema   []byte
+	JsonDefaults []byte
+	JsonData     []byte
 
 	Schema   *jsonschema.Schema
-	Value    interface{}
 	Defaults interface{}
+	Data     interface{}
 }
 
 func LoadFromString(schema, defaults, file []byte) (*Config, error) {
-	c := &Config{SchemaString: schema, DatabaseDefaultsString: defaults, DatabaseString: file}
+	c := &Config{JsonSchema: schema, JsonDefaults: defaults, JsonData: file}
 
 	if err := c.loadSchema(); err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 }
 
 func (c *Config) Validate() error {
-	if err := c.Schema.Validate(c.Value); err != nil {
+	if err := c.Schema.Validate(c.Data); err != nil {
 		return err
 	}
 
@@ -70,7 +70,7 @@ func (c *Config) Rm(key string) {
 }
 
 func (c *Config) loadSchema() error {
-	s, err := jsonschema.CompileString("schema.json", string(c.SchemaString))
+	s, err := jsonschema.CompileString("schema.json", string(c.JsonSchema))
 	if err != nil {
 		return err
 	}
@@ -81,7 +81,7 @@ func (c *Config) loadSchema() error {
 }
 
 func (c *Config) loadDefaults() error {
-	if err := json.Unmarshal(c.DatabaseDefaultsString, &c.Defaults); err != nil {
+	if err := json.Unmarshal(c.JsonDefaults, &c.Defaults); err != nil {
 		return err
 	}
 
@@ -89,7 +89,7 @@ func (c *Config) loadDefaults() error {
 }
 
 func (c *Config) loadValue() error {
-	if err := json.Unmarshal(c.DatabaseString, &c.Value); err != nil {
+	if err := json.Unmarshal(c.JsonData, &c.Data); err != nil {
 		return err
 	}
 
@@ -97,19 +97,19 @@ func (c *Config) loadValue() error {
 }
 
 func (c *Config) merge() error {
-	data, info := merge.Merge(c.Defaults, c.Value)
+	data, info := merge.Merge(c.Defaults, c.Data)
 	if len(info.Errors) != 0 {
 		return errors.New("ERROR MERGING DEFAULT VALUES")
 	}
 
-	c.Value = data
+	c.Data = data
 
 	return nil
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {
 	s := strings.Split(name, ".")
-	key := c.Value
+	key := c.Data
 
 	for k, v := range s {
 		if k < len(s)-1 {
