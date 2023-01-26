@@ -1,11 +1,7 @@
 package branch
 
 import (
-	"bytes"
-	"encoding/json"
 	"os"
-
-	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
 
 var schema = "schema/branch.schema.json"
@@ -32,20 +28,31 @@ func getDatabaseUrl() string {
 	return os.Getenv("FILE_PATH") + database
 }
 
-func writeBaseConfig() error {
-	d, err := json.Marshal(BaseConfig{schema})
+func getSchema() []byte {
+	schema, err := os.ReadFile(getSchemaUrl())
 	if err != nil {
-		return err
+		schema = []byte("{}")
 	}
 
-	var out bytes.Buffer
-	if err := json.Indent(&out, d, "", "\t"); err != nil {
-		return err
+	return schema
+}
+
+func getDefaults() []byte {
+	defaults, err := os.ReadFile(getDefaultsUrl())
+	if err != nil {
+		defaults = []byte("{}")
+
 	}
 
-	if err := storage.Write(getDatabaseUrl(), out.Bytes()); err != nil {
-		return err
-	}
+	return defaults
+}
 
-	return nil
+
+func getFile() []byte {
+    file, err1 := os.ReadFile(getDatabaseUrl())
+    if err1 != nil {
+        file = []byte("{}")
+    }
+
+    return file
 }
