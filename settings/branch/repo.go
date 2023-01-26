@@ -8,7 +8,7 @@ import (
 	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
 
-func loadData() (*settings.Config, error){
+func loadData() (*settings.Config, error) {
     return settings.LoadFromString(getSchema(), getDefaults(), getFile())
 }
 
@@ -31,5 +31,5 @@ func writeData(data interface{}) error {
 }
 
 func writeBaseConfig() error {
-    return writeData(BaseConfig{schema})
+    return writeData(BaseConfig{"schema/"+ databaseName +".schema.json"})
 }

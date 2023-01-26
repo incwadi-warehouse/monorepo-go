@@ -4,28 +4,30 @@ import (
 	"os"
 )
 
-var schema = "schema/branch.schema.json"
-var defaults = "schema/branch.defaults.json"
-var database = "database/branch.json"
+var databaseName = ""
 
 type Config struct {
 	Value string `json:"value"`
 }
 
 type BaseConfig struct {
-	Schema string `json:"$schema"`
+	Schema string `json:"schema/$databaseName.schema.json"`
+}
+
+func setDatabaseName(name string) {
+    databaseName = name
 }
 
 func getSchemaUrl() string {
-	return os.Getenv("FILE_PATH") + schema
+	return os.Getenv("FILE_PATH") + "schema/"+ databaseName +".schema.json"
 }
 
 func getDefaultsUrl() string {
-	return os.Getenv("FILE_PATH") + defaults
+	return os.Getenv("FILE_PATH") + "schema/"+ databaseName +".defaults.json"
 }
 
 func getDatabaseUrl() string {
-	return os.Getenv("FILE_PATH") + database
+	return os.Getenv("FILE_PATH") + "database/"+ databaseName +".json"
 }
 
 func getSchema() []byte {

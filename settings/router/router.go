@@ -27,10 +27,10 @@ func Router() {
 	auth := r.Group("/api", checkAuth)
 
 	// branch
-	auth.GET("/branch/:key", branch.Show)
-	auth.POST("/branch/:key", branch.Update)
-	auth.PUT("/branch/:key", branch.Update)
-	auth.DELETE("/branch/:key", branch.Delete)
+	auth.GET("/:databaseName/:key", branch.Show)
+	auth.POST("/:databaseName/:key", branch.Update)
+	auth.PUT("/:databaseName/:key", branch.Update)
+	auth.DELETE("/:databaseName/:key", branch.Delete)
 
 	r.Run(":8080")
 }

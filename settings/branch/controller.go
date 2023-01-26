@@ -14,6 +14,8 @@ func init() {
 }
 
 func Show(c *gin.Context) {
+    setDatabaseName(c.Param("databaseName"))
+
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
@@ -25,6 +27,8 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
+    setDatabaseName(c.Param("databaseName"))
+
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
@@ -47,6 +51,8 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
+    setDatabaseName(c.Param("databaseName"))
+
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
