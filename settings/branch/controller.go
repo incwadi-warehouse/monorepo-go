@@ -4,14 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
-
-func init() {
-	if err := storage.Exists(getDatabaseUrl()); err != nil {
-		writeBaseConfig()
-	}
-}
 
 func Show(c *gin.Context) {
     setDatabaseName(c.Param("databaseName"))

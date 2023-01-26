@@ -33,7 +33,3 @@ func writeData(data interface{}) error {
 
     return nil
 }
-
-func writeBaseConfig() error {
-    return writeData(BaseConfig{"schema/"+ databaseName +".schema.json"})
-}
