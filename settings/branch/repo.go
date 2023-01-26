@@ -9,7 +9,11 @@ import (
 )
 
 func loadData() (*settings.Config, error) {
-    return settings.LoadFromString(getSchema(), getDefaults(), getFile())
+    return settings.LoadFromString(
+        readFile(getSchemaUrl(), "{}"),
+        readFile(getDefaultsUrl(), "{}"),
+        readFile(getDatabaseUrl(), "{}"),
+    )
 }
 
 func writeData(data interface{}) error {
