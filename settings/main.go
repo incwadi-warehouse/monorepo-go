@@ -9,10 +9,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func init() {
-	log.SetPrefix("main: ")
-}
-
 func main() {
 	if _, err := os.Stat("./.env"); err == nil {
 		if err := godotenv.Load(); err != nil {
