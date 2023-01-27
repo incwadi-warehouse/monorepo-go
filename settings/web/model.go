@@ -8,8 +8,6 @@ type Config struct {
 	Value string `json:"value"`
 }
 
-var dataDir = "data/"
-
 var databaseName = ""
 
 func setDatabaseName(d string) {
@@ -17,15 +15,15 @@ func setDatabaseName(d string) {
 }
 
 func getSchemaUrl() string {
-	return os.Getenv("FILE_PATH") + dataDir + databaseName +".schema.json"
+	return os.Getenv("DATA_DIR") + databaseName +".schema.json"
 }
 
 func getDefaultsUrl() string {
-	return os.Getenv("FILE_PATH") + dataDir + databaseName +".defaults.json"
+	return os.Getenv("DATA_DIR") + databaseName +".defaults.json"
 }
 
 func getDatabaseUrl() string {
-	return os.Getenv("FILE_PATH") + dataDir + databaseName +".json"
+	return os.Getenv("DATA_DIR") + databaseName +".json"
 }
 
 func readFile(file, defaults string) []byte {
