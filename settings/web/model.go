@@ -8,11 +8,8 @@ type Config struct {
 	Value string `json:"value"`
 }
 
-type BaseConfig struct {
-	Schema string `json:"schema/$databaseName.schema.json"`
-}
-
 var dataDir = "data/"
+
 var databaseName = ""
 
 func setDatabaseName(d string) {
