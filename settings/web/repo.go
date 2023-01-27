@@ -1,15 +1,15 @@
-package branch
+package web
 
 import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/incwadi-warehouse/monorepo-go/conf/settings"
+	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
 
-func loadData() (*settings.Config, error) {
-    return settings.LoadFromString(
+func loadData() (*manager.Config, error) {
+    return manager.LoadFromString(
         readFile(getSchemaUrl(), "{}"),
         readFile(getDefaultsUrl(), "{}"),
         readFile(getDatabaseUrl(), "{}"),
