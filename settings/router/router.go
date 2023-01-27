@@ -1,16 +1,11 @@
 package router
 
 import (
-	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/settings/web"
 )
-
-func init() {
-	log.SetPrefix("router: ")
-}
 
 func Router() {
 	r := gin.New()
@@ -26,7 +21,6 @@ func Router() {
 
 	auth := r.Group("/api", checkAuth)
 
-	// web
 	auth.GET("/:databaseName/:key", web.Show)
 	auth.POST("/:databaseName/:key", web.Update)
 	auth.PUT("/:databaseName/:key", web.Update)

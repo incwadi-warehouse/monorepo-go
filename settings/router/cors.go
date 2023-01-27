@@ -1,17 +1,12 @@
 package router
 
 import (
-	"log"
 	"os"
 	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
-
-func init() {
-	log.SetPrefix("cors: ")
-}
 
 func headers() gin.HandlerFunc {
 	return cors.New(cors.Config{
