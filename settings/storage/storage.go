@@ -1,13 +1,8 @@
 package storage
 
 import (
-	"log"
 	"os"
 )
-
-func init() {
-	log.SetPrefix("storage: ")
-}
 
 func Read(filename string) ([]byte, error) {
 	data, err := os.ReadFile(filename)
