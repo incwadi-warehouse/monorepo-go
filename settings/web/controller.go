@@ -29,7 +29,6 @@ func Show(c *gin.Context) {
 	c.JSON(200, d)
 }
 
-
 func Update(c *gin.Context) {
 	if err := setDatabaseName(c.Param("databaseName")); err != nil {
 		c.AbortWithStatus(404)
@@ -55,6 +54,11 @@ func Update(c *gin.Context) {
 
 	s.Add(c.Param("key"), config.Value)
 
+    if err := s.ValidateSchema(); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
+
 	if err := writeData(s.Data); err != nil {
 		c.AbortWithStatus(404)
 		return
@@ -78,6 +82,11 @@ func Delete(c *gin.Context) {
 	}
 
 	s.Rm(c.Param("key"))
+
+	if err := s.ValidateSchema(); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
 
 	if err := writeData(s.Data); err != nil {
 		c.AbortWithStatus(404)

@@ -26,7 +26,7 @@ func TestLoadFromString(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if err := data.Validate(); err != nil {
+	if err := data.ValidateSchema(); err != nil {
 		t.Fatal(err)
 	}
 

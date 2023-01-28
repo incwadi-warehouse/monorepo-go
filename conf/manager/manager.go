@@ -32,14 +32,14 @@ func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 		return nil, err
 	}
 
-	if err := c.Validate(); err != nil {
+	if err := c.ValidateSchema(); err != nil {
 		return nil, errors.New("INVALID VALUES")
 	}
 
 	return c, nil
 }
 
-func (c *Config) Validate() error {
+func (c *Config) ValidateSchema() error {
 	if err := c.Schema.Validate(c.Data); err != nil {
 		return err
 	}
