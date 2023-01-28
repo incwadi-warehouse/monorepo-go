@@ -4,23 +4,24 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/settings/validation"
 )
 
 func Show(c *gin.Context) {
-    if err := setDatabaseName(c.Param("databaseName")); err != nil {
-        c.AbortWithStatus(404)
-        return
-    }
+	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
 
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
-        return
+		return
 	}
 
-    if err := s.Merge(); err != nil {
+	if err := s.Merge(); err != nil {
 		c.AbortWithStatus(404)
-        return
+		return
 	}
 
 	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
@@ -28,30 +29,36 @@ func Show(c *gin.Context) {
 	c.JSON(200, d)
 }
 
+
 func Update(c *gin.Context) {
-    if err := setDatabaseName(c.Param("databaseName")); err != nil {
-        c.AbortWithStatus(404)
-        return
-    }
+	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
 
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
-        return
+		return
 	}
 
 	var config Config
 	if err := c.ShouldBind(&config); err != nil {
 		c.AbortWithStatus(404)
-        return
+		return
+	}
+
+	if err := validation.Validate(c.Param("key")); err != nil {
+		c.AbortWithStatus(400)
+		return
 	}
 
 	s.Add(c.Param("key"), config.Value)
 
 	if err := writeData(s.Data); err != nil {
-        c.AbortWithStatus(404)
-        return
-    }
+		c.AbortWithStatus(404)
+		return
+	}
 
 	d := Config{c.Param("key")}
 
@@ -59,23 +66,23 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-    if err := setDatabaseName(c.Param("databaseName")); err != nil {
-        c.AbortWithStatus(404)
-        return
-    }
+	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
 
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
-        return
+		return
 	}
 
 	s.Rm(c.Param("key"))
 
-    if err := writeData(s.Data); err != nil {
-        c.AbortWithStatus(404)
-        return
-    }
+	if err := writeData(s.Data); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
 
 	d := Config{"SUCCESS"}
 
