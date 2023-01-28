@@ -19,10 +19,12 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	if err := s.Merge(); err != nil {
+    data, err := s.Merge()
+	if err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
+    s.Data = data
 
 	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
 

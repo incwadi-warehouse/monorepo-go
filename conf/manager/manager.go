@@ -92,15 +92,13 @@ func (c *Config) loadValue() error {
 	return nil
 }
 
-func (c *Config) Merge() error {
+func (c *Config) Merge() (interface{}, error) {
 	data, info := merge.Merge(c.Defaults, c.Data)
 	if len(info.Errors) != 0 {
-		return errors.New("ERROR MERGING DEFAULT VALUES")
+		return nil, errors.New("ERROR MERGING DEFAULT VALUES")
 	}
 
-	c.Data = data
-
-	return nil
+	return data, nil
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {
