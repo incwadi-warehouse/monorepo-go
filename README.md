@@ -33,8 +33,10 @@ Create a `.env` file to define some settings.
 ENV=prod
 DATA_DIR=./data/
 CORS_ALLOW_ORIGIN=http://localhost:8080
+API_KEY=
 ```
 
 - ENV - Set to `prod`, `dev` or `test`
 - DATA_DIR - Path where to store the files
 - CORS_ALLOW_ORIGIN - Allowed origins
+- API_KEY - A secure token to authenticate access
