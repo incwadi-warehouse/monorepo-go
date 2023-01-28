@@ -18,6 +18,11 @@ func Show(c *gin.Context) {
         return
 	}
 
+    if err := s.Merge(); err != nil {
+		c.AbortWithStatus(404)
+        return
+	}
+
 	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
 
 	c.JSON(200, d)

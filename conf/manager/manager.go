@@ -32,10 +32,6 @@ func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 		return nil, err
 	}
 
-	if err := c.merge(); err != nil {
-		return nil, err
-	}
-
 	if err := c.Validate(); err != nil {
 		return nil, errors.New("INVALID VALUES")
 	}
@@ -96,7 +92,7 @@ func (c *Config) loadValue() error {
 	return nil
 }
 
-func (c *Config) merge() error {
+func (c *Config) Merge() error {
 	data, info := merge.Merge(c.Defaults, c.Data)
 	if len(info.Errors) != 0 {
 		return errors.New("ERROR MERGING DEFAULT VALUES")
