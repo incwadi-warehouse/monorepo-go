@@ -84,7 +84,11 @@ func TestMerge(t *testing.T) {
 		t.Fatal(err)
 	}
 
-    data.Merge()
+    b, err := data.Merge()
+    if err != nil {
+        t.Fatal("Merge failed")
+    }
+    data.Data = b
 
 	v := data.Get("app.key")
 
