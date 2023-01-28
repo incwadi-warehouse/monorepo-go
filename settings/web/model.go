@@ -2,6 +2,8 @@ package web
 
 import (
 	"os"
+
+	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
 
 type Config struct {
@@ -10,8 +12,14 @@ type Config struct {
 
 var databaseName = ""
 
-func setDatabaseName(d string) {
+func setDatabaseName(d string) error {
+    if err := storage.Exists(os.Getenv("DATA_DIR") + d +".schema.json"); err != nil {
+        return err
+    }
+
     databaseName = d
+
+    return nil
 }
 
 func getSchemaUrl() string {
