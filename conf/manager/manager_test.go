@@ -61,6 +61,36 @@ func TestGet(t *testing.T) {
 	if v != "value" {
 		t.Fatal("Value equals not 'value'")
 	}
+}
+
+func TestMerge(t *testing.T) {
+	s, err := os.ReadFile("./example.schema.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	d, err := os.ReadFile("./example.defaults.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	f, err := os.ReadFile("./example.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	data, err := LoadFromString(s, d, f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+    data.Merge()
+
+	v := data.Get("app.key")
+
+	if v != "value" {
+		t.Fatal("Value equals not 'value'")
+	}
 
 	v2 := data.Get("app.key2")
 
