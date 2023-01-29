@@ -40,29 +40,43 @@ func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 }
 
 func (c *Config) ValidateSchema() error {
-	if err := c.Schema.Validate(c.Data); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Schema.Validate(c.Data)
 }
 
 func (c *Config) Get(key string) interface{} {
-	k, l := c.findLastKey(key)
+	k, l, err := c.findLastKey(key)
+	if err != nil {
+		return nil
+	}
 
 	return k.(map[string]interface{})[l]
 }
 
 func (c *Config) Add(key string, value interface{}) {
-	k, l := c.findLastKey(key)
+	k, l, err := c.findLastKey(key)
+	if err != nil {
+		return
+	}
 
 	k.(map[string]interface{})[l] = value
 }
 
 func (c *Config) Rm(key string) {
-	k, l := c.findLastKey(key)
+	k, l, err := c.findLastKey(key)
+	if err != nil {
+		return
+	}
 
 	delete(k.(map[string]interface{}), l)
+}
+
+func (c *Config) Merge() (interface{}, error) {
+	data, info := merge.Merge(c.Defaults, c.Data)
+	if len(info.Errors) != 0 {
+		return nil, errors.New("ERROR MERGING DEFAULT VALUES")
+	}
+
+	return data, nil
 }
 
 func (c *Config) loadSchema() error {
@@ -77,34 +91,30 @@ func (c *Config) loadSchema() error {
 }
 
 func (c *Config) loadDefaults() error {
-	if err := json.Unmarshal(c.JsonDefaults, &c.Defaults); err != nil {
-		return err
-	}
-
-	return nil
+	return json.Unmarshal(c.JsonDefaults, &c.Defaults)
 }
 
 func (c *Config) loadValue() error {
-	if err := json.Unmarshal(c.JsonData, &c.Data); err != nil {
-		return err
-	}
-
-	return nil
+	return json.Unmarshal(c.JsonData, &c.Data)
 }
 
-func (c *Config) Merge() (interface{}, error) {
-	data, info := merge.Merge(c.Defaults, c.Data)
-	if len(info.Errors) != 0 {
-		return nil, errors.New("ERROR MERGING DEFAULT VALUES")
+func (c *Config) addKey(key string, value map[string]interface{}) {
+	k, l, err := c.findLastKey(key)
+	if err != nil {
+		return
 	}
 
-	return data, nil
+	k.(map[string]interface{})[l] = value
 }
 
-func (c *Config) findLastKey(name string) (interface{}, string) {
+func (c *Config) findLastKey(name string) (interface{}, string, error) {
 	var pos string
 	s := strings.Split(name, ".")
 	key := c.Data
+
+	if len(s) >= 10 {
+		return nil, "", errors.New("NESTING TOO DEEP")
+	}
 
 	for k, v := range s {
 		if k < len(s)-1 {
@@ -123,11 +133,5 @@ func (c *Config) findLastKey(name string) (interface{}, string) {
 		}
 	}
 
-	return key, s[len(s)-1]
-}
-
-func (c *Config) addKey(key string, value map[string]interface{}) {
-	k, l := c.findLastKey(key)
-
-	k.(map[string]interface{})[l] = value
+	return key, s[len(s)-1], nil
 }

@@ -36,12 +36,13 @@ func loadData() (*manager.Config, error) {
 }
 
 func writeData(data interface{}) error {
+    var out bytes.Buffer
+
 	v, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
 
-	var out bytes.Buffer
 	if err := json.Indent(&out, v, "", "\t"); err != nil {
 		return err
 	}

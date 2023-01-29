@@ -5,20 +5,11 @@ import (
 )
 
 func Read(filename string) ([]byte, error) {
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
+	return os.ReadFile(filename)
 }
 
 func Write(filename string, content []byte) error {
-	if err := os.WriteFile(filename, content, 0644); err != nil {
-		return err
-	}
-
-	return nil
+	return os.WriteFile(filename, content, 0644)
 }
 
 func Exists(filename string) error {

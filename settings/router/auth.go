@@ -9,18 +9,22 @@ import (
 )
 
 func checkAuth(c *gin.Context) {
-    s := strings.Split(c.GetHeader("Authorization"), " ")
+	s := strings.Split(c.GetHeader("Authorization"), " ")
 
-    if len(s) != 2 {
-        c.AbortWithStatus(http.StatusUnauthorized)
-        return
-    }
-    token := s[1]
+	if hasAuthHeader(s) {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+	token := s[1]
 
 	if !isAuthenticated(token) {
-	    c.AbortWithStatus(http.StatusUnauthorized)
-        return
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
+}
+
+func hasAuthHeader(s []string) bool {
+	return len(s) != 2
 }
 
 func isAuthenticated(auth string) bool {

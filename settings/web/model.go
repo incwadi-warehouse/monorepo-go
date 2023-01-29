@@ -13,6 +13,7 @@ type Config struct {
 }
 
 var schemaName string
+
 var databaseId string
 
 //go:embed data/*

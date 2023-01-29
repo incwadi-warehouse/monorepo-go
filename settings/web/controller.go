@@ -12,6 +12,7 @@ func Show(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
 	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return
@@ -40,6 +41,7 @@ func Update(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
 	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return
@@ -84,6 +86,7 @@ func Delete(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
 	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return

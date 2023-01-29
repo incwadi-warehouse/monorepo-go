@@ -56,9 +56,9 @@ func TestGet(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	v := data.Get("app.key")
+	v := data.Get("app.key1")
 
-	if v != "value" {
+	if v != "value 1" {
 		t.Fatal("Value equals not 'value'")
 	}
 }
@@ -90,15 +90,15 @@ func TestMerge(t *testing.T) {
     }
     data.Data = b
 
-	v := data.Get("app.key")
+	v := data.Get("app.key1")
 
-	if v != "value" {
+	if v != "value 1" {
 		t.Fatal("Value equals not 'value'")
 	}
 
 	v2 := data.Get("app.key2")
 
-	if v2 != "value" {
+	if v2 != "default 2" {
 		t.Fatal("Value equals not 'value'")
 	}
 }
@@ -124,13 +124,13 @@ func TestAdd(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data.Add("app.key", '1')
+	data.Add("app.key3", "value 3")
 
 	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key"] != '1' {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key3"] != "value 3" {
 		t.Fatal("Value not set")
 	}
 }
@@ -156,14 +156,19 @@ func TestRm(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data.Add("app.key", '1')
-	data.Rm("app.key")
+	data.Add("app.key4", "value 4")
+
+    if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key4"] != "value 4" {
+		t.Fatal("Value not added")
+	}
+
+	data.Rm("app.key4")
 
 	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key"] == '1' {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key4"] == "value 4" {
 		t.Fatal("Value not removed")
 	}
 }
