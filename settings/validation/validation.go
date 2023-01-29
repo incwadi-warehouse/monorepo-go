@@ -13,10 +13,11 @@ func init() {
 	validate = validator.New()
 
 	validate.RegisterValidation("settingsKey", validateSettingsKey)
+	validate.RegisterValidation("settingsDatabaseId", validateDatabaseId)
 }
 
-func Validate(name string) error {
-	return validate.Var(name, "required,settingsKey")
+func Validate(name, constraints string) error {
+	return validate.Var(name, constraints)
 }
 
 func validateSettingsKey(fl validator.FieldLevel) bool {
@@ -30,4 +31,10 @@ func validateSettingsKey(fl validator.FieldLevel) bool {
 	}
 
 	return true
+}
+
+func validateDatabaseId(fl validator.FieldLevel) bool {
+    re := regexp.MustCompile(`^[a-zA-Z0-9-_]+$`)
+
+    return re.MatchString(fl.Field().String())
 }

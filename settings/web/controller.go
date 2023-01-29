@@ -8,7 +8,11 @@ import (
 )
 
 func Show(c *gin.Context) {
-	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+    if err := setSchemaName(c.Param("schemaName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
+	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
@@ -32,7 +36,11 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+	if err := setSchemaName(c.Param("schemaName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
+	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
@@ -49,7 +57,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	if err := validation.Validate(c.Param("key")); err != nil {
+	if err := validation.Validate(c.Param("key"), "required,settingsKey"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -72,7 +80,11 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	if err := setDatabaseName(c.Param("databaseName")); err != nil {
+	if err := setSchemaName(c.Param("schemaName")); err != nil {
+		c.AbortWithStatus(404)
+		return
+	}
+	if err := setDatabaseId(c.Param("databaseId")); err != nil {
 		c.AbortWithStatus(404)
 		return
 	}

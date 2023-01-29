@@ -21,10 +21,10 @@ func Router() {
 
 	auth := r.Group("/api", checkAuth)
 
-	auth.GET("/:databaseName/:key", web.Show)
-	auth.POST("/:databaseName/:key", web.Update)
-	auth.PUT("/:databaseName/:key", web.Update)
-	auth.DELETE("/:databaseName/:key", web.Delete)
+	auth.GET("/:schemaName/:databaseId/:key", web.Show)
+	auth.POST("/:schemaName/:databaseId/:key", web.Update)
+	auth.PUT("/:schemaName/:databaseId/:key", web.Update)
+	auth.DELETE("/:schemaName/:databaseId/:key", web.Delete)
 
 	r.Run(":8080")
 }
