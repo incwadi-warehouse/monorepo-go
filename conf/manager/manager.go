@@ -102,14 +102,32 @@ func (c *Config) Merge() (interface{}, error) {
 }
 
 func (c *Config) findLastKey(name string) (interface{}, string) {
+	var pos string
 	s := strings.Split(name, ".")
 	key := c.Data
 
 	for k, v := range s {
 		if k < len(s)-1 {
-			key = key.(map[string]interface{})[v]
+			if k == 0 {
+				pos = v
+			} else {
+				pos += "." + v
+			}
+
+			if key.(map[string]interface{})[v] == nil {
+				c.addKey(pos, map[string]interface{}{})
+				return c.findLastKey(name)
+			} else {
+				key = key.(map[string]interface{})[v]
+			}
 		}
 	}
 
 	return key, s[len(s)-1]
+}
+
+func (c *Config) addKey(key string, value map[string]interface{}) {
+	k, l := c.findLastKey(key)
+
+	k.(map[string]interface{})[l] = value
 }
