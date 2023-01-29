@@ -53,21 +53,3 @@ func getDefaultsUrl() string {
 func getDatabaseUrl() string {
 	return os.Getenv("DATA_DIR") + schemaName + "-"+ databaseId +".json"
 }
-
-func readEmbeddedFile(file, defaults string) []byte {
-    data, err := fs.ReadFile(file)
-	if err != nil {
-		data = []byte(defaults)
-	}
-
-	return data
-}
-
-func readFile(file, defaults string) []byte {
-    data, err := os.ReadFile(file)
-	if err != nil {
-		data = []byte(defaults)
-	}
-
-	return data
-}

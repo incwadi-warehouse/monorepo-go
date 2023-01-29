@@ -3,10 +3,29 @@ package web
 import (
 	"bytes"
 	"encoding/json"
+	"os"
 
 	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 )
+
+func readEmbeddedFile(file, defaults string) []byte {
+    data, err := fs.ReadFile(file)
+	if err != nil {
+		data = []byte(defaults)
+	}
+
+	return data
+}
+
+func readFile(file, defaults string) []byte {
+    data, err := os.ReadFile(file)
+	if err != nil {
+		data = []byte(defaults)
+	}
+
+	return data
+}
 
 func loadData() (*manager.Config, error) {
     return manager.LoadFromString(
