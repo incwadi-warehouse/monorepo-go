@@ -10,7 +10,7 @@ import (
 )
 
 func readEmbeddedFile(file, defaults string) []byte {
-    data, err := fs.ReadFile(file)
+	data, err := fs.ReadFile(file)
 	if err != nil {
 		data = []byte(defaults)
 	}
@@ -19,7 +19,7 @@ func readEmbeddedFile(file, defaults string) []byte {
 }
 
 func readFile(file, defaults string) []byte {
-    data, err := os.ReadFile(file)
+	data, err := os.ReadFile(file)
 	if err != nil {
 		data = []byte(defaults)
 	}
@@ -28,15 +28,15 @@ func readFile(file, defaults string) []byte {
 }
 
 func loadData() (*manager.Config, error) {
-    return manager.LoadFromString(
-        readEmbeddedFile(getSchemaUrl(), "{}"),
-        readEmbeddedFile(getDefaultsUrl(), "{}"),
-        readFile(getDatabaseUrl(), "{}"),
-    )
+	return manager.LoadFromString(
+		readEmbeddedFile(getSchemaUrl(), "{}"),
+		readEmbeddedFile(getDefaultsUrl(), "{}"),
+		readFile(getDatabaseUrl(), "{}"),
+	)
 }
 
 func writeData(data interface{}) error {
-    v, err := json.Marshal(data)
+	v, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
@@ -50,5 +50,5 @@ func writeData(data interface{}) error {
 		return err
 	}
 
-    return nil
+	return nil
 }

@@ -19,37 +19,37 @@ var databaseId string
 var fs embed.FS
 
 func setSchemaName(d string) error {
-    if _, err := fs.ReadFile("data/" + d +".schema.json"); err != nil {
-        return err
-    }
+	if _, err := fs.ReadFile("data/" + d + ".schema.json"); err != nil {
+		return err
+	}
 
-    schemaName = d
+	schemaName = d
 
-    return nil
+	return nil
 }
 
 func setDatabaseId(d string) error {
-    if _, err := fs.ReadFile("data/" + schemaName +".schema.json"); err != nil {
-        return err
-    }
+	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
+		return err
+	}
 
-    if err := validation.Validate(d, "required,settingsDatabaseId"); err != nil {
-        return errors.New("VALIDATION FAILED")
-    }
+	if err := validation.Validate(d, "required,settingsDatabaseId"); err != nil {
+		return errors.New("VALIDATION FAILED")
+	}
 
-    databaseId = d
+	databaseId = d
 
-    return nil
+	return nil
 }
 
 func getSchemaUrl() string {
-	return "data/" + schemaName +".schema.json"
+	return "data/" + schemaName + ".schema.json"
 }
 
 func getDefaultsUrl() string {
-	return "data/" + schemaName +".defaults.json"
+	return "data/" + schemaName + ".defaults.json"
 }
 
 func getDatabaseUrl() string {
-	return os.Getenv("DATA_DIR") + schemaName + "-"+ databaseId +".json"
+	return os.Getenv("DATA_DIR") + schemaName + "-" + databaseId + ".json"
 }

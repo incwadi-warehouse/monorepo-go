@@ -8,7 +8,7 @@ import (
 )
 
 func Show(c *gin.Context) {
-    if err := setSchemaName(c.Param("schemaName")); err != nil {
+	if err := setSchemaName(c.Param("schemaName")); err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
@@ -23,12 +23,12 @@ func Show(c *gin.Context) {
 		return
 	}
 
-    data, err := s.Merge()
+	data, err := s.Merge()
 	if err != nil {
 		c.AbortWithStatus(404)
 		return
 	}
-    s.Data = data
+	s.Data = data
 
 	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
 
@@ -64,7 +64,7 @@ func Update(c *gin.Context) {
 
 	s.Add(c.Param("key"), config.Value)
 
-    if err := s.ValidateSchema(); err != nil {
+	if err := s.ValidateSchema(); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
