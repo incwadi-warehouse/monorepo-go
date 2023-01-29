@@ -1,10 +1,10 @@
 package web
 
 import (
+	"embed"
 	"errors"
 	"os"
 
-	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
 	"github.com/incwadi-warehouse/monorepo-go/settings/validation"
 )
 
@@ -15,8 +15,11 @@ type Config struct {
 var schemaName string
 var databaseId string
 
+//go:embed data/*
+var fs embed.FS
+
 func setSchemaName(d string) error {
-    if err := storage.Exists(os.Getenv("DATA_DIR") + d +".schema.json"); err != nil {
+    if _, err := fs.ReadFile("data/" + d +".schema.json"); err != nil {
         return err
     }
 
@@ -26,7 +29,7 @@ func setSchemaName(d string) error {
 }
 
 func setDatabaseId(d string) error {
-    if err := storage.Exists(os.Getenv("DATA_DIR") + schemaName +".schema.json"); err != nil {
+    if _, err := fs.ReadFile("data/" + schemaName +".schema.json"); err != nil {
         return err
     }
 
@@ -40,15 +43,24 @@ func setDatabaseId(d string) error {
 }
 
 func getSchemaUrl() string {
-	return os.Getenv("DATA_DIR") + schemaName +".schema.json"
+	return "data/" + schemaName +".schema.json"
 }
 
 func getDefaultsUrl() string {
-	return os.Getenv("DATA_DIR") + schemaName +".defaults.json"
+	return "data/" + schemaName +".defaults.json"
 }
 
 func getDatabaseUrl() string {
 	return os.Getenv("DATA_DIR") + schemaName + "-"+ databaseId +".json"
+}
+
+func readEmbeddedFile(file, defaults string) []byte {
+    data, err := fs.ReadFile(file)
+	if err != nil {
+		data = []byte(defaults)
+	}
+
+	return data
 }
 
 func readFile(file, defaults string) []byte {

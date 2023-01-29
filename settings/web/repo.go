@@ -10,8 +10,8 @@ import (
 
 func loadData() (*manager.Config, error) {
     return manager.LoadFromString(
-        readFile(getSchemaUrl(), "{}"),
-        readFile(getDefaultsUrl(), "{}"),
+        readEmbeddedFile(getSchemaUrl(), "{}"),
+        readEmbeddedFile(getDefaultsUrl(), "{}"),
         readFile(getDatabaseUrl(), "{}"),
     )
 }
