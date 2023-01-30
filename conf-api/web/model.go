@@ -5,7 +5,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/incwadi-warehouse/monorepo-go/settings/validation"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
 
 type Config struct {

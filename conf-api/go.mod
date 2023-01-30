@@ -1,4 +1,4 @@
-module github.com/incwadi-warehouse/monorepo-go/settings
+module github.com/incwadi-warehouse/monorepo-go/conf-api
 
 go 1.19
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/settings/validation"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
 
 func Show(c *gin.Context) {

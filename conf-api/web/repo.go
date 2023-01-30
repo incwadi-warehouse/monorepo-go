@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
-	"github.com/incwadi-warehouse/monorepo-go/settings/storage"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/storage"
 )
 
 func readEmbeddedFile(file, defaults string) []byte {

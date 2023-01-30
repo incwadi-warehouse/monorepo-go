@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/settings/router"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/router"
 	"github.com/joho/godotenv"
 )
 

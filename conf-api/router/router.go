@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/settings/web"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/web"
 )
 
 func Router() {
