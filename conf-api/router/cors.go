@@ -9,8 +9,12 @@ import (
 )
 
 func headers() gin.HandlerFunc {
+    origins, exists := os.LookupEnv("CORS_ALLOW_ORIGIN")
+    if !exists {
+        origins = "*"
+    }
 	return cors.New(cors.Config{
-		AllowOrigins:  strings.Split(os.Getenv("CORS_ALLOW_ORIGIN"), ","),
+		AllowOrigins:  strings.Split(origins, ","),
 		AllowMethods:  []string{"POST", "GET", "OPTIONS", "PUT", "DELETE"},
 		AllowHeaders:  []string{"Origin", "Authorization", "Content-Type"},
 		ExposeHeaders: []string{"Content-Length"},
