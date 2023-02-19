@@ -32,7 +32,7 @@ Create a `.env` file to define some settings.
 
 ENV=prod
 DATA_DIR=./data/
-CORS_ALLOW_ORIGIN=http://localhost:8080
+CORS_ALLOW_ORIGIN=http://localhost:80
 API_KEY=
 ```
 
