@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.2
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230207095250-cc3c6254d6dd
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230217153542-abc3a6c47085
 	github.com/joho/godotenv v1.5.1
 )
 
@@ -29,9 +29,9 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/net v0.5.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect; indirectuse ./settings/
-	golang.org/x/text v0.6.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
