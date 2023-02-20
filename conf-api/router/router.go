@@ -19,7 +19,7 @@ func Router() {
 
 	r.Use(headers())
 
-	auth := r.Group("/conf/api", checkAuth)
+	auth := r.Group("/" + os.Getenv("BASE_PATH") + "/api", checkAuth)
 
 	auth.GET("/:schemaName/:databaseId/:key", web.Show)
 	auth.POST("/:schemaName/:databaseId/:key", web.Update)
