@@ -26,5 +26,5 @@ func Router() {
 	auth.PUT("/:schemaName/:databaseId/:key", web.Update)
 	auth.DELETE("/:schemaName/:databaseId/:key", web.Delete)
 
-	r.Run(":80")
+	r.Run(":8080")
 }
