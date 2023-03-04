@@ -15,5 +15,5 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	c.JSON(401, Response{401, "NOT AUTHENTICATED"})
+	c.JSON(401, Response{401, "UNAUTHORIZED"})
 }
