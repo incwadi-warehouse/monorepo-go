@@ -18,6 +18,11 @@ func Show(c *gin.Context) {
 		return
 	}
 
+	if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
+
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
@@ -46,6 +51,11 @@ func Update(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
+    if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
 
 	s, err := loadData()
 	if err != nil {
@@ -91,6 +101,11 @@ func Delete(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
+    if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
 
 	s, err := loadData()
 	if err != nil {
