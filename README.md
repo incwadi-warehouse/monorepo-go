@@ -9,7 +9,7 @@ incwadi is a book database to manage your books.
 ## conf
 
 ```go
-import "github.com/incwadi-warehouse/monorepo-go/conf/settings"
+import "github.com/incwadi-warehouse/monorepo-go/conf/manager"
 
 // Load config
 data, err := settings.LoadFromString(schema, file)
