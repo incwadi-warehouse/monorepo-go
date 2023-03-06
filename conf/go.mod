@@ -1,6 +1,6 @@
 module github.com/incwadi-warehouse/monorepo-go/conf
 
-go 1.19
+go 1.20
 
 require (
 	github.com/RaveNoX/go-jsonmerge v1.0.0
