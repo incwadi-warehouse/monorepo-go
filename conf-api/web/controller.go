@@ -1,8 +1,6 @@
 package web
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
@@ -36,7 +34,7 @@ func Show(c *gin.Context) {
 	}
 	s.Data = data
 
-	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
+	d := Config{s.Get(c.Param("key"))}
 
 	c.JSON(200, d)
 }

@@ -12,7 +12,7 @@ import (
 )
 
 type Config struct {
-	Value string `json:"value"`
+	Value interface{} `json:"value"`
 }
 
 var schemaName string
