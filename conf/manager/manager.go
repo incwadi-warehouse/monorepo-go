@@ -28,7 +28,7 @@ func LoadFromString(schema, defaults, file []byte) (*Config, error) {
 	if err := c.loadDefaults(); err != nil {
 		return nil, err
 	}
-	if err := c.loadValue(); err != nil {
+	if err := c.loadData(); err != nil {
 		return nil, err
 	}
 
@@ -94,7 +94,7 @@ func (c *Config) loadDefaults() error {
 	return json.Unmarshal(c.JsonDefaults, &c.Defaults)
 }
 
-func (c *Config) loadValue() error {
+func (c *Config) loadData() error {
 	return json.Unmarshal(c.JsonData, &c.Data)
 }
 

@@ -1,6 +1,7 @@
 {
 	"$schema": "example.schema.json",
 	"app": {
-		"key1": "value 1"
+		"string": "value 1",
+        "bool": true
 	}
 }

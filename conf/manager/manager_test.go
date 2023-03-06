@@ -56,10 +56,16 @@ func TestGet(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	v := data.Get("app.key1")
+	v := data.Get("app.string")
 
 	if v != "value 1" {
 		t.Fatal("Value equals not 'value'")
+	}
+
+    v2 := data.Get("app.bool")
+
+	if v2 != true {
+		t.Fatal("Value equals not 'true'")
 	}
 }
 
@@ -90,16 +96,17 @@ func TestMerge(t *testing.T) {
     }
     data.Data = b
 
-	v := data.Get("app.key1")
+	v := data.Get("app.string")
 
 	if v != "value 1" {
 		t.Fatal("Value equals not 'value'")
 	}
 
-	v2 := data.Get("app.key2")
+	v2 := data.Get("app.merge")
 
-	if v2 != "default 2" {
-		t.Fatal("Value equals not 'value'")
+
+	if v2 != true {
+		t.Fatal("Value equals not 'true'")
 	}
 }
 
@@ -124,13 +131,23 @@ func TestAdd(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data.Add("app.key3", "value 3")
+	data.Add("app.string2", "string 2")
 
 	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key3"] != "value 3" {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["string2"] != "string 2" {
+		t.Fatal("Value not set")
+	}
+
+    data.Add("app.bool2", true)
+
+	if data.Data == nil {
+		t.Fatal("Data is nil")
+	}
+
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["bool2"] != true {
 		t.Fatal("Value not set")
 	}
 }
@@ -156,19 +173,19 @@ func TestRm(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	data.Add("app.key4", "value 4")
+	data.Add("app.rm", 1)
 
-    if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key4"] != "value 4" {
+    if data.Data.(map[string]interface{})["app"].(map[string]interface{})["rm"] != 1 {
 		t.Fatal("Value not added")
 	}
 
-	data.Rm("app.key4")
+	data.Rm("app.rm")
 
 	if data.Data == nil {
 		t.Fatal("Data is nil")
 	}
 
-	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["key4"] == "value 4" {
+	if data.Data.(map[string]interface{})["app"].(map[string]interface{})["rm"] == 1 {
 		t.Fatal("Value not removed")
 	}
 }

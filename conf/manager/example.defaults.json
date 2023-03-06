@@ -1,7 +1,8 @@
 {
 	"$schema": "example.schema.json",
 	"app": {
-		"key1": "default 1",
-		"key2": "default 2"
+		"string": "default 1",
+        "bool": true,
+		"merge": true
 	}
 }
