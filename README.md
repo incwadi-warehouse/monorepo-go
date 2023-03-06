@@ -33,12 +33,26 @@ Create a `.env` file to define some settings.
 ENV=prod
 DATA_DIR=./data/
 CORS_ALLOW_ORIGIN=http://localhost:8080
-API_KEY=
 BASE_PATH=/
+AUTH_API_ME=http://localhost:8000/api/me
 ```
 
 - ENV - Set to `prod`, `dev` or `test`
 - DATA_DIR - Path where to store the files
 - CORS_ALLOW_ORIGIN - Allowed origins
-- API_KEY - A secure token to authenticate access
 - BASE_PATH - Configure the base path
+- AUTH_API_ME - APT endpoint for the user object
+
+## Testing
+
+```shell
+curl -X GET http://localhost:8080/api/branch/1/app.key -H "Content-Type: application/json" -H "Authorization: Bearer token"
+```
+
+```shell
+curl -X POST http://localhost:8080/api/branch/1/app.key2 -H "Content-Type: application/json" -H "Authorization: Bearer token" -d '{"value": 1 }'
+```
+
+```shell
+curl -X DELETE http://localhost:8080/api/branch/1/app.key2 -H "Content-Type: application/json" -H "Authorization: Bearer token"
+```

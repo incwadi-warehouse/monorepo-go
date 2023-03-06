@@ -1,8 +1,6 @@
 package web
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
@@ -18,6 +16,11 @@ func Show(c *gin.Context) {
 		return
 	}
 
+	if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
+
 	s, err := loadData()
 	if err != nil {
 		c.AbortWithStatus(404)
@@ -31,7 +34,7 @@ func Show(c *gin.Context) {
 	}
 	s.Data = data
 
-	d := Config{fmt.Sprintf("%v", s.Get(c.Param("key")))}
+	d := Config{s.Get(c.Param("key"))}
 
 	c.JSON(200, d)
 }
@@ -46,6 +49,11 @@ func Update(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
+    if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
 
 	s, err := loadData()
 	if err != nil {
@@ -91,6 +99,11 @@ func Delete(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
+
+    if !validateDatabaseId(c, c.Param("schemaName"), c.Param("databaseId")) {
+        c.AbortWithStatus(401)
+		return
+    }
 
 	s, err := loadData()
 	if err != nil {

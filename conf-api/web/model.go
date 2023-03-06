@@ -4,12 +4,15 @@ import (
 	"embed"
 	"errors"
 	"os"
+	"strings"
 
+	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
 
 type Config struct {
-	Value string `json:"value"`
+	Value interface{} `json:"value"`
 }
 
 var schemaName string
@@ -53,4 +56,11 @@ func getDefaultsUrl() string {
 
 func getDatabaseUrl() string {
 	return os.Getenv("DATA_DIR") + schemaName + "-" + databaseId + ".json"
+}
+
+func validateDatabaseId(c *gin.Context, schema, id string) bool {
+	s := strings.Split(c.GetHeader("Authorization"), " ")
+	token := s[1]
+
+	return user.IsTokenValid(token)
 }

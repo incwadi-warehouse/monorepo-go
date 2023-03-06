@@ -2,10 +2,10 @@ package router
 
 import (
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 )
 
 func checkAuth(c *gin.Context) {
@@ -15,9 +15,8 @@ func checkAuth(c *gin.Context) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
-	token := s[1]
 
-	if !isAuthenticated(token) {
+	if !isAuthenticated(s[1]) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
@@ -27,6 +26,6 @@ func hasAuthHeader(s []string) bool {
 	return len(s) != 2
 }
 
-func isAuthenticated(auth string) bool {
-	return auth == os.Getenv("API_KEY")
+func isAuthenticated(token string) bool {
+    return user.IsTokenValid(token)
 }

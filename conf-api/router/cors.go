@@ -13,6 +13,7 @@ func headers() gin.HandlerFunc {
     if !exists {
         origins = "*"
     }
+
 	return cors.New(cors.Config{
 		AllowOrigins:  strings.Split(origins, ","),
 		AllowMethods:  []string{"POST", "GET", "OPTIONS", "PUT", "DELETE"},

@@ -1,6 +1,0 @@
-{
-	"$schema": "example.schema.json",
-	"app": {
-		"key": "default 1"
-	}
-}
