@@ -1,0 +1,12 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "user.schema.json",
+    "title": "User",
+    "description": "Schema for users settings",
+    "type": "object",
+    "properties": {
+        "snow": {
+            "type": "boolean"
+        }
+    }
+}
