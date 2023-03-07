@@ -28,7 +28,7 @@ func Router() {
 	auth.DELETE("/:schemaName/:databaseId/:key", web.Delete)
 
     if os.Getenv("ENV") != "prod" {
-        r.GET("/api/me", mock.Show)
+        r.GET("/api/me", mock.Me)
     }
 
 	r.Run(":8080")

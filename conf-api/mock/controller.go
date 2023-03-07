@@ -9,7 +9,7 @@ type Response struct {
 	Message string `json:"message"`
 }
 
-func Show(c *gin.Context) {
+func Me(c *gin.Context) {
 	if c.GetHeader("Authorization") == "Bearer token" {
 		c.JSON(200, Response{200, c.GetHeader("Authorization")})
 		return
