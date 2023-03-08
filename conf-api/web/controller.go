@@ -36,7 +36,7 @@ func Update(c *gin.Context) {
 	}
 	setSchemaName(c.Param("schemaName"))
 
-	if err := validation.Var(c.GetHeader("Authorization"), "required,confDatabaseId"); err != nil {
+	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -83,7 +83,7 @@ func Delete(c *gin.Context) {
 	}
 	setSchemaName(c.Param("schemaName"))
 
-	if err := validation.Var(c.GetHeader("Authorization"), "required,confDatabaseId"); err != nil {
+	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
