@@ -9,7 +9,7 @@ func Show(c *gin.Context) {
 	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
-	if err := validate(c.GetHeader("Authorization")); err != nil {
+	if err := validateParams(c.GetHeader("Authorization")); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -29,7 +29,7 @@ func Update(c *gin.Context) {
 	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
-	if err := validate(c.GetHeader("Authorization")); err != nil {
+	if err := validateParams(c.GetHeader("Authorization")); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -46,7 +46,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	if err := validation.Validate(c.Param("key"), "required,settingsKey"); err != nil {
+	if err := validation.Var(c.Param("key"), "required,settingsKey"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -59,7 +59,7 @@ func Update(c *gin.Context) {
 	}
 
 	if err := writeData(s.Data); err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatus(500)
 		return
 	}
 
@@ -72,7 +72,7 @@ func Delete(c *gin.Context) {
 	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
-	if err := validate(c.GetHeader("Authorization")); err != nil {
+	if err := validateParams(c.GetHeader("Authorization")); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}

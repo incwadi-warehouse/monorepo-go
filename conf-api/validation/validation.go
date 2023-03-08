@@ -16,7 +16,7 @@ func init() {
 	validate.RegisterValidation("settingsDatabaseId", validateDatabaseId)
 }
 
-func Validate(name, constraints string) error {
+func Var(name, constraints string) error {
 	return validate.Var(name, constraints)
 }
 
