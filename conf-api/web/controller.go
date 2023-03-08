@@ -1,22 +1,22 @@
 package web
 
 import (
-	"errors"
-	"strings"
-
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
 
 func Show(c *gin.Context) {
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
-
-	if err := validateParams(c.GetHeader("Authorization")); err != nil {
+	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
+	setSchemaName(c.Param("schemaName"))
+
+	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
+	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadDataAndMerge()
 	if err != nil {
@@ -30,13 +30,17 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
-
-	if err := validateParams(c.GetHeader("Authorization")); err != nil {
+	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
+	setSchemaName(c.Param("schemaName"))
+
+	if err := validation.Var(c.GetHeader("Authorization"), "required,confDatabaseId"); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
+	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadData()
 	if err != nil {
@@ -73,13 +77,17 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
-
-	if err := validateParams(c.GetHeader("Authorization")); err != nil {
+	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
+	setSchemaName(c.Param("schemaName"))
+
+	if err := validation.Var(c.GetHeader("Authorization"), "required,confDatabaseId"); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
+	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadData()
 	if err != nil {
@@ -102,22 +110,4 @@ func Delete(c *gin.Context) {
 	d := Response{200, "SUCCESS"}
 
 	c.JSON(200, d)
-}
-
-func validateParams(auth string) error {
-    if err := validation.Var(schemaName, "required,confSchemaName"); err != nil {
-        return errors.New("INVALID SCHEMA NAME")
-    }
-
-	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
-		return err
-	}
-
-    s := strings.Split(auth, " ")
-	token := s[1]
-	if valid := user.IsTokenValid(token); !valid {
-		return errors.New("INVALID DATABASE ID")
-	}
-
-	return nil
 }

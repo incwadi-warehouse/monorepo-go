@@ -2,19 +2,16 @@ package web
 
 import (
 	"bytes"
-	"embed"
 	"encoding/json"
 	"os"
 
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/schema"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/storage"
 	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 )
 
-//go:embed data/*
-var fs embed.FS
-
 func readEmbeddedFile(file, defaults string) []byte {
-	data, err := fs.ReadFile(file)
+	data, err := schema.Fs.ReadFile(file)
 	if err != nil {
 		data = []byte(defaults)
 	}

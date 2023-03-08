@@ -59,7 +59,5 @@ func request(token string) (*http.Response, error) {
 		return nil, err
 	}
 
-	defer res.Body.Close()
-
 	return res, nil
 }
