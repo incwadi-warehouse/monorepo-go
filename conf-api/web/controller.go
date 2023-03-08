@@ -1,7 +1,11 @@
 package web
 
 import (
+	"errors"
+	"strings"
+
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
 
@@ -14,7 +18,7 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	s, err := loadAndMerge()
+	s, err := loadDataAndMerge()
 	if err != nil {
 		c.AbortWithStatus(400)
 		return
@@ -46,7 +50,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	if err := validation.Var(c.Param("key"), "required,settingsKey"); err != nil {
+	if err := validation.Var(c.Param("key"), "required,confKey"); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -98,4 +102,22 @@ func Delete(c *gin.Context) {
 	d := Response{200, "SUCCESS"}
 
 	c.JSON(200, d)
+}
+
+func validateParams(auth string) error {
+    if err := validation.Var(schemaName, "required,confSchemaName"); err != nil {
+        return errors.New("INVALID SCHEMA NAME")
+    }
+
+	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
+		return err
+	}
+
+    s := strings.Split(auth, " ")
+	token := s[1]
+	if valid := user.IsTokenValid(token); !valid {
+		return errors.New("INVALID DATABASE ID")
+	}
+
+	return nil
 }
