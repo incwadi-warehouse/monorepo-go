@@ -36,13 +36,13 @@ func Update(c *gin.Context) {
 
 	s, err := loadData()
 	if err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatus(400)
 		return
 	}
 
 	var config Config
 	if err := c.ShouldBind(&config); err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatus(400)
 		return
 	}
 
@@ -63,7 +63,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	d := Config{c.Param("key")}
+	d := Response{200, "UPDATED"}
 
 	c.JSON(200, d)
 }
@@ -95,7 +95,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 
-	d := Config{"SUCCESS"}
+	d := Response{200,"SUCCESS"}
 
 	c.JSON(200, d)
 }

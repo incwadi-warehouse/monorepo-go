@@ -14,6 +14,11 @@ type Config struct {
 	Value interface{} `json:"value"`
 }
 
+type Response struct {
+    Status int `json:"status"`
+    Message string `json:"message"`
+}
+
 var schemaName string
 
 var databaseId string
