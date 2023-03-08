@@ -53,7 +53,7 @@ func validateDatabaseId(auth, schema, id string) bool {
 	return user.IsTokenValid(token)
 }
 
-func validate(auth string) error {
+func validateParams(auth string) error {
 	// schema name
 	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
 		return err

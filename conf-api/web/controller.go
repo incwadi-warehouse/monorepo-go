@@ -91,11 +91,11 @@ func Delete(c *gin.Context) {
 	}
 
 	if err := writeData(s.Data); err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatus(500)
 		return
 	}
 
-	d := Response{200,"SUCCESS"}
+	d := Response{200, "SUCCESS"}
 
 	c.JSON(200, d)
 }
