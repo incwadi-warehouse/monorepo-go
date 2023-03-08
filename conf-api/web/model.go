@@ -6,7 +6,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
 )
@@ -22,28 +21,12 @@ var databaseId string
 //go:embed data/*
 var fs embed.FS
 
-func setSchemaName(d string) error {
-	if _, err := fs.ReadFile("data/" + d + ".schema.json"); err != nil {
-		return err
-	}
-
+func setSchemaName(d string) {
 	schemaName = d
-
-	return nil
 }
 
-func setDatabaseId(d string) error {
-	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
-		return err
-	}
-
-	if err := validation.Validate(d, "required,settingsDatabaseId"); err != nil {
-		return errors.New("VALIDATION FAILED")
-	}
-
+func setDatabaseId(d string) {
 	databaseId = d
-
-	return nil
 }
 
 func getSchemaUrl() string {
@@ -58,9 +41,32 @@ func getDatabaseUrl() string {
 	return os.Getenv("DATA_DIR") + schemaName + "-" + databaseId + ".json"
 }
 
-func validateDatabaseId(c *gin.Context, schema, id string) bool {
-	s := strings.Split(c.GetHeader("Authorization"), " ")
+func validateDatabaseId(auth, schema, id string) bool {
+	s := strings.Split(auth, " ")
 	token := s[1]
 
 	return user.IsTokenValid(token)
+}
+
+func validate(auth string) error {
+	// schema name
+	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
+		return err
+	}
+
+	// database id
+	if _, err := fs.ReadFile("data/" + schemaName + ".schema.json"); err != nil {
+		return err
+	}
+
+	if err := validation.Validate(schemaName, "required,settingsDatabaseId"); err != nil {
+		return errors.New("VALIDATION FAILED")
+	}
+
+    // validate database id
+    if valid := validateDatabaseId(auth, schemaName, databaseId); !valid {
+        return errors.New("VALIDATION FAILED")
+    }
+
+	return nil
 }
