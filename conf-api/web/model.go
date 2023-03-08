@@ -64,7 +64,7 @@ func validateParams(auth string) error {
 		return err
 	}
 
-	if err := validation.Validate(schemaName, "required,settingsDatabaseId"); err != nil {
+	if err := validation.Var(schemaName, "required,settingsDatabaseId"); err != nil {
 		return errors.New("VALIDATION FAILED")
 	}
 
