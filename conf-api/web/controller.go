@@ -6,26 +6,19 @@ import (
 )
 
 func Show(c *gin.Context) {
-    setSchemaName(c.Param("schemaName"))
-    setDatabaseId(c.Param("databaseId"))
+	setSchemaName(c.Param("schemaName"))
+	setDatabaseId(c.Param("databaseId"))
 
-    if err := validate(c.GetHeader("Authorization")); err != nil{
-        c.AbortWithStatus(400)
-        return
-    }
-
-	s, err := loadData()
-	if err != nil {
-		c.AbortWithStatus(404)
+	if err := validate(c.GetHeader("Authorization")); err != nil {
+		c.AbortWithStatus(400)
 		return
 	}
 
-	data, err := s.Merge()
+	s, err := loadAndMerge()
 	if err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatus(400)
 		return
 	}
-	s.Data = data
 
 	d := Config{s.Get(c.Param("key"))}
 
@@ -33,13 +26,13 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-    setSchemaName(c.Param("schemaName"))
-    setDatabaseId(c.Param("databaseId"))
+	setSchemaName(c.Param("schemaName"))
+	setDatabaseId(c.Param("databaseId"))
 
-    if err := validate(c.GetHeader("Authorization")); err != nil{
-        c.AbortWithStatus(400)
-        return
-    }
+	if err := validate(c.GetHeader("Authorization")); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
 
 	s, err := loadData()
 	if err != nil {
@@ -76,13 +69,13 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-    setSchemaName(c.Param("schemaName"))
-    setDatabaseId(c.Param("databaseId"))
+	setSchemaName(c.Param("schemaName"))
+	setDatabaseId(c.Param("databaseId"))
 
-    if err := validate(c.GetHeader("Authorization")); err != nil{
-        c.AbortWithStatus(400)
-        return
-    }
+	if err := validate(c.GetHeader("Authorization")); err != nil {
+		c.AbortWithStatus(400)
+		return
+	}
 
 	s, err := loadData()
 	if err != nil {

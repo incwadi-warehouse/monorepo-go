@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/storage"
+	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 )
 
 func readEmbeddedFile(file, defaults string) []byte {
@@ -33,6 +33,21 @@ func loadData() (*manager.Config, error) {
 		readEmbeddedFile(getDefaultsUrl(), "{}"),
 		readFile(getDatabaseUrl(), "{}"),
 	)
+}
+
+func loadAndMerge() (*manager.Config, error) {
+	s, err := loadData()
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := s.Merge()
+	if err != nil {
+		return nil, err
+	}
+	s.Data = data
+
+	return s, nil
 }
 
 func writeData(data interface{}) error {
