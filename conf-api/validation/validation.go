@@ -10,6 +10,12 @@ import (
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 )
 
+type Params struct {
+	Auth       string `validate:"required"`
+	SchemaName string `validate:"required,confSchemaName,confSchemaExists"`
+	DatabaseId string `validate:"required,confDatabaseId"`
+}
+
 var validate *validator.Validate
 
 func init() {
@@ -23,6 +29,10 @@ func init() {
 
 func Var(name interface{}, constraints string) error {
 	return validate.Var(name, constraints)
+}
+
+func Struct(s interface{}) error {
+	return validate.Struct(s)
 }
 
 func validateConfKey(fl validator.FieldLevel) bool {
@@ -53,9 +63,9 @@ func validateSchemaExists(fl validator.FieldLevel) bool {
 }
 
 func validateDatabaseId(fl validator.FieldLevel) bool {
-	f := fl.Field().Interface().(map[string]interface{})
+	f := fl.Parent().Interface().(Params)
 
-	s := strings.Split(f["auth"].(string), " ")
+	s := strings.Split(f.Auth, " ")
 	token := s[1]
 
 	if valid := user.IsTokenValid(token); !valid {
@@ -64,12 +74,12 @@ func validateDatabaseId(fl validator.FieldLevel) bool {
 
 	u, _ := user.GetUser(token)
 
-	if f["schemaName"] == "user" {
-		return strconv.Itoa(u.Id) == f["databaseId"].(string)
+	if f.SchemaName == "user" {
+		return strconv.Itoa(u.Id) == f.DatabaseId
 	}
 
-	if f["schemaName"] == "branch" {
-		return strconv.Itoa(u.Branch.Id) == f["databaseId"].(string)
+	if f.SchemaName == "branch" {
+		return strconv.Itoa(u.Branch.Id) == f.DatabaseId
 	}
 
 	return false

@@ -6,16 +6,17 @@ import (
 )
 
 func Show(c *gin.Context) {
-	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
+	params := validation.Params{
+        Auth: c.GetHeader("Authorization"),
+        SchemaName: c.Param("schemaName"),
+        DatabaseId: c.Param("databaseId"),
+    }
+    if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
-	setSchemaName(c.Param("schemaName"))
 
-	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
-		c.AbortWithStatus(400)
-		return
-	}
+	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadDataAndMerge()
@@ -30,16 +31,17 @@ func Show(c *gin.Context) {
 }
 
 func Update(c *gin.Context) {
-	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
+	params := validation.Params{
+        Auth: c.GetHeader("Authorization"),
+        SchemaName: c.Param("schemaName"),
+        DatabaseId: c.Param("databaseId"),
+    }
+    if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
-	setSchemaName(c.Param("schemaName"))
 
-	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
-		c.AbortWithStatus(400)
-		return
-	}
+	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadData()
@@ -77,16 +79,17 @@ func Update(c *gin.Context) {
 }
 
 func Delete(c *gin.Context) {
-	if err := validation.Var(c.Param("schemaName"), "required,confSchemaName,confSchemaExists"); err != nil {
+	params := validation.Params{
+        Auth: c.GetHeader("Authorization"),
+        SchemaName: c.Param("schemaName"),
+        DatabaseId: c.Param("databaseId"),
+    }
+    if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
-	setSchemaName(c.Param("schemaName"))
 
-	if err := validation.Var(map[string]interface{}{"auth": c.GetHeader("Authorization"), "databaseId": c.Param("databaseId"), "schemaName": c.Param("schemaName")}, "required,confDatabaseId"); err != nil {
-		c.AbortWithStatus(400)
-		return
-	}
+	setSchemaName(c.Param("schemaName"))
 	setDatabaseId(c.Param("databaseId"))
 
 	s, err := loadData()
