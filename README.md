@@ -41,7 +41,7 @@ AUTH_API_ME=http://localhost:8000/api/me
 - DATA_DIR - Path where to store the files
 - CORS_ALLOW_ORIGIN - Allowed origins
 - BASE_PATH - Configure the base path
-- AUTH_API_ME - APT endpoint for the user object
+- AUTH_API_ME - API endpoint for the user object
 
 ## Testing
 
