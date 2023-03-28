@@ -10,9 +10,11 @@ import (
 type User struct {
 	Id       int    `json:"id"`
 	Username string `json:"username"`
-	Branch   struct {
-		Id int `json:"id"`
-	}
+	Branch   Branch
+}
+
+type Branch struct {
+	Id int `json:"id"`
 }
 
 func IsTokenValid(token string) bool {

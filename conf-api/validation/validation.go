@@ -62,17 +62,20 @@ func validateSchemaExists(fl validator.FieldLevel) bool {
 	return true
 }
 
+var isTokenValid = user.IsTokenValid
+var getUser = user.GetUser
+
 func validateDatabaseId(fl validator.FieldLevel) bool {
 	f := fl.Parent().Interface().(Params)
 
 	s := strings.Split(f.Auth, " ")
 	token := s[1]
 
-	if valid := user.IsTokenValid(token); !valid {
+	if valid := isTokenValid(token); !valid {
 		return false
 	}
 
-	u, _ := user.GetUser(token)
+	u, _ := getUser(token)
 
 	if f.SchemaName == "user" {
 		return strconv.Itoa(u.Id) == f.DatabaseId
