@@ -46,13 +46,13 @@ AUTH_API_ME=http://localhost:8000/api/me
 ## Testing
 
 ```shell
-curl -X GET http://localhost:8080/api/branch/1/app.key -H "Content-Type: application/json" -H "Authorization: Bearer token"
+curl -X GET http://localhost:8080/api/user/1/snow -H "Content-Type: application/json" -H "Authorization: Bearer token"
 ```
 
 ```shell
-curl -X POST http://localhost:8080/api/branch/1/app.key2 -H "Content-Type: application/json" -H "Authorization: Bearer token" -d '{"value": 1 }'
+curl -X POST http://localhost:8080/api/user/1/snow2 -H "Content-Type: application/json" -H "Authorization: Bearer token" -d '{"value": 1 }'
 ```
 
 ```shell
-curl -X DELETE http://localhost:8080/api/branch/1/app.key2 -H "Content-Type: application/json" -H "Authorization: Bearer token"
+curl -X DELETE http://localhost:8080/api/user/1/snow2 -H "Content-Type: application/json" -H "Authorization: Bearer token"
 ```
