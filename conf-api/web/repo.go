@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/schema"
-	"github.com/incwadi-warehouse/monorepo-go/conf-api/storage"
 	"github.com/incwadi-warehouse/monorepo-go/conf/manager"
 )
 
@@ -63,7 +62,7 @@ func writeData(data interface{}) error {
 		return err
 	}
 
-	if err := storage.Write(getDatabaseUrl(), out.Bytes()); err != nil {
+	if err := os.WriteFile(getDatabaseUrl(), out.Bytes(), 0644); err != nil {
 		return err
 	}
 
