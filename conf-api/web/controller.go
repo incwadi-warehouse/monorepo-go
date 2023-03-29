@@ -2,7 +2,22 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/conf-api/storage"
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/validation"
+)
+
+type Response struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
+type Config struct {
+	Value interface{} `json:"value"`
+}
+
+var (
+    schemaName string
+    databaseId string
 )
 
 func Show(c *gin.Context) {
@@ -16,10 +31,10 @@ func Show(c *gin.Context) {
 		return
 	}
 
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
+	schemaName = c.Param("schemaName")
+	databaseId = c.Param("databaseId")
 
-	s, err := loadDataAndMerge()
+	s, err := storage.LoadDataAndMerge(schemaName, databaseId)
 	if err != nil {
 		c.AbortWithStatus(400)
 		return
@@ -41,10 +56,10 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
+	schemaName = c.Param("schemaName")
+	databaseId = c.Param("databaseId")
 
-	s, err := loadData()
+	s, err := storage.loadData(schemaName, databaseId)
 	if err != nil {
 		c.AbortWithStatus(400)
 		return
@@ -68,7 +83,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	if err := writeData(s.Data); err != nil {
+	if err := writeData(schemaName, databaseId, s.Data); err != nil {
 		c.AbortWithStatus(500)
 		return
 	}
@@ -89,10 +104,10 @@ func Delete(c *gin.Context) {
 		return
 	}
 
-	setSchemaName(c.Param("schemaName"))
-	setDatabaseId(c.Param("databaseId"))
+	schemaName = c.Param("schemaName")
+	databaseId = c.Param("databaseId")
 
-	s, err := loadData()
+	s, err := storage.LoadData(schemaName, databaseId)
 	if err != nil {
 		c.AbortWithStatus(404)
 		return
@@ -105,7 +120,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 
-	if err := writeData(s.Data); err != nil {
+	if err := storage.WriteData(schemaName, databaseId, s.Data); err != nil {
 		c.AbortWithStatus(500)
 		return
 	}
