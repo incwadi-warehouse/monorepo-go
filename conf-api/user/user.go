@@ -17,6 +17,16 @@ type Branch struct {
 	Id int `json:"id"`
 }
 
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
+var Client HTTPClient
+
+func init() {
+	Client = &http.Client{}
+}
+
 func IsTokenValid(token string) bool {
 	res, err := request(token)
 	if err != nil {
@@ -47,8 +57,6 @@ func GetUser(token string) (User, error) {
 }
 
 func request(token string) (*http.Response, error) {
-	client := &http.Client{}
-
 	req, err := http.NewRequest("GET", os.Getenv("AUTH_API_ME"), nil)
 	if err != nil {
 		return nil, err
@@ -56,7 +64,7 @@ func request(token string) (*http.Response, error) {
 
 	req.Header.Add("Authorization", "Bearer "+token)
 
-	res, err := client.Do(req)
+	res, err := Client.Do(req)
 	if err != nil {
 		return nil, err
 	}
