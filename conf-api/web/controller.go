@@ -16,17 +16,18 @@ type Config struct {
 }
 
 var (
-    schemaName string
-    databaseId string
+	schemaName string
+	databaseId string
 )
 
 func Show(c *gin.Context) {
 	params := validation.Params{
-        Auth: c.GetHeader("Authorization"),
-        SchemaName: c.Param("schemaName"),
-        DatabaseId: c.Param("databaseId"),
-    }
-    if err := validation.Struct(params); err != nil {
+		Auth:       c.GetHeader("Authorization"),
+		SchemaName: c.Param("schemaName"),
+		DatabaseId: c.Param("databaseId"),
+	}
+
+	if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -47,11 +48,12 @@ func Show(c *gin.Context) {
 
 func Update(c *gin.Context) {
 	params := validation.Params{
-        Auth: c.GetHeader("Authorization"),
-        SchemaName: c.Param("schemaName"),
-        DatabaseId: c.Param("databaseId"),
-    }
-    if err := validation.Struct(params); err != nil {
+		Auth:       c.GetHeader("Authorization"),
+		SchemaName: c.Param("schemaName"),
+		DatabaseId: c.Param("databaseId"),
+	}
+
+	if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
@@ -59,7 +61,7 @@ func Update(c *gin.Context) {
 	schemaName = c.Param("schemaName")
 	databaseId = c.Param("databaseId")
 
-	s, err := storage.loadData(schemaName, databaseId)
+	s, err := storage.LoadData(schemaName, databaseId)
 	if err != nil {
 		c.AbortWithStatus(400)
 		return
@@ -83,7 +85,7 @@ func Update(c *gin.Context) {
 		return
 	}
 
-	if err := writeData(schemaName, databaseId, s.Data); err != nil {
+	if err := storage.WriteData(schemaName, databaseId, s.Data); err != nil {
 		c.AbortWithStatus(500)
 		return
 	}
@@ -95,11 +97,11 @@ func Update(c *gin.Context) {
 
 func Delete(c *gin.Context) {
 	params := validation.Params{
-        Auth: c.GetHeader("Authorization"),
-        SchemaName: c.Param("schemaName"),
-        DatabaseId: c.Param("databaseId"),
-    }
-    if err := validation.Struct(params); err != nil {
+		Auth:       c.GetHeader("Authorization"),
+		SchemaName: c.Param("schemaName"),
+		DatabaseId: c.Param("databaseId"),
+	}
+	if err := validation.Struct(params); err != nil {
 		c.AbortWithStatus(400)
 		return
 	}
