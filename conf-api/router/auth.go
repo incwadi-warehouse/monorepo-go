@@ -11,7 +11,7 @@ import (
 func checkAuth(c *gin.Context) {
 	s := strings.Split(c.GetHeader("Authorization"), " ")
 
-	if hasAuthHeader(s) {
+	if !hasAuthHeader(s) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
@@ -23,7 +23,7 @@ func checkAuth(c *gin.Context) {
 }
 
 func hasAuthHeader(s []string) bool {
-	return len(s) != 2
+	return len(s) == 2
 }
 
 func isAuthenticated(token string) bool {
