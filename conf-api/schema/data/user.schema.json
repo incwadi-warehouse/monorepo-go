@@ -7,6 +7,9 @@
     "properties": {
         "snow": {
             "type": "boolean"
+        },
+        "party": {
+            "type": "boolean"
         }
     }
 }
