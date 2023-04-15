@@ -13,6 +13,9 @@
         },
         "pride": {
             "type": "boolean"
+        },
+        "beach": {
+            "type": "boolean"
         }
     }
 }
