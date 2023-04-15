@@ -1,5 +1,6 @@
 {
 	"$schema": "user.schema.json",
 	"snow": true,
-    "party": true
+    "party": true,
+    "pride": false
 }
