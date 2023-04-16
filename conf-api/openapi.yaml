@@ -1,0 +1,306 @@
+openapi: 3.0.0
+
+info:
+    version: 1.0.0
+    title: conf-api API
+    description: Save and load settings from config files.
+
+externalDocs:
+    description: Github
+    url: https://github.com/incwadi-warehouse/monorepo-go
+
+servers:
+    - url: http://localhost:8080/api
+
+tags:
+    - name: config
+      description: Config
+    - name: mock
+      description: Mockups - only for testing!
+
+paths:
+    /{schemaName}/{databaseId}/{key}:
+        get:
+            description: Gets a config value
+            tags:
+                - config
+            parameters:
+                - name: schemaName
+                  in: path
+                  required: true
+                  description: Schema name
+                  example: user
+                  schema:
+                    type: string
+                - name: databaseId
+                  in: path
+                  required: true
+                  description: Database id
+                  example: 1
+                  schema:
+                    type: string
+                - name: key
+                  in: path
+                  required: true
+                  description: Key
+                  example: snow
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        post:
+            description: Sets a config value
+            tags:
+                - config
+            parameters:
+                - name: schemaName
+                  in: path
+                  required: true
+                  description: Schema name
+                  example: user
+                  schema:
+                    type: string
+                - name: databaseId
+                  in: path
+                  required: true
+                  description: Database id
+                  example: 1
+                  schema:
+                    type: string
+                - name: key
+                  in: path
+                  required: true
+                  description: Key
+                  example: snow
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ConfigRequest"
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        put:
+            description: Updates a config value
+            tags:
+                - config
+            parameters:
+                - name: schemaName
+                  in: path
+                  required: true
+                  description: Schema name
+                  example: user
+                  schema:
+                    type: string
+                - name: databaseId
+                  in: path
+                  required: true
+                  description: Database id
+                  example: 1
+                  schema:
+                    type: string
+                - name: key
+                  in: path
+                  required: true
+                  description: Key
+                  example: snow
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ConfigRequest"
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        delete:
+            description: Deletes a config value
+            tags:
+                - config
+            parameters:
+                - name: schemaName
+                  in: path
+                  required: true
+                  description: Schema name
+                  example: user
+                  schema:
+                    type: string
+                - name: databaseId
+                  in: path
+                  required: true
+                  description: Database id
+                  example: 1
+                  schema:
+                    type: string
+                - name: key
+                  in: path
+                  required: true
+                  description: Key
+                  example: snow
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+
+    /me:
+        get:
+            description: Mocks the auth API
+            tags:
+                - mock
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/UserResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            description: Enter your token e.g. "token"
+
+    schemas:
+        ConfigResponse:
+            type: object
+            required:
+                - value
+            properties:
+                value:
+                    nullable: true
+
+        ConfigRequest:
+            type: object
+            required:
+                - value
+            properties:
+                value:
+                    nullable: true
+
+        UserResponse:
+            type: object
+            required:
+                - id
+                - username
+                - branch
+            properties:
+                id:
+                    type: integer
+                username:
+                    type: string
+                branch:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      id:
+                        type: integer
+
+        Response:
+            type: object
+            required:
+                - status
+                - message
+            properties:
+                status:
+                    type: integer
+                message:
+                    type: string
+
+security:
+    - bearerAuth: []
