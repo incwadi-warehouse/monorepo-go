@@ -28,7 +28,7 @@ func Show(c *gin.Context) {
 	}
 
 	if err := validation.Struct(params); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
@@ -37,7 +37,7 @@ func Show(c *gin.Context) {
 
 	s, err := storage.LoadDataAndMerge(schemaName, databaseId)
 	if err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
@@ -54,7 +54,7 @@ func Update(c *gin.Context) {
 	}
 
 	if err := validation.Struct(params); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
@@ -63,30 +63,30 @@ func Update(c *gin.Context) {
 
 	s, err := storage.LoadData(schemaName, databaseId)
 	if err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
 	var config Config
 	if err := c.ShouldBind(&config); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
 	if err := validation.Var(c.Param("key"), "required,confKey"); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
 	s.Add(c.Param("key"), config.Value)
 
 	if err := s.ValidateSchema(); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
 	if err := storage.WriteData(schemaName, databaseId, s.Data); err != nil {
-		c.AbortWithStatus(500)
+		c.AbortWithStatusJSON(500, Response{400, "Error writing file"})
 		return
 	}
 
@@ -102,7 +102,7 @@ func Delete(c *gin.Context) {
 		DatabaseId: c.Param("databaseId"),
 	}
 	if err := validation.Struct(params); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
@@ -111,19 +111,19 @@ func Delete(c *gin.Context) {
 
 	s, err := storage.LoadData(schemaName, databaseId)
 	if err != nil {
-		c.AbortWithStatus(404)
+		c.AbortWithStatusJSON(404, Response{400, "Could not load database"})
 		return
 	}
 
 	s.Rm(c.Param("key"))
 
 	if err := s.ValidateSchema(); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, Response{400, "Validation failed"})
 		return
 	}
 
 	if err := storage.WriteData(schemaName, databaseId, s.Data); err != nil {
-		c.AbortWithStatus(500)
+		c.AbortWithStatusJSON(500, Response{400, "Error writing file"})
 		return
 	}
 

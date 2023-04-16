@@ -8,16 +8,21 @@ import (
 	"github.com/incwadi-warehouse/monorepo-go/conf-api/user"
 )
 
+type Response struct {
+    Status int `json:"status"`
+	Message string `json:"message"`
+}
+
 func checkAuth(c *gin.Context) {
 	s := strings.Split(c.GetHeader("Authorization"), " ")
 
 	if !hasAuthHeader(s) {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
 		return
 	}
 
 	if !isAuthenticated(s[1]) {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
 		return
 	}
 }
