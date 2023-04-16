@@ -10,7 +10,7 @@ import (
 type User struct {
 	Id       int    `json:"id"`
 	Username string `json:"username"`
-	Branch   Branch
+	Branch   Branch `json:"branch"`
 }
 
 type Branch struct {
