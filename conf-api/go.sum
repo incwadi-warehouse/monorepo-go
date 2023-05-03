@@ -62,6 +62,8 @@ github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230423192929-b0dc57dd6c38
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230423192929-b0dc57dd6c38/go.mod h1:z12twvpn9MRxI5vQ9XBCm+X8h4fkFz7w+smd+p1PnYU=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230428101623-ed16870e6212 h1:LgPdAWHCE0ltOIKoHPHX+PQbx4Y87YmUFo29grkv1bg=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230428101623-ed16870e6212/go.mod h1:z12twvpn9MRxI5vQ9XBCm+X8h4fkFz7w+smd+p1PnYU=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230503101159-85311a778639 h1:PadBaHcI+/JULyyK73WZkvNSrrmk3+Yk2ofixBhFUF0=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230503101159-85311a778639/go.mod h1:z12twvpn9MRxI5vQ9XBCm+X8h4fkFz7w+smd+p1PnYU=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
