@@ -28,7 +28,7 @@ func init() {
 }
 
 func stopContainers() {
-	out, err := command.Command([]string{"sudo docker-compose down "})
+	out, err := command.Command([]string{"docker compose --project-directory . down"})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +37,7 @@ func stopContainers() {
 }
 
 func startContainers() {
-	out, err := command.Command([]string{"sudo docker-compose up -d"})
+	out, err := command.Command([]string{"docker compose --project-directory . up -d"})
 	if err != nil {
 		log.Fatal(err)
 	}
