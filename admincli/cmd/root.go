@@ -9,7 +9,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "admincli",
 	Short: "Maintenance tools",
-	Long: `The app gives you simple access to maintenance tools.`,
+	Long:  `The app gives you simple access to maintenance tools.`,
 }
 
 func Execute() {
@@ -18,5 +18,3 @@ func Execute() {
 		os.Exit(1)
 	}
 }
-
-func init() {}
