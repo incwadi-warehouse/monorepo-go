@@ -35,6 +35,7 @@ DATA_DIR=./data/
 CORS_ALLOW_ORIGIN=http://localhost:8080
 BASE_PATH=/
 AUTH_API_ME=http://localhost:8000/api/me
+PROJECT_DIR=
 ```
 
 - ENV - Set to `prod`, `dev` or `test`
@@ -42,6 +43,7 @@ AUTH_API_ME=http://localhost:8000/api/me
 - CORS_ALLOW_ORIGIN - Allowed origins
 - BASE_PATH - Configure the base path
 - AUTH_API_ME - API endpoint for the user object
+- PROJECT_DIR - Directory for admincli to execute the commands in
 
 ## Testing
 
