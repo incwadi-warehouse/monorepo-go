@@ -35,13 +35,17 @@ DATA_DIR=./data/
 CORS_ALLOW_ORIGIN=http://localhost:8080
 BASE_PATH=/
 AUTH_API_ME=http://localhost:8000/api/me
+PROJECT_DIR=
 ```
 
-- ENV - Set to `prod`, `dev` or `test`
-- DATA_DIR - Path where to store the files
-- CORS_ALLOW_ORIGIN - Allowed origins
-- BASE_PATH - Configure the base path
-- AUTH_API_ME - API endpoint for the user object
+|Var                |Used by    |Description
+|---                |-------    |-----------
+|ENV                |conf-api   |Set to `prod`, `dev` or `test`
+|DATA_DIR           |conf-api   |Path where to store the files
+|CORS_ALLOW_ORIGIN  |conf-api   |Allowed origins
+|BASE_PATH          |conf-api   |Configure the base path
+|AUTH_API_ME        |conf-api   |API endpoint for the user object
+|PROJECT_DIR        |admincli   |Where to execute the commands
 
 ## Testing
 
