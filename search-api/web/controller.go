@@ -1,281 +1,54 @@
 package web
 
 import (
-	"bytes"
-	"encoding/json"
-	"io"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
 )
 
 func Search(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("POST", "/indexes/books/search", c.Request.Body)
 
-	responseBody := bytes.NewBuffer(jsonData)
-
-	client := http.Client{}
-	req, err := http.NewRequest("POST", os.Getenv("MEILI")+"/indexes/books/search", responseBody)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func List(c *gin.Context) {
-	client := http.Client{}
-	req, err := http.NewRequest("GET", os.Getenv("MEILI")+"/indexes", nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("GET", "/indexes", c.Request.Body)
 
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func Create(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("POST", "/indexes", c.Request.Body)
 
-	responseBody := bytes.NewBuffer(jsonData)
-
-	client := http.Client{}
-	req, err := http.NewRequest("POST", os.Getenv("MEILI")+"/indexes", responseBody)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func Remove(c *gin.Context) {
-	client := http.Client{}
-	req, err := http.NewRequest("DELETE", os.Getenv("MEILI")+"/indexes/"+c.Param("index"), nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("DELETE", "/indexes/"+c.Param("index"), c.Request.Body)
 
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func RemoveDocuments(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("DELETE", "/indexes/books/documents", c.Request.Body)
 
-	responseBody := bytes.NewBuffer(jsonData)
-
-	client := http.Client{}
-	req, err := http.NewRequest("DELETE", os.Getenv("MEILI")+"/indexes/books/documents", responseBody)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func CreateDocument(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("POST", "/indexes/books/documents", c.Request.Body)
 
-	responseBody := bytes.NewBuffer(jsonData)
-
-	client := http.Client{}
-	req, err := http.NewRequest("POST", os.Getenv("MEILI")+"/indexes/books/documents", responseBody)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func GetSettings(c *gin.Context) {
-	client := http.Client{}
-	req, err := http.NewRequest("GET", os.Getenv("MEILI")+"/indexes/books/settings", nil)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("GET", "/indexes/books/settings", c.Request.Body)
 
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
 
 func UpdateSettings(c *gin.Context) {
-	jsonData, err := io.ReadAll(c.Request.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	status, data := api.NewRequest("PATCH", "/indexes/books/settings", c.Request.Body)
 
-	responseBody := bytes.NewBuffer(jsonData)
-
-	client := http.Client{}
-	req, err := http.NewRequest("PATCH", os.Getenv("MEILI")+"/indexes/books/settings", responseBody)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
-
-	res, err := client.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	var v any
-	err2 := json.Unmarshal(body, &v)
-	if err2 != nil {
-		log.Fatalln(err2)
-	}
-
-	c.JSON(res.StatusCode, v)
+	c.JSON(status, data)
 }
-
-
