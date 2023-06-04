@@ -1,0 +1,269 @@
+openapi: 3.0.0
+
+info:
+    version: 1.0.0
+    title: search-api API
+    description: Middleware for Search Index
+
+externalDocs:
+    description: Github
+    url: https://github.com/incwadi-warehouse/monorepo-go
+
+servers:
+    - url: http://localhost:8080/api
+
+tags:
+    - name: index
+      description: Index
+    - name: mock
+      description: Mockups - only for testing!
+
+paths:
+    /indexes/{index}/search:
+        get:
+            description: Search
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+    /indexes:
+        get:
+            description: Get indexes
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        post:
+            description: Creates new index
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+    /indexes/{index}:
+        delete:
+            description: Removes index
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+    /indexes/{index}/settings:
+        get:
+            description: Get settings
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        patch:
+            description: Update settings
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+    /indexes/{index}/documents:
+        delete:
+            description: Remove all documents from index
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+        post:
+            description: Create a new document
+            tags:
+                - index
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ConfigResponse"
+                "400":
+                    description: Bad Request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+    /me:
+        get:
+            description: Mocks the auth API
+            tags:
+                - mock
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/UserResponse"
+                "401":
+                    description: Unauthorized
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Response"
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            description: Enter your token e.g. "token"
+
+    schemas:
+        UserResponse:
+            type: object
+            required:
+                - id
+                - username
+                - branch
+            properties:
+                id:
+                    type: integer
+                username:
+                    type: string
+                branch:
+                    type: object
+                    required:
+                      - id
+                    properties:
+                      id:
+                        type: integer
+
+        Response:
+            type: object
+            required:
+                - status
+                - message
+            properties:
+                status:
+                    type: integer
+                message:
+                    type: string
+
+security:
+    - bearerAuth: []

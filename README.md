@@ -38,14 +38,16 @@ AUTH_API_ME=http://localhost:8000/api/me
 PROJECT_DIR=
 ```
 
-|Var                |Used by    |Description
-|---                |-------    |-----------
-|ENV                |conf-api   |Set to `prod`, `dev` or `test`
-|DATA_DIR           |conf-api   |Path where to store the files
-|CORS_ALLOW_ORIGIN  |conf-api   |Allowed origins
-|BASE_PATH          |conf-api   |Configure the base path
-|AUTH_API_ME        |conf-api   |API endpoint for the user object
-|PROJECT_DIR        |admincli   |Where to execute the commands
+|Var                |Used by                |Description
+|-------------------|-----------------------|--------------------------------
+|ENV                |conf-api, search-api   |Set to `prod`, `dev` or `test`
+|DATA_DIR           |conf-api               |Path where to store the files
+|CORS_ALLOW_ORIGIN  |conf-api, search-api   |Allowed origins
+|BASE_PATH          |conf-api, search-api   |Configure the base path
+|AUTH_API_ME        |conf-api, search-api   |API endpoint for the user object
+|PROJECT_DIR        |admincli               |Where to execute the commands
+|MEILI              |search-api             |URL to meilisearch instance
+|MEILI_TOKEN        |search-api             |API key for meilisearch
 
 ## Testing
 
