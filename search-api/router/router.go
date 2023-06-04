@@ -20,22 +20,22 @@ func Router() {
 
 	r.Use(headers())
 
-	auth := r.Group("/" + os.Getenv("BASE_PATH") + "/api", checkAuth)
+	auth := r.Group("/"+os.Getenv("BASE_PATH")+"/api", checkAuth)
 
 	auth.POST("/indexes/:index/search", web.Search)
 	auth.GET("/indexes", web.List)
 	auth.POST("/indexes", web.Create)
 	auth.DELETE("/indexes/:index", web.Remove)
 
-	auth.GET("/indexes/:index/settings", web.GetSettings)
-	auth.PATCH("/indexes/:index/settings", web.UpdateSettings)
-
 	auth.DELETE("/indexes/:index/documents", web.RemoveDocuments)
 	auth.POST("/indexes/:index/documents", web.CreateDocument)
 
-    if os.Getenv("ENV") != "prod" {
-        r.GET("/api/me", mock.Me)
-    }
+	auth.GET("/indexes/:index/settings", web.GetSettings)
+	auth.PATCH("/indexes/:index/settings", web.UpdateSettings)
+
+	if os.Getenv("ENV") != "prod" {
+		r.GET("/api/me", mock.Me)
+	}
 
 	r.Run(":8080")
 }
