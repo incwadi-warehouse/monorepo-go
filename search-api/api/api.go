@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func NewRequest(method, path string, requestBody interface{}) (int, any) {
+func NewRequest(method, path string, requestBody io.Reader) (int, any) {
 	body, err := getBody(requestBody)
 	if err != nil {
 		log.Fatalln(err)
@@ -33,13 +33,13 @@ func setHeaders(req *http.Request) {
 	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))
 }
 
-func getBody(requestBody interface{}) (*bytes.Buffer, error) {
-    d,err := json.Marshal(requestBody)
-    if err != nil {
+func getBody(requestBody io.Reader) (*bytes.Buffer, error) {
+	jsonData, err := io.ReadAll(requestBody)
+	if err != nil {
 		return nil, err
 	}
 
-    body := bytes.NewBuffer(d)
+	body := bytes.NewBuffer(jsonData)
 
 	return body, nil
 }
