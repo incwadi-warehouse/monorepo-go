@@ -9,7 +9,7 @@ import (
 )
 
 type Response struct {
-    Status int `json:"status"`
+	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
 
@@ -32,5 +32,5 @@ func hasAuthHeader(s []string) bool {
 }
 
 func isAuthenticated(token string) bool {
-    return user.IsTokenValid(token)
+	return user.IsTokenValid(token)
 }
