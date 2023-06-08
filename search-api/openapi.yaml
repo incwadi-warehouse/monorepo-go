@@ -24,13 +24,21 @@ paths:
             description: Search
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -54,7 +62,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -71,13 +79,18 @@ paths:
             description: Creates new index
             tags:
                 - index
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/IndexRequest"
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -95,13 +108,21 @@ paths:
             description: Removes index
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -119,13 +140,21 @@ paths:
             description: Get settings
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -142,13 +171,26 @@ paths:
             description: Update settings
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/IndexRequest"
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -166,13 +208,21 @@ paths:
             description: Remove all documents from index
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -189,13 +239,26 @@ paths:
             description: Create a new document
             tags:
                 - index
+            parameters:
+                - name: index
+                  in: path
+                  required: true
+                  description: Index name
+                  example: products
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/IndexRequest"
             responses:
                 "200":
                     description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ConfigResponse"
+                                $ref: "#/components/schemas/IndexResponse"
                 "400":
                     description: Bad Request
                     content:
@@ -235,6 +298,12 @@ components:
             description: Enter your token e.g. "token"
 
     schemas:
+        IndexResponse:
+            type: object
+
+        IndexRequest:
+            type: object
+
         UserResponse:
             type: object
             required:
