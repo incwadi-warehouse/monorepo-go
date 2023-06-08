@@ -11,6 +11,7 @@ type User struct {
 	Id       int    `json:"id"`
 	Username string `json:"username"`
 	Branch   Branch `json:"branch"`
+	Roles   []string `json:"roles"`
 }
 
 type Branch struct {

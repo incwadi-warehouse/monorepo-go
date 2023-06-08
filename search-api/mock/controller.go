@@ -16,6 +16,7 @@ func Me(c *gin.Context) {
         u.Id = 1
         u.Username = "admin"
         u.Branch.Id = 1
+        u.Roles = []string{"ROLE_ADMIN", "ROLE_USER"}
 
 		c.JSON(200, u)
 		return

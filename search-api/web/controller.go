@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/security"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
 )
 
@@ -31,6 +32,10 @@ func List(c *gin.Context) {
 }
 
 func Create(c *gin.Context) {
+    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+        return
+    }
 
 	status, data := api.NewRequest("POST", "/indexes", c.Request.Body)
 
@@ -38,10 +43,15 @@ func Create(c *gin.Context) {
 }
 
 func Remove(c *gin.Context) {
-	// if validation.Var(c.Param("index"), "indexName") != nil {
-	// 	c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
-	// 	return
-	// }
+    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+        return
+    }
+
+	if validation.Var(c.Param("index"), "indexName") != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
+		return
+	}
 
 	status, data := api.NewRequest("DELETE", "/indexes/"+c.Param("index"), c.Request.Body)
 
@@ -71,6 +81,11 @@ func CreateDocument(c *gin.Context) {
 }
 
 func GetSettings(c *gin.Context) {
+    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+        return
+    }
+
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
 		return
@@ -82,6 +97,11 @@ func GetSettings(c *gin.Context) {
 }
 
 func UpdateSettings(c *gin.Context) {
+    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+        return
+    }
+
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
 		return
