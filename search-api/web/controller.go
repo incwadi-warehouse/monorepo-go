@@ -1,12 +1,14 @@
 package web
 
 import (
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/security"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
+	"github.com/incwadi-warehouse/monorepo-go/security"
 )
 
 type Response struct {

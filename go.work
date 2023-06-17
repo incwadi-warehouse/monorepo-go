@@ -5,4 +5,5 @@ use (
 	./conf-api
     ./admincli
     ./search-api
+    ./security
 )

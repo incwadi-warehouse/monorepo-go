@@ -1,17 +1,19 @@
-package user
+package security
 
 import (
 	"encoding/json"
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 )
 
 type User struct {
-	Id       int    `json:"id"`
-	Username string `json:"username"`
-	Branch   Branch `json:"branch"`
-	Roles   []string `json:"roles"`
+	Id       int      `json:"id"`
+	Username string   `json:"username"`
+	Branch   Branch   `json:"branch"`
+	Roles    []string `json:"roles"`
 }
 
 type Branch struct {
@@ -26,15 +28,6 @@ var Client HTTPClient
 
 func init() {
 	Client = &http.Client{}
-}
-
-func IsTokenValid(token string) bool {
-	res, err := request(token)
-	if err != nil {
-		return false
-	}
-
-	return res.StatusCode == 200
 }
 
 func GetUser(token string) (User, error) {
@@ -55,6 +48,19 @@ func GetUser(token string) (User, error) {
 	}
 
 	return u, nil
+}
+
+func IsTokenValid(token string) bool {
+	res, err := request(token)
+	if err != nil {
+		return false
+	}
+
+	return res.StatusCode == 200
+}
+
+func (user User) HasRole(role string) bool {
+	return util.Contains(role, user.Roles)
 }
 
 func request(token string) (*http.Response, error) {

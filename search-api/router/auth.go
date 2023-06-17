@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/user"
+	"github.com/incwadi-warehouse/monorepo-go/security"
 )
 
 type Response struct {
@@ -32,5 +32,5 @@ func hasAuthHeader(s []string) bool {
 }
 
 func isAuthenticated(token string) bool {
-	return user.IsTokenValid(token)
+	return security.IsTokenValid(token)
 }
