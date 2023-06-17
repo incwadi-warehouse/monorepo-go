@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/security"
+	"github.com/incwadi-warehouse/monorepo-go/security/security"
 )
 
 type Response struct {
