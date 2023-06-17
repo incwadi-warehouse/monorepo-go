@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230605173432-8632996dacd9
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230614063953-469ca5759078
 	github.com/joho/godotenv v1.5.1
 )
 
@@ -37,7 +37,7 @@ require (
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sys v0.8.0 // indirect; indirectuse ./settings/
+	golang.org/x/sys v0.9.0 // indirect; indirectuse ./settings/
 	golang.org/x/text v0.9.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 )
