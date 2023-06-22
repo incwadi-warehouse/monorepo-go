@@ -1,19 +1,67 @@
 version: 2.1
 
 jobs:
-  test:
-    docker:
-      - image: cimg/go:1.20.5
-    steps:
-      - checkout
-      - run:  
-          name: Install dependencies
-          command: cd ./conf && go mod tidy
-      - run:
-          name: Run the tests
-          command: cd ./conf && go test ./...
+    test-admincli:
+        docker:
+        - image: cimg/go:1.20.5
+        steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: cd ./admincli && go mod tidy
+        - run:
+            name: Run the tests
+            command: cd ./admincli && go test ./...
+    test-conf:
+        docker:
+        - image: cimg/go:1.20.5
+        steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: cd ./conf && go mod tidy
+        - run:
+            name: Run the tests
+            command: cd ./conf && go test ./...
+    test-conf-api:
+        docker:
+        - image: cimg/go:1.20.5
+        steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: cd ./conf-api && go mod tidy
+        - run:
+            name: Run the tests
+            command: cd ./conf-api && go test ./...
+    test-search-api:
+        docker:
+        - image: cimg/go:1.20.5
+        steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: cd ./search-api && go mod tidy
+        - run:
+            name: Run the tests
+            command: cd ./search-api && go test ./...
+    test-security:
+        docker:
+        - image: cimg/go:1.20.5
+        steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: cd ./security && go mod tidy
+        - run:
+            name: Run the tests
+            command: cd ./security && go test ./...
 
 workflows:
   test:
     jobs:
-      - test      
+      - test-admincli
+      - test-conf
+      - test-conf-api
+      - test-search-api
+      - test-security
