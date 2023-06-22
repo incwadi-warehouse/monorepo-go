@@ -24,8 +24,7 @@ func Router() {
 
 	auth.POST("/indexes/:index/search", web.Search)
 
-	auth.DELETE("/indexes/:index/documents", web.RemoveDocuments)
-	auth.POST("/indexes/:index/documents", web.CreateDocument)
+	auth.POST("/indexes/:index/rebuild", web.Rebuild)
 
 	auth.GET("/indexes/:index/settings", web.GetSettings)
 	auth.PATCH("/indexes/:index/settings", web.UpdateSettings)
