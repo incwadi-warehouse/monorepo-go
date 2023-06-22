@@ -28,6 +28,20 @@ func NewRequest(method, path string, requestBody io.Reader) (int, any) {
 	return res.StatusCode, data
 }
 
+func NewRequestWithPlainRes(method, path string, requestBody io.Reader) *http.Response {
+	body, err := getBody(requestBody)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	res, err := doRequest(method, path, body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	return res
+}
+
 func setHeaders(req *http.Request) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+os.Getenv("MEILI_TOKEN"))

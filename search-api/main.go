@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/router"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/update"
 	"github.com/joho/godotenv"
 )
 
@@ -15,6 +16,8 @@ func main() {
 			log.Fatal("Error loading .env file")
 		}
 	}
+
+	update.Run()
 
 	gin.SetMode(getGinMode())
 

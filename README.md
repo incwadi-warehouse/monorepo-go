@@ -48,6 +48,8 @@ PROJECT_DIR=
 |PROJECT_DIR        |admincli               |Where to execute the commands
 |MEILI              |search-api             |URL to meilisearch instance
 |MEILI_TOKEN        |search-api             |API key for meilisearch
+|BRANCHES           |search-api             |List of allowed branches, comma-separated
+|INDEXES            |search-api             |List of allowed indexes, comma-separated
 
 ## Testing
 
