@@ -1,7 +1,6 @@
 package web
 
 import (
-	"log"
 	"net/http"
 	"strings"
 
@@ -34,10 +33,10 @@ func List(c *gin.Context) {
 }
 
 func Create(c *gin.Context) {
-    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-        return
-    }
+	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+	}
 
 	status, data := api.NewRequest("POST", "/indexes", c.Request.Body)
 
@@ -45,10 +44,10 @@ func Create(c *gin.Context) {
 }
 
 func Remove(c *gin.Context) {
-    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-        return
-    }
+	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+	}
 
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
@@ -83,10 +82,10 @@ func CreateDocument(c *gin.Context) {
 }
 
 func GetSettings(c *gin.Context) {
-    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-        return
-    }
+	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+	}
 
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
@@ -99,10 +98,10 @@ func GetSettings(c *gin.Context) {
 }
 
 func UpdateSettings(c *gin.Context) {
-    if !security.HasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-        return
-    }
+	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+	}
 
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
@@ -112,4 +111,17 @@ func UpdateSettings(c *gin.Context) {
 	status, data := api.NewRequest("PATCH", "/indexes/"+c.Param("index")+"/settings", c.Request.Body)
 
 	c.JSON(status, data)
+}
+
+func hasRole (auth string, role string) bool {
+    token := strings.Split(auth, " ")
+    if len(token) != 2 {
+        return false
+    }
+	user, err := security.GetUser(token[1])
+	if err != nil {
+		return false
+	}
+
+    return user.HasRole(role)
 }
