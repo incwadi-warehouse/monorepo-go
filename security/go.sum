@@ -1,2 +1,6 @@
 github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230617171005-e1e9f28b0ea0 h1:zcVwSZUvn2Jz3K+Auu8FqYy4PfJRtpEGB7OhAXwG5kE=
 github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230617171005-e1e9f28b0ea0/go.mod h1:W4NZH7jWTSr6t2IDnY+onayzJCkr93ByxPZU4xJQDvE=
+github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230622120514-1362769ab0e3 h1:9shuduO+g8BwuYcpSZae5vZMMIMz1/AUcjlVYjGtSe4=
+github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230622120514-1362769ab0e3/go.mod h1:W4NZH7jWTSr6t2IDnY+onayzJCkr93ByxPZU4xJQDvE=
+github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230622191914-ee65888ab052 h1:GRSHfLERmZJOYRx+VrKHmB8NgTDSo5wdWVbAZoe/3qo=
+github.com/incwadi-warehouse/monorepo-go/search-api v0.0.0-20230622191914-ee65888ab052/go.mod h1:W4NZH7jWTSr6t2IDnY+onayzJCkr93ByxPZU4xJQDvE=
