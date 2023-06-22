@@ -1,6 +1,9 @@
 package validation
 
 import (
+	"os"
+	"strings"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 )
@@ -23,7 +26,16 @@ func Struct(s interface{}) error {
 
 func validateIndexName(fl validator.FieldLevel) bool {
 	str := fl.Field().String()
-	allowedNames := []string{"products"}
+	var allowedNames []string
+
+    allowedBranches := strings.Split(os.Getenv("BRANCHES"), ",")
+	allowedIndexes :=  strings.Split(os.Getenv("INDEXES"), ",")
+
+    for _, name := range allowedIndexes {
+		for _, branchId := range allowedBranches {
+			allowedNames = append(allowedNames, name+"_"+branchId)
+		}
+	}
 
 	return util.Contains(str, allowedNames)
 }
