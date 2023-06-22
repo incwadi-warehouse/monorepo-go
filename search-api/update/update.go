@@ -54,6 +54,7 @@ func Run() {
 
 	conf.doCreate()
 	conf.doRemove()
+    conf.doSettings()
 }
 
 func (conf *UpdateConf) getIndexes() {
@@ -111,5 +112,16 @@ func (conf *UpdateConf) doCreate() {
 func (conf *UpdateConf) doRemove() {
 	for _, name := range conf.MustRemove {
 		request("DELETE", "/indexes/"+name, strings.NewReader(""))
+	}
+}
+
+func (conf *UpdateConf) doSettings() {
+    jsonData, err := json.Marshal([]string{"genres"})
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	for _, name := range conf.Indexes {
+		request("PUT", "/indexes/"+name+"/settings/filterable-attributes", strings.NewReader(string(jsonData)))
 	}
 }

@@ -43,38 +43,6 @@ func Rebuild(c *gin.Context) {
 	c.JSON(status, data)
 }
 
-func GetSettings(c *gin.Context) {
-	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-		return
-	}
-
-	if validation.Var(c.Param("index"), "indexName") != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
-		return
-	}
-
-	status, data := api.NewRequest("GET", "/indexes/"+c.Param("index")+"/settings", c.Request.Body)
-
-	c.JSON(status, data)
-}
-
-func UpdateSettings(c *gin.Context) {
-	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-		return
-	}
-
-	if validation.Var(c.Param("index"), "indexName") != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
-		return
-	}
-
-	status, data := api.NewRequest("PATCH", "/indexes/"+c.Param("index")+"/settings", c.Request.Body)
-
-	c.JSON(status, data)
-}
-
 func hasRole (auth string, role string) bool {
     token := strings.Split(auth, " ")
     if len(token) != 2 {

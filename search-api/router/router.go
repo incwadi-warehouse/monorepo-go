@@ -26,9 +26,6 @@ func Router() {
 
 	auth.POST("/indexes/:index/rebuild", web.Rebuild)
 
-	auth.GET("/indexes/:index/settings", web.GetSettings)
-	auth.PATCH("/indexes/:index/settings", web.UpdateSettings)
-
 	if os.Getenv("ENV") != "prod" {
 		r.GET("/api/me", mock.Me)
 	}
