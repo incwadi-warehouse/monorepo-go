@@ -26,39 +26,6 @@ func Search(c *gin.Context) {
 	c.JSON(status, data)
 }
 
-func List(c *gin.Context) {
-	status, data := api.NewRequest("GET", "/indexes", c.Request.Body)
-
-	c.JSON(status, data)
-}
-
-func Create(c *gin.Context) {
-	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-		return
-	}
-
-	status, data := api.NewRequest("POST", "/indexes", c.Request.Body)
-
-	c.JSON(status, data)
-}
-
-func Remove(c *gin.Context) {
-	if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
-		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-		return
-	}
-
-	if validation.Var(c.Param("index"), "indexName") != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})
-		return
-	}
-
-	status, data := api.NewRequest("DELETE", "/indexes/"+c.Param("index"), c.Request.Body)
-
-	c.JSON(status, data)
-}
-
 func RemoveDocuments(c *gin.Context) {
 	if validation.Var(c.Param("index"), "indexName") != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, Response{http.StatusNotFound, "Not Found"})

@@ -23,9 +23,6 @@ func Router() {
 	auth := r.Group("/"+os.Getenv("BASE_PATH")+"/api", checkAuth)
 
 	auth.POST("/indexes/:index/search", web.Search)
-	auth.GET("/indexes", web.List)
-	auth.POST("/indexes", web.Create)
-	auth.DELETE("/indexes/:index", web.Remove)
 
 	auth.DELETE("/indexes/:index/documents", web.RemoveDocuments)
 	auth.POST("/indexes/:index/documents", web.CreateDocument)
