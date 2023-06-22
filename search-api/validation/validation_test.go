@@ -2,6 +2,7 @@ package validation
 
 import (
 	"testing"
+    "os"
 )
 
 type Product struct {
@@ -9,6 +10,8 @@ type Product struct {
 }
 
 func TestVar(t *testing.T) {
+    os.Setenv("BRANCHES", "1")
+    os.Setenv("INDEXES", "products")
 	type args struct {
 		name        interface{}
 		constraints string
@@ -21,7 +24,7 @@ func TestVar(t *testing.T) {
 		{
 			"test products",
 			args{
-				"products",
+				"products_1",
 				"indexName",
 			},
 			false,
