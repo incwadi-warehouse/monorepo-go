@@ -116,7 +116,7 @@ func (conf *UpdateConf) doRemove() {
 }
 
 func (conf *UpdateConf) doSettings() {
-    jsonData, err := json.Marshal([]string{"genres"})
+    jsonData, err := json.Marshal([]string{"genre"})
 		if err != nil {
 			log.Fatal(err)
 		}
