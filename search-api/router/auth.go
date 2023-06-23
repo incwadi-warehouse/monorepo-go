@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/security/security"
+	"github.com/incwadi-warehouse/monorepo-go/security/auth"
 )
 
 type Response struct {
@@ -21,7 +21,7 @@ func checkAuth(c *gin.Context) {
 		return
 	}
 
-	auth,_ := security.GetUser(s[1])
+	auth, _ := auth.GetUser(s[1])
 
 	if !auth.IsAuthenticated {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
