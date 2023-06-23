@@ -2,7 +2,7 @@ package mock
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/security/security"
+	security "github.com/incwadi-warehouse/monorepo-go/security/authentication"
 )
 
 type Response struct {
