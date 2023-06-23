@@ -27,7 +27,18 @@ func Search(c *gin.Context) {
 }
 
 func Rebuild(c *gin.Context) {
-    if !hasRole(c.GetHeader("Authorization"), "ROLE_ADMIN") {
+    token := strings.Split(c.GetHeader("Authorization"), " ")
+    if len(token) != 2 {
+        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+    }
+	user, err := security.GetUser(token[1])
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
+		return
+	}
+
+    if !user.HasRole("ROLE_ADMIN") {
 		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
 		return
 	}
@@ -41,17 +52,4 @@ func Rebuild(c *gin.Context) {
     status, data := api.NewRequest("POST", "/indexes/"+c.Param("index")+"/documents", c.Request.Body)
 
 	c.JSON(status, data)
-}
-
-func hasRole (auth string, role string) bool {
-    token := strings.Split(auth, " ")
-    if len(token) != 2 {
-        return false
-    }
-	user, err := security.GetUser(token[1])
-	if err != nil {
-		return false
-	}
-
-    return user.HasRole(role)
 }
