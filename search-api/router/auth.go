@@ -16,21 +16,17 @@ type Response struct {
 func checkAuth(c *gin.Context) {
 	s := strings.Split(c.GetHeader("Authorization"), " ")
 
-	if !hasAuthHeader(s) {
+	if len(s) != 2 {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
 		return
 	}
 
-	if !isAuthenticated(s[1]) {
+	auth,_ := security.GetUser(s[1])
+
+	if !auth.IsAuthenticated {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
 		return
 	}
-}
 
-func hasAuthHeader(s []string) bool {
-	return len(s) == 2
-}
-
-func isAuthenticated(token string) bool {
-	return security.IsTokenValid(token)
+	c.Set("auth", auth)
 }

@@ -2,12 +2,16 @@ package security
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"os"
-
-	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 )
+
+type Auth struct {
+	User            User
+	IsAuthenticated bool
+}
 
 type User struct {
 	Id       int      `json:"id"`
@@ -30,37 +34,27 @@ func init() {
 	Client = &http.Client{}
 }
 
-func GetUser(token string) (User, error) {
-	var u User
+func GetUser(token string) (Auth, error) {
+	var auth Auth = Auth{
+		IsAuthenticated: false,
+	}
 
 	res, err := request(token)
 	if err != nil {
-		return u, err
+		return auth, err
 	}
 
 	io, err := io.ReadAll(res.Body)
 	if err != nil {
-		return u, err
+		return auth, err
+	}
+	if err := json.Unmarshal(io, &auth.User); err != nil {
+		return auth, err
 	}
 
-	if err := json.Unmarshal(io, &u); err != nil {
-		return u, err
-	}
+	auth.IsAuthenticated = true
 
-	return u, nil
-}
-
-func IsTokenValid(token string) bool {
-	res, err := request(token)
-	if err != nil {
-		return false
-	}
-
-	return res.StatusCode == 200
-}
-
-func (user User) HasRole(role string) bool {
-	return util.Contains(role, user.Roles)
+	return auth, nil
 }
 
 func request(token string) (*http.Response, error) {
@@ -74,6 +68,10 @@ func request(token string) (*http.Response, error) {
 	res, err := Client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, errors.New("TOKEN NOT VALID")
 	}
 
 	return res, nil

@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
 	"github.com/incwadi-warehouse/monorepo-go/security/security"
 )
@@ -27,18 +28,13 @@ func Search(c *gin.Context) {
 }
 
 func Rebuild(c *gin.Context) {
-    token := strings.Split(c.GetHeader("Authorization"), " ")
-    if len(token) != 2 {
-        c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
-		return
-    }
-	user, err := security.GetUser(token[1])
-	if err != nil {
+	auth, exists := c.Get("auth")
+	if !exists {
 		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
 		return
 	}
 
-    if !user.HasRole("ROLE_ADMIN") {
+	if !util.Contains("ROLE_ADMIN", auth.(security.Auth).User.Roles) {
 		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
 		return
 	}
@@ -49,7 +45,7 @@ func Rebuild(c *gin.Context) {
 	}
 
 	api.NewRequest("DELETE", "/indexes/"+c.Param("index")+"/documents", strings.NewReader(""))
-    status, data := api.NewRequest("POST", "/indexes/"+c.Param("index")+"/documents", c.Request.Body)
+	status, data := api.NewRequest("POST", "/indexes/"+c.Param("index")+"/documents", c.Request.Body)
 
 	c.JSON(status, data)
 }
