@@ -8,7 +8,7 @@ import (
 	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
-	security "github.com/incwadi-warehouse/monorepo-go/security/authentication"
+	"github.com/incwadi-warehouse/monorepo-go/security/authentication"
 )
 
 type Response struct {
@@ -34,7 +34,7 @@ func Rebuild(c *gin.Context) {
 		return
 	}
 
-	if !util.Contains("ROLE_ADMIN", auth.(security.Auth).User.Roles) {
+	if !util.Contains("ROLE_ADMIN", auth.(authentication.Auth).User.Roles) {
 		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
 		return
 	}

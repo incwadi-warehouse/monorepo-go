@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	security "github.com/incwadi-warehouse/monorepo-go/security/authentication"
+	"github.com/incwadi-warehouse/monorepo-go/security/authentication"
 )
 
 type Response struct {
@@ -24,7 +24,7 @@ func checkAuth(c *gin.Context) {
 		return
 	}
 
-	auth, err := security.GetUser(s[1])
+	auth, err := authentication.GetUser(s[1])
 	if err != nil {
 		c.AbortWithStatusJSON(
 			http.StatusUnauthorized,
