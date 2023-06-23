@@ -2,7 +2,7 @@ package mock
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/security/auth"
+	"github.com/incwadi-warehouse/monorepo-go/security/security"
 )
 
 type Response struct {
@@ -12,7 +12,7 @@ type Response struct {
 
 func Me(c *gin.Context) {
 	if c.GetHeader("Authorization") == "Bearer token" {
-		u := auth.User{}
+		u := security.User{}
 		u.Id = 1
 		u.Username = "admin"
 		u.Branch.Id = 1

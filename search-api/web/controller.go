@@ -8,7 +8,7 @@ import (
 	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
-	security "github.com/incwadi-warehouse/monorepo-go/security/auth"
+	"github.com/incwadi-warehouse/monorepo-go/security/security"
 )
 
 type Response struct {
