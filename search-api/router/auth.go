@@ -17,14 +17,27 @@ func checkAuth(c *gin.Context) {
 	s := strings.Split(c.GetHeader("Authorization"), " ")
 
 	if len(s) != 2 {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
+		c.AbortWithStatusJSON(
+			http.StatusUnauthorized,
+			Response{http.StatusUnauthorized, "Token missing"},
+		)
 		return
 	}
 
-	auth, _ := auth.GetUser(s[1])
+	auth, err := auth.GetUser(s[1])
+	if err != nil {
+		c.AbortWithStatusJSON(
+			http.StatusUnauthorized,
+			Response{http.StatusUnauthorized, "Unauthorized"},
+		)
+		return
+	}
 
 	if !auth.IsAuthenticated {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, Response{401, "Token missing"})
+		c.AbortWithStatusJSON(
+			http.StatusUnauthorized,
+			Response{http.StatusUnauthorized, "Unauthorized"},
+		)
 		return
 	}
 
