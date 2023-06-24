@@ -1,14 +1,13 @@
 package update
 
 import (
-	"encoding/json"
-	"io"
 	"log"
 	"os"
 	"strings"
 
-	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/meili"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
+	"github.com/meilisearch/meilisearch-go"
 )
 
 type UpdateConf struct {
@@ -20,28 +19,18 @@ type UpdateConf struct {
 	MustRemove      []string
 }
 
-type Indexes struct {
-	Limit   int     `json:"limit"`
-	Offset  int     `json:"offset"`
-	Results []Index `json:"results"`
-	Total   int     `json:"total"`
+type Client interface {
+    Index(uid string) *meilisearch.Index
+	GetIndexes(*meilisearch.IndexesQuery) (*meilisearch.IndexesResults, error)
+    CreateIndex(config *meilisearch.IndexConfig) (resp *meilisearch.TaskInfo, err error)
+    DeleteIndex(uid string) (resp *meilisearch.TaskInfo, err error)
 }
 
-type Index struct {
-	Uid        string `json:"uid"`
-	CreatedAt  string `json:"createdAt"`
-	UpdatedAt  string `json:"updatedAt"`
-	PrimaryKey string `json:"primaryKey"`
-}
-
-type CreateIndex struct {
-	Uid        string `json:"uid"`
-	PrimaryKey string `json:"primaryKey"`
-}
-
-var request = api.NewRequestWithPlainRes
+var client Client
 
 func Run() {
+	client = meili.NewClient()
+
 	conf := &UpdateConf{
 		AllowedBranches: strings.Split(os.Getenv("BRANCHES"), ","),
 		AllowedIndexes:  strings.Split(os.Getenv("INDEXES"), ","),
@@ -53,25 +42,19 @@ func Run() {
 	conf.getMustRemove()
 
 	conf.doCreate()
+	conf.doSettings()
+
 	conf.doRemove()
-    conf.doSettings()
 }
 
 func (conf *UpdateConf) getIndexes() {
-	res := request("GET", "/indexes", strings.NewReader(""))
-
-	body, err := io.ReadAll(res.Body)
+	res, err := client.GetIndexes(nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var data Indexes
-	if err := json.Unmarshal(body, &data); err != nil {
-		log.Fatal(err)
-	}
-
-	for _, v := range data.Results {
-		conf.Indexes = append(conf.Indexes, v.Uid)
+	for _, v := range res.Results {
+		conf.Indexes = append(conf.Indexes, v.UID)
 	}
 }
 
@@ -101,27 +84,24 @@ func (conf *UpdateConf) getMustRemove() {
 
 func (conf *UpdateConf) doCreate() {
 	for _, name := range conf.MustCreate {
-		jsonData, err := json.Marshal(CreateIndex{name, "id"})
-		if err != nil {
-			log.Fatal(err)
-		}
-		request("POST", "/indexes", strings.NewReader(string(jsonData)))
+		client.CreateIndex(&meilisearch.IndexConfig{
+			Uid:        name,
+			PrimaryKey: "id",
+		})
 	}
 }
 
 func (conf *UpdateConf) doRemove() {
 	for _, name := range conf.MustRemove {
-		request("DELETE", "/indexes/"+name, strings.NewReader(""))
+		client.DeleteIndex(name)
 	}
 }
 
 func (conf *UpdateConf) doSettings() {
-    jsonData, err := json.Marshal([]string{"genre"})
-		if err != nil {
-			log.Fatal(err)
-		}
-
 	for _, name := range conf.Indexes {
-		request("PUT", "/indexes/"+name+"/settings/filterable-attributes", strings.NewReader(string(jsonData)))
+		filterableAttributes := []string{
+			"genre",
+		}
+		client.Index(name).UpdateFilterableAttributes(&filterableAttributes)
 	}
 }

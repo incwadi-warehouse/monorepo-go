@@ -1,19 +1,28 @@
 package web
 
 import (
+	"encoding/json"
+	"io"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/api"
+	"github.com/incwadi-warehouse/monorepo-go/search-api/meili"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
 	"github.com/incwadi-warehouse/monorepo-go/security/authentication"
+	"github.com/meilisearch/meilisearch-go"
 )
 
 type Response struct {
 	Status  int    `json:"status"`
 	Message string `json:"message"`
+}
+
+type SearchQuery struct {
+	Q      string      `json:"q"`
+	Limit  int64       `json:"limit"`
+	Filter interface{} `json:"filter"`
+	Facets []string    `json:"facets"`
 }
 
 func Search(c *gin.Context) {
@@ -22,9 +31,30 @@ func Search(c *gin.Context) {
 		return
 	}
 
-	status, data := api.NewRequest("POST", "/indexes/"+c.Param("index")+"/search", c.Request.Body)
+	io, err := io.ReadAll(c.Request.Body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		return
+	}
 
-	c.JSON(status, data)
+	var s SearchQuery
+	if err := json.Unmarshal(io, &s); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		return
+	}
+
+	client := meili.NewClient()
+	data, err := client.Index(c.Param("index")).Search(s.Q, &meilisearch.SearchRequest{
+		Limit:  s.Limit,
+		Filter: s.Filter,
+		Facets: s.Facets,
+	})
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		return
+	}
+
+	c.JSON(http.StatusOK, data)
 }
 
 func Rebuild(c *gin.Context) {
@@ -44,8 +74,9 @@ func Rebuild(c *gin.Context) {
 		return
 	}
 
-	api.NewRequest("DELETE", "/indexes/"+c.Param("index")+"/documents", strings.NewReader(""))
-	status, data := api.NewRequest("POST", "/indexes/"+c.Param("index")+"/documents", c.Request.Body)
+	client := meili.NewClient()
+	client.Index(c.Param("index")).DeleteAllDocuments()
+	client.Index(c.Param("index")).UpdateDocuments(c.Request.Body)
 
-	c.JSON(status, data)
+	c.JSON(http.StatusOK, Response{http.StatusOK, "Documents added to queue."})
 }
