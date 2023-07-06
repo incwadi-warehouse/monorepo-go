@@ -33,13 +33,13 @@ func Search(c *gin.Context) {
 
 	io, err := io.ReadAll(c.Request.Body)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error 1"})
 		return
 	}
 
 	var s SearchQuery
 	if err := json.Unmarshal(io, &s); err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error 2"})
 		return
 	}
 
@@ -50,7 +50,7 @@ func Search(c *gin.Context) {
 		Facets: s.Facets,
 	})
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error"})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, Response{http.StatusInternalServerError, "Server Error 3"})
 		return
 	}
 
