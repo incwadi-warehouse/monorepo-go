@@ -23,6 +23,7 @@ var refreshCmd = &cobra.Command{
 		}
 
 		fmt.Print(string(stopContainers))
+        fmt.Print("Done")
 
 		fmt.Println("Starting all containers...")
 
@@ -32,6 +33,7 @@ var refreshCmd = &cobra.Command{
 		}
 
 		fmt.Print(string(startContainers))
+        fmt.Print("Done")
 	},
 }
 

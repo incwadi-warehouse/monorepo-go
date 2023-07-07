@@ -16,12 +16,10 @@ var rebootCmd = &cobra.Command{
 		fmt.Println("Reboot system")
 		fmt.Println("The connection will be terminated")
 
-		out, err := command.Command([]string{"reboot"})
+		_, err := command.Command([]string{"reboot"})
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		fmt.Print(out)
 	},
 }
 

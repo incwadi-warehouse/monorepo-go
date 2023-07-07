@@ -22,6 +22,7 @@ var pullCmd = &cobra.Command{
 		}
 
 		fmt.Print(string(out))
+        fmt.Print("Done")
 	},
 }
 
