@@ -30,6 +30,7 @@ func init() {
     viper.AddConfigPath("$HOME/.admincli/")
     viper.AddConfigPath("./")
 
+    viper.SetEnvPrefix("admincli")
     viper.AutomaticEnv()
 
     if err := viper.ReadInConfig(); err == nil {
