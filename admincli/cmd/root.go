@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -33,7 +33,7 @@ func init() {
     viper.SetEnvPrefix("admincli")
     viper.AutomaticEnv()
 
-    if err := viper.ReadInConfig(); err == nil {
-        fmt.Println("Using config file:", viper.ConfigFileUsed())
+    if err := viper.ReadInConfig(); err != nil {
+        log.Fatal(err)
     }
 }
