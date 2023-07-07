@@ -3,10 +3,10 @@ package cmd
 import (
 	"fmt"
 	"log"
-    "os"
 
 	"github.com/incwadi-warehouse/monorepo-go/admincli/command"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var pullCmd = &cobra.Command{
@@ -16,7 +16,7 @@ var pullCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Pulling new images...")
 
-		out, err := command.Command([]string{"docker compose --project-directory "+ os.Getenv("PROJECT_DIR") +" pull"})
+		out, err := command.Command([]string{"/usr/bin/docker compose --project-directory "+ viper.GetString("project_dir") +" pull"})
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -24,6 +24,7 @@ var pullCmd = &cobra.Command{
 		fmt.Print(out)
 	},
 }
+
 
 func init() {
 	rootCmd.AddCommand(pullCmd)
