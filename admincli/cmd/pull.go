@@ -16,7 +16,7 @@ var pullCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Pulling new images...")
 
-		out, err := command.Command([]string{"/usr/bin/docker compose --project-directory "+ viper.GetString("project_dir") +" pull"})
+		out, err := command.Command([]string{"/usr/bin/docker", "compose", "--project-directory", viper.GetString("project_dir"), "pull"})
 		if err != nil {
 			log.Fatal(err)
 		}
