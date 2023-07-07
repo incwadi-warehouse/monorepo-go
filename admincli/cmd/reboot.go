@@ -15,7 +15,7 @@ var rebootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Reboot system")
 
-		out, err := command.Command([]string{"sudo reboot"})
+		out, err := command.Command([]string{"reboot"})
 		if err != nil {
 			log.Fatal(err)
 		}

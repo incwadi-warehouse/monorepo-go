@@ -17,7 +17,7 @@ var refreshCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Stopping all containers...")
 
-		stopContainers, err := command.Command([]string{"/usr/bin/docker compose --project-directory " + viper.GetString("project_dir") + " down"})
+		stopContainers, err := command.Command([]string{"/usr/bin/docker", "compose", "--project-directory", viper.GetString("project_dir"), "down"})
 		if err != nil {
 			log.Fatal(err)
 		}
