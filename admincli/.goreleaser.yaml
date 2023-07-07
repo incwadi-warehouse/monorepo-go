@@ -11,6 +11,7 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
+    binary: admincli
 
 archives:
   - format: tar.gz
