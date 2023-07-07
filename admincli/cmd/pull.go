@@ -21,8 +21,8 @@ var pullCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		fmt.Print(string(out))
-        fmt.Print("Done")
+		fmt.Println(string(out))
+        fmt.Println("Done")
 	},
 }
 
