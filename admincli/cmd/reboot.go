@@ -14,6 +14,7 @@ var rebootCmd = &cobra.Command{
 	Long:  `Reboot the OS.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Reboot system")
+		fmt.Println("The connection will be terminated")
 
 		out, err := command.Command([]string{"reboot"})
 		if err != nil {
