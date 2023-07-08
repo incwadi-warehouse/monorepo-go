@@ -51,6 +51,19 @@ PROJECT_DIR=
 |BRANCHES               |search-api             |List of allowed branches, comma-separated
 |INDEXES                |search-api             |List of allowed indexes, comma-separated
 
+admincli will read a config file from following paths:
+
+- /etc/admincli/admincli.yaml
+- $HOME/.admincli/admincli.yaml
+- ./admincli.yaml
+
+Example
+
+```yaml
+// admincli.yaml
+project_dir: .
+```
+
 ## Testing
 
 ```shell
