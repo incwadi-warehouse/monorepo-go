@@ -31,9 +31,6 @@ nfpms:
     section: misc
     maintainer: "André Baldeweg"
     description: "Offers tools for maintenance"
-    contents:
-      - src: admincli.yaml
-        dst: /etc/admincli/admincli.yaml
 
 checksum:
   name_template: "checksums.txt"
