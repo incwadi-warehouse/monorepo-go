@@ -11,7 +11,7 @@ import (
 
 var refreshCmd = &cobra.Command{
 	Use:   "refresh",
-	Short: "Reloads container images",
+	Short: "Reload container images",
 	Long:  `Restart all containers.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Stopping all containers...")
