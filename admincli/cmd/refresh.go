@@ -26,7 +26,7 @@ var refreshCmd = &cobra.Command{
 
 		fmt.Println("Starting all containers...")
 
-		startContainers, err := command.Command([]string{"/usr/bin/docker", "compose", "--project-directory", viper.GetString("project_dir"), "up -d"})
+		startContainers, err := command.Command([]string{"/usr/bin/docker", "compose", "--project-directory", viper.GetString("project_dir"), "up", "-d"})
 		if err != nil {
 			log.Fatal(err)
 		}
