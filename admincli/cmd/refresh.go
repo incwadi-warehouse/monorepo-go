@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/incwadi-warehouse/monorepo-go/admincli/command"
 	"github.com/spf13/cobra"
@@ -23,17 +22,17 @@ var refreshCmd = &cobra.Command{
 		}
 
 		fmt.Println(string(stopContainers))
-        fmt.Println("Done")
+		fmt.Println("Done")
 
 		fmt.Println("Starting all containers...")
 
-		startContainers, err := command.Command([]string{"docker compose --project-directory " + os.Getenv("PROJECT_DIR") + " up -d"})
+		startContainers, err := command.Command([]string{"/usr/bin/docker", "compose", "--project-directory", viper.GetString("project_dir"), "up -d"})
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		fmt.Println(string(startContainers))
-        fmt.Println("Done")
+		fmt.Println("Done")
 	},
 }
 
