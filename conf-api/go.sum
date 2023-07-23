@@ -136,6 +136,8 @@ github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230716221116-ca65ca23cf32
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230716221116-ca65ca23cf32/go.mod h1:z12twvpn9MRxI5vQ9XBCm+X8h4fkFz7w+smd+p1PnYU=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230719063312-b4f438d2ea61 h1:QVf9ZS2PrnxYLNN5vEWgSCZ9rlDxsQMBAoQDCE76a1Y=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230719063312-b4f438d2ea61/go.mod h1:z12twvpn9MRxI5vQ9XBCm+X8h4fkFz7w+smd+p1PnYU=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230723112145-5db047654b5a h1:e19C5ThaStVUqMVhwi7zbFz9qkayqqBgkaw0yPzxKS8=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230723112145-5db047654b5a/go.mod h1:YaOS32wBuY06iN2StLe830wu5nIuw4l1XMygVkwfk9Y=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
@@ -186,6 +188,8 @@ github.com/santhosh-tekuri/jsonschema/v5 v5.2.0 h1:WCcC4vZDS1tYNxjWlwRJZQy28r8CM
 github.com/santhosh-tekuri/jsonschema/v5 v5.2.0/go.mod h1:FKdcjfQW6rpZSnxxUvEA5H/cDPdvJ/SZJQLWWXWGrZ0=
 github.com/santhosh-tekuri/jsonschema/v5 v5.3.0 h1:uIkTLo0AGRc8l7h5l9r+GcYi9qfVPt6lD4/bhmzfiKo=
 github.com/santhosh-tekuri/jsonschema/v5 v5.3.0/go.mod h1:FKdcjfQW6rpZSnxxUvEA5H/cDPdvJ/SZJQLWWXWGrZ0=
+github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 h1:lZUw3E0/J3roVtGQ+SCrUrg3ON6NgVqpn3+iol9aGu4=
+github.com/santhosh-tekuri/jsonschema/v5 v5.3.1/go.mod h1:uToXkOrWAZ6/Oc07xWQrPOhJotwFIyu2bBVN41fcDUY=
 github.com/spkg/bom v0.0.0-20160624110644-59b7046e48ad/go.mod h1:qLr4V1qq6nMqFKkMo8ZTx3f+BZEkzsRUY10Xsm2mwU0=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
