@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230719063312-b4f438d2ea61
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20230723112145-5db047654b5a
 	github.com/joho/godotenv v1.5.1
 )
 
@@ -15,7 +15,7 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
-	github.com/santhosh-tekuri/jsonschema/v5 v5.3.0 // indirect
+	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
