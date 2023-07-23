@@ -4,5 +4,5 @@ go 1.20
 
 require (
 	github.com/RaveNoX/go-jsonmerge v1.0.0
-	github.com/santhosh-tekuri/jsonschema/v5 v5.3.0
+	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1
 )
