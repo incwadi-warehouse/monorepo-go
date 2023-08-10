@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"slices"
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/meili"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/incwadi-warehouse/monorepo-go/search-api/validation"
 	"github.com/incwadi-warehouse/monorepo-go/security/authentication"
 	"github.com/meilisearch/meilisearch-go"
@@ -64,7 +64,7 @@ func Rebuild(c *gin.Context) {
 		return
 	}
 
-	if !util.Contains("ROLE_ADMIN", auth.(authentication.Auth).User.Roles) {
+	if !slices.Contains(auth.(authentication.Auth).User.Roles, "ROLE_ADMIN") {
 		c.AbortWithStatusJSON(http.StatusForbidden, Response{http.StatusForbidden, "Forbidden"})
 		return
 	}

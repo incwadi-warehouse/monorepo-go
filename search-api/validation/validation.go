@@ -2,10 +2,10 @@ package validation
 
 import (
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 )
 
 var validate *validator.Validate
@@ -37,5 +37,5 @@ func validateIndexName(fl validator.FieldLevel) bool {
 		}
 	}
 
-	return util.Contains(str, allowedNames)
+	return slices.Contains(allowedNames, str)
 }

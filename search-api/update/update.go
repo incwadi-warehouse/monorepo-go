@@ -3,10 +3,10 @@ package update
 import (
 	"log"
 	"os"
+	"slices"
 	"strings"
 
 	"github.com/incwadi-warehouse/monorepo-go/search-api/meili"
-	"github.com/incwadi-warehouse/monorepo-go/search-api/util"
 	"github.com/meilisearch/meilisearch-go"
 )
 
@@ -68,7 +68,7 @@ func (conf *UpdateConf) getShouldExist() {
 
 func (conf *UpdateConf) getMustCreate() {
 	for _, name := range conf.ShouldExist {
-		if !util.Contains(name, conf.Indexes) {
+		if !slices.Contains(conf.Indexes, name) {
 			conf.MustCreate = append(conf.MustCreate, name)
 		}
 	}
@@ -76,7 +76,7 @@ func (conf *UpdateConf) getMustCreate() {
 
 func (conf *UpdateConf) getMustRemove() {
 	for _, name := range conf.Indexes {
-		if !util.Contains(name, conf.ShouldExist) {
+		if !slices.Contains(conf.ShouldExist, name) {
 			conf.MustRemove = append(conf.MustRemove, name)
 		}
 	}
