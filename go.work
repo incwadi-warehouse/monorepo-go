@@ -1,9 +1,9 @@
-go 1.20
+go 1.21
 
 use (
+	./admincli
 	./conf
 	./conf-api
-    ./admincli
-    ./search-api
-    ./security
+	./search-api
+	./security
 )
