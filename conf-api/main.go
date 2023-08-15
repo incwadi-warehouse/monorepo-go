@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -10,11 +9,8 @@ import (
 )
 
 func main() {
-	if _, err := os.Stat("./.env"); err == nil {
-		if err := godotenv.Load(); err != nil {
-			log.Fatal("Error loading .env file")
-		}
-	}
+	godotenv.Load(".env.local")
+	godotenv.Load() // .env
 
 	gin.SetMode(getGinMode())
 
