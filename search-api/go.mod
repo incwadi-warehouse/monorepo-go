@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
-	github.com/go-playground/validator/v10 v10.15.0
+	github.com/go-playground/validator/v10 v10.15.1
 	github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20230816083856-9e7e068e8b8a
 	github.com/joho/godotenv v1.5.1
 	github.com/meilisearch/meilisearch-go v0.25.0
