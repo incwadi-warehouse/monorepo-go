@@ -15,6 +15,11 @@ services:
     restart: unless-stopped
     volumes:
       - couchdb-data:/opt/couchdb/data
+      - config:/opt/couchdb/etc/local.d
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
 
 volumes:
   couchdb-data:
+  config:
