@@ -3,9 +3,9 @@
 {
     "name": "Go",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "devcontainer",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "features": {
         "ghcr.io/guiyomh/features/goreleaser:0": {},
         "ghcr.io/EliiseS/devcontainer-features/bash-profile:1": {
@@ -13,6 +13,9 @@
         },
         "ghcr.io/devcontainers/features/github-cli:1": {}
     },
+    "forwardPorts": [
+        5984
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
