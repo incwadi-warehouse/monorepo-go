@@ -8,6 +8,9 @@ require (
 )
 
 require (
+	github.com/Knetic/govaluate v3.0.0+incompatible // indirect
+	github.com/bcicen/bfstree v1.0.0 // indirect
+	github.com/bcicen/go-units v1.0.5 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
