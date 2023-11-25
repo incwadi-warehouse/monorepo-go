@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/gin-contrib/cors v1.5.0
 	github.com/gin-gonic/gin v1.9.1
-	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20231115091756-1409ad0249d2
+	github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20231125180856-4cf37fb38c51
 	github.com/joho/godotenv v1.5.1
 )
 
