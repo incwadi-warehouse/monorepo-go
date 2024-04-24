@@ -25,12 +25,13 @@ archives:
       {{- if .Arm }}v{{ .Arm }}{{ end }}
 
 nfpms:
-  - formats:
-      - "deb"
+  -
     package_name: admincli
     section: misc
-    maintainer: "André Baldeweg"
     description: "Offers tools for maintenance"
+    maintainer: "André Baldeweg"
+    formats:
+      - deb
 
 checksum:
   name_template: "checksums.txt"
