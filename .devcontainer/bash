@@ -27,6 +27,6 @@ function build ()
 {
   if [ -f .goreleaser.yaml ]
     then
-      goreleaser build --rm-dist
+      goreleaser --clean
   fi
 }
