@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/bcicen/go-units v1.0.5
 	github.com/joho/godotenv v1.5.1
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 )
 
 require (
