@@ -6,7 +6,7 @@ require (
 	github.com/gin-contrib/cors v1.7.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator/v10 v10.22.0
-	github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240615091755-d0d6e4548e23
+	github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240618103945-72433cb567a2
 	github.com/joho/godotenv v1.5.1
 	github.com/meilisearch/meilisearch-go v0.26.3
 )
