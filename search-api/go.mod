@@ -8,7 +8,7 @@ require (
 	github.com/go-playground/validator/v10 v10.22.0
 	github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240628102634-aa28e0326a2c
 	github.com/joho/godotenv v1.5.1
-	github.com/meilisearch/meilisearch-go v0.26.3
+	github.com/meilisearch/meilisearch-go v0.27.0
 )
 
 require (
