@@ -1,6 +1,7 @@
 package router
 
 import (
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -16,13 +17,14 @@ func Router() {
 	}
 
 	r.Use(gin.Recovery())
-
 	r.Use(headers())
 
 	r.Any("/1/:path", func(c *gin.Context) {
 		path := c.Param("path")
-
-		proxy.ProxyRequest(c, os.Getenv("API_CORE"), path)
+		if err := proxy.Proxy(c, os.Getenv("API_CORE"), path); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
+			return
+		}
 	})
 
 	r.Run(":8080")
