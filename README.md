@@ -40,7 +40,7 @@ PROJECT_DIR=
 
 |Var                    |Used by                        |Description
 |-----------------------|-------------------------------|--------------------------------
-|ENV                    |conf-api, search-api, gateway  |Set to `prod`, `dev` or `test`
+|ENV                    |conf-api, search-api           |Set to `prod`, `dev` or `test`
 |DATA_DIR               |conf-api                       |Path where to store the files
 |CORS_ALLOW_ORIGIN      |conf-api, search-api, gateway  |Allowed origins
 |BASE_PATH              |conf-api, search-api           |Configure the base path
