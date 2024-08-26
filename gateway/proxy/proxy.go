@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"time"
+    "log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,7 @@ import (
 const duration = 20 * time.Second
 
 func Proxy(c *gin.Context, serviceURL string, path string) error {
+	log.Println("serviceURL:", serviceURL)
 	ctx, cancel := context.WithTimeout(c.Request.Context(), duration)
 	defer cancel()
 
