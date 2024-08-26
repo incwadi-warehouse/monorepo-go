@@ -20,7 +20,7 @@ func Router() {
 	r.Use(gin.Recovery())
 	r.Use(headers())
 
-	r.Any("/apis/core/1/:path", func(c *gin.Context) {
+	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
 		path := c.Param("path")
 		if err := proxy.Proxy(c, os.Getenv("API_CORE"), path); err != nil {
             log.Println("serviceURL:", os.Getenv("API_CORE"))
