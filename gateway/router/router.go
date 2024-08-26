@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/incwadi-warehouse/monorepo-go/cors/cors"
 	"github.com/incwadi-warehouse/monorepo-go/gateway/proxy"
 )
 
@@ -14,7 +15,7 @@ func Router() {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	r.Use(headers())
+	r.Use(cors.Headers())
 
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
 		path := c.Param("path")

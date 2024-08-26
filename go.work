@@ -1,9 +1,10 @@
-go 1.21.10
+go 1.21.13
 
 use (
 	./admincli
 	./conf
 	./conf-api
+	./cors
 	./gateway
 	./search-api
 	./security

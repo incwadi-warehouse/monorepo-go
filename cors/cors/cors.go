@@ -1,4 +1,4 @@
-package router
+package cors
 
 import (
 	"os"
@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func headers() gin.HandlerFunc {
+func Headers() gin.HandlerFunc {
     origins, exists := os.LookupEnv("CORS_ALLOW_ORIGIN")
     if !exists {
         origins = "*"
