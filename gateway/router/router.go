@@ -9,14 +9,11 @@ import (
 )
 
 func Router() {
-	r := gin.New()
+    gin.SetMode(gin.ReleaseMode)
+
+	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	if os.Getenv("ENV") != "prod" {
-		r.Use(gin.Logger())
-	}
-
-	r.Use(gin.Recovery())
 	r.Use(headers())
 
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
