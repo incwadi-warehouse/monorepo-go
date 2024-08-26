@@ -15,8 +15,7 @@ func main() {
 
 	gin.SetMode(getGinMode())
 
-    logFile, _ := os.Create("gin.log")
-    gin.DefaultWriter = io.MultiWriter(logFile, os.Stdout)
+    gin.DefaultWriter = io.MultiWriter(os.Stdout)
 	router.Router()
 }
 
