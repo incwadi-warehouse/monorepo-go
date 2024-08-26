@@ -3,7 +3,6 @@ package proxy
 import (
 	"context"
 	"io"
-	"log"
 	"net/http"
 	"time"
 
@@ -13,8 +12,6 @@ import (
 const duration = 20 * time.Second
 
 func Proxy(c *gin.Context, serviceURL string, path string) error {
-	log.Println("serviceURL:", serviceURL)
-	log.Println("path:", path)
 	ctx, cancel := context.WithTimeout(c.Request.Context(), duration)
 	defer cancel()
 
