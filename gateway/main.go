@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -15,7 +14,6 @@ func main() {
 
 	gin.SetMode(getGinMode())
 
-    gin.DefaultWriter = io.MultiWriter(os.Stdout)
 	router.Router()
 }
 

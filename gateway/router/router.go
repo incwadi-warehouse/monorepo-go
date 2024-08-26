@@ -1,7 +1,6 @@
 package router
 
 import (
-	"log"
 	"net/http"
 	"os"
 
@@ -23,8 +22,7 @@ func Router() {
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
 		path := c.Param("path")
 		if err := proxy.Proxy(c, os.Getenv("API_CORE"), path); err != nil {
-            log.Println("serviceURL:", os.Getenv("API_CORE"))
-	        log.Println("path:", path)
+
 			c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
 			return
 		}
