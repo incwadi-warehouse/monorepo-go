@@ -24,7 +24,8 @@
                 "golang.go",
                 "DavidAnson.vscode-markdownlint",
                 "christian-kohler.path-intellisense",
-                "redhat.vscode-yaml"
+                "redhat.vscode-yaml",
+                "donjayamanne.githistory"
             ]
         }
     }
