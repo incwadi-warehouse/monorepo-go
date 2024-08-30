@@ -44,6 +44,8 @@ github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240730201637-2f9867b4
 github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240730201637-2f9867b43194/go.mod h1:MA70xJcIbZkJdCIJX6Y0lHIeooUKVRncRXTfgOrHsyM=
 github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240826183634-677bd1d7d346 h1:Rc6dcWBMkl9d3VVzjsU0RH8svoHFV9+pqHK8Bd+IVVY=
 github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240826183634-677bd1d7d346/go.mod h1:MA70xJcIbZkJdCIJX6Y0lHIeooUKVRncRXTfgOrHsyM=
+github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240830004131-78ac73738617 h1:6MkeD7N4xCS92TOzMDril5A+T+VBw4JG8124oT9jL0M=
+github.com/incwadi-warehouse/monorepo-go/security v0.0.0-20240830004131-78ac73738617/go.mod h1:MA70xJcIbZkJdCIJX6Y0lHIeooUKVRncRXTfgOrHsyM=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/josharian/intern v1.0.0 h1:vlS4z54oSdjm0bgjRigI+G1HpF+tI+9rE5LLzOg8HmY=
