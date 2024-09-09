@@ -45,6 +45,8 @@ github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240730201637-2f9867b43194
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240730201637-2f9867b43194/go.mod h1:CrsWtXFLpzVi9rc2mK15rDcB0WPCxqdVG357+pmFoDE=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240826183634-677bd1d7d346 h1:RCEtryQQ5qPaBMkhxvm3G2adFOEUC1AT9xr/MRVyGpg=
 github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240826183634-677bd1d7d346/go.mod h1:CrsWtXFLpzVi9rc2mK15rDcB0WPCxqdVG357+pmFoDE=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240909201415-2a71653a1b33 h1:TbutINkoBVeY/XQj9UY4VJ684r2HsayKlL1u+mO8OBQ=
+github.com/incwadi-warehouse/monorepo-go/conf v0.0.0-20240909201415-2a71653a1b33/go.mod h1:CrsWtXFLpzVi9rc2mK15rDcB0WPCxqdVG357+pmFoDE=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
