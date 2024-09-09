@@ -20,7 +20,6 @@ func Router() {
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
 		path := c.Param("path")
 		if err := proxy.Proxy(c, os.Getenv("API_CORE"), path); err != nil {
-
 			c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
 			return
 		}
