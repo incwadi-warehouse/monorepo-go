@@ -1,0 +1,75 @@
+name: Unit-Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-admincli:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.6"
+      - name: Run admincli tests
+        working-directory: ./admincli
+        run: |
+          go mod tidy
+          go test ./...
+
+  test-conf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.6"
+      - name: Run conf tests
+        working-directory: ./conf
+        run: |
+          go mod tidy
+          go test ./...
+
+  test-conf-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.6"
+      - name: Run conf-api tests
+        working-directory: ./conf-api
+        run: |
+          go mod tidy
+          go test ./...
+
+  test-search-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.6"
+      - name: Run search-api tests
+        working-directory: ./search-api
+        run: |
+          go mod tidy
+          go test ./...
+
+  test-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.6"
+      - name: Run security tests
+        working-directory: ./security
+        run: |
+          go mod tidy
+          go test ./...
