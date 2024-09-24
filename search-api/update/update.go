@@ -19,14 +19,7 @@ type UpdateConf struct {
 	MustRemove      []string
 }
 
-type Client interface {
-    Index(uid string) *meilisearch.Index
-	GetIndexes(*meilisearch.IndexesQuery) (*meilisearch.IndexesResults, error)
-    CreateIndex(config *meilisearch.IndexConfig) (resp *meilisearch.TaskInfo, err error)
-    DeleteIndex(uid string) (resp *meilisearch.TaskInfo, err error)
-}
-
-var client Client
+var client meilisearch.ServiceManager
 
 func Run() {
 	client = meili.NewClient()
@@ -48,7 +41,7 @@ func Run() {
 }
 
 func (conf *UpdateConf) getIndexes() {
-	res, err := client.GetIndexes(nil)
+	res, err := client.ListIndexes(nil)
 	if err != nil {
 		log.Fatal(err)
 	}
