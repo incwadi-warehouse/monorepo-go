@@ -5,7 +5,7 @@ go 1.21.13
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/uuid v1.6.0
-	github.com/incwadi-warehouse/monorepo-go/cors v0.0.0-20240923070841-6c993218db7b
+	github.com/incwadi-warehouse/monorepo-go/cors v0.0.0-20240924103910-dcba57cb28b4
 	github.com/joho/godotenv v1.5.1
 )
 
