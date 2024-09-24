@@ -19,7 +19,8 @@
                 "DavidAnson.vscode-markdownlint",
                 "christian-kohler.path-intellisense",
                 "redhat.vscode-yaml",
-                "donjayamanne.githistory"
+                "donjayamanne.githistory",
+                "42Crunch.vscode-openapi"
             ]
         }
     }

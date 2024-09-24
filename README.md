@@ -78,3 +78,7 @@ curl -X POST http://localhost:8080/api/user/1/snow2 -H "Content-Type: applicatio
 ```shell
 curl -X DELETE http://localhost:8080/api/user/1/snow2 -H "Content-Type: application/json" -H "Authorization: Bearer token"
 ```
+
+## Blog
+
+Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
