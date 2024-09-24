@@ -6,9 +6,6 @@ import (
 	"github.com/meilisearch/meilisearch-go"
 )
 
-func NewClient() *meilisearch.Client {
-	return meilisearch.NewClient(meilisearch.ClientConfig{
-		Host:   os.Getenv("MEILI"),
-		APIKey: os.Getenv("MEILI_TOKEN"),
-	})
+func NewClient() meilisearch.ServiceManager {
+	return meilisearch.New(os.Getenv("MEILI"), meilisearch.WithAPIKey(os.Getenv("MEILI_TOKEN")))
 }
