@@ -11,7 +11,8 @@ import (
 
 // APIKey represents a single API key.
 type APIKey struct {
-	Key string `json:"key"`
+	Key         string   `json:"key"`
+	Permissions []string `json:"permissions"`
 }
 
 // keysFilePath is the path to the JSON file storing API keys.
@@ -40,7 +41,7 @@ func loadAPIKeys() ([]APIKey, error) {
 // If no keys are provided, it generates a new UUID as a default key.
 func createAPIKeysFile(keys []APIKey) error {
 	if len(keys) == 0 {
-		newKey := APIKey{Key: uuid.New().String()}
+		newKey := APIKey{Key: uuid.New().String(), Permissions: []string{}} 
 		keys = append(keys, newKey)
 	}
 
@@ -64,6 +65,27 @@ func IsValidAPIKey(key string) bool {
 	for _, k := range keys {
 		if k.Key == key {
 			return true
+		}
+	}
+
+	return false
+}
+
+// HasPermission checks if the given API key has the specified permission.
+func HasPermission(key string, permission string) bool {
+	keys, err := loadAPIKeys()
+	if err != nil {
+		fmt.Println("Error loading API keys:", err)
+		return false
+	}
+
+	for _, k := range keys {
+		if k.Key == key {
+			for _, p := range k.Permissions {
+				if p == permission {
+					return true
+				}
+			}
 		}
 	}
 
