@@ -5,7 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/blog/apikey"
-	"github.com/incwadi-warehouse/monorepo-go/blog/content"
+	"github.com/incwadi-warehouse/monorepo-go/blog/content/article"
+	"github.com/incwadi-warehouse/monorepo-go/blog/content/home"
 	"github.com/incwadi-warehouse/monorepo-go/cors/cors"
 )
 
@@ -33,7 +34,7 @@ func SetupRouter() *gin.Engine {
 	api := r.Group("/", authMiddleware)
 	{
 		api.GET("/home", func(c *gin.Context) {
-			index, err := content.GetIndex()
+			index, err := home.GetHome()
 			if err != nil {
 				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 				return
@@ -44,7 +45,7 @@ func SetupRouter() *gin.Engine {
 		api.GET("/article/*path", func(c *gin.Context) {
 			path := c.Param("path")
 
-			cnt, err := content.GetArticle(path)
+			cnt, err := article.GetArticle(path)
 			if err != nil {
 				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 				return

@@ -1,17 +1,19 @@
-package content
+package article
 
 import (
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/incwadi-warehouse/monorepo-go/blog/content"
 )
 
 // GetArticle retrieves an article from the filesystem safely.
 func GetArticle(path string) (string, error) {
-	fullPath := filepath.Join(contentRoot, filepath.Clean("/"+path))
+	fullPath := filepath.Join(content.GetContentRoot(), filepath.Clean("/"+path))
 
-	if !strings.HasPrefix(fullPath, contentRoot) {
+	if !strings.HasPrefix(fullPath, content.GetContentRoot()) {
 		return "", fmt.Errorf("error: path traversal attempt detected")
 	}
 

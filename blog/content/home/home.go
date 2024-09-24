@@ -1,4 +1,4 @@
-package content
+package home
 
 import (
 	"encoding/json"
@@ -6,14 +6,15 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/incwadi-warehouse/monorepo-go/blog/content"
 	"gopkg.in/yaml.v3"
 )
 
-// GetIndex returns the content index as a JSON string.
-func GetIndex() (string, error) {
-	indexPath := filepath.Join(contentRoot, "index.yaml")
+// GetHome returns the content index as a JSON string.
+func GetHome() (string, error) {
+	indexPath := filepath.Join(content.GetContentRoot(), "index.yaml")
 
-	entries, err := loadIndex(indexPath)
+	entries, err := loadHome(indexPath)
 	if err != nil {
 		return "", fmt.Errorf("error getting index: %w", err)
 	}
@@ -26,10 +27,10 @@ func GetIndex() (string, error) {
 	return string(jsonData), nil
 }
 
-// loadIndex reads the content index file and returns its content as []IndexEntry.
+// loadHome reads the content index file and returns its content as []IndexEntry.
 // If the file doesn't exist, it creates a default one.
-func loadIndex(indexPath string) ([]IndexEntry, error) {
-	if err := createIndexFileIfNotExists(indexPath); err != nil {
+func loadHome(indexPath string) ([]content.Home, error) {
+	if err := createHomeFileIfNotExists(indexPath); err != nil {
 		return nil, err
 	}
 
@@ -38,7 +39,7 @@ func loadIndex(indexPath string) ([]IndexEntry, error) {
 		return nil, fmt.Errorf("error reading index file: %w", err)
 	}
 
-	var entries []IndexEntry
+	var entries []content.Home
 	if err := yaml.Unmarshal(data, &entries); err != nil {
 		return nil, fmt.Errorf("error unmarshalling index file: %w", err)
 	}
@@ -46,9 +47,9 @@ func loadIndex(indexPath string) ([]IndexEntry, error) {
 	return entries, nil
 }
 
-// createIndexFileIfNotExists creates the index file if it doesn't exist.
+// createHomeFileIfNotExists creates the index file if it doesn't exist.
 // If the file is created, it will include an example entry.
-func createIndexFileIfNotExists(indexPath string) error {
+func createHomeFileIfNotExists(indexPath string) error {
 	if _, err := os.Stat(indexPath); os.IsNotExist(err) {
 		exampleContent := []byte("- slug: example\n  date: 2024-09-24\n  summary: This is an example article.\n")
 		if err := os.WriteFile(indexPath, exampleContent, 0644); err != nil {
