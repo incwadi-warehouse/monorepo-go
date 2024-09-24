@@ -30,12 +30,21 @@ func SetupRouter() *gin.Engine {
 
 	r.Use(cors.Headers())
 
-	api := r.Group("/article", authMiddleware)
+	api := r.Group("/", authMiddleware)
 	{
-		api.GET("/*path", func(c *gin.Context) {
+		api.GET("/home", func(c *gin.Context) {
+			index, err := content.GetIndex()
+			if err != nil {
+				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return
+			}
+
+			c.String(http.StatusOK, index)
+		})
+		api.GET("/article/*path", func(c *gin.Context) {
 			path := c.Param("path")
 
-			cnt, err := content.GetContent(path)
+			cnt, err := content.GetArticle(path)
 			if err != nil {
 				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 				return
