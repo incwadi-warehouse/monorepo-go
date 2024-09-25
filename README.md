@@ -82,3 +82,15 @@ curl -X DELETE http://localhost:8080/api/user/1/snow2 -H "Content-Type: applicat
 ## Blog
 
 Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
+
+## Framework
+
+### Config
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/framework/config"
+
+config.LoadAppConfig(config.WithName("myconfig"), config.WithFormat("json"), config.WithPaths("./config", "."))
+
+viper.SetDefault("CORS_ALLOW_ORIGIN", "http://127.0.0.1")
+```

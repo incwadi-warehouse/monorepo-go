@@ -6,6 +6,7 @@ use (
 	./conf
 	./conf-api
 	./cors
+	./framework
 	./gateway
 	./search-api
 	./security
