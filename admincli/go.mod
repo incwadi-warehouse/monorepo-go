@@ -1,6 +1,6 @@
 module github.com/incwadi-warehouse/monorepo-go/admincli
 
-go 1.21
+go 1.23
 
 require (
 	github.com/bcicen/go-units v1.0.5

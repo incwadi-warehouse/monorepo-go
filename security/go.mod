@@ -1,3 +1,3 @@
 module github.com/incwadi-warehouse/monorepo-go/security
 
-go 1.21
+go 1.23
