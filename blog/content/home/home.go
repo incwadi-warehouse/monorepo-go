@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/incwadi-warehouse/monorepo-go/blog/content"
 	"gopkg.in/yaml.v3"
@@ -12,7 +13,7 @@ import (
 
 // GetHome returns the content index as a JSON string.
 func GetHome() (string, error) {
-	indexPath := filepath.Join(content.GetContentRoot(), "index.yaml")
+	indexPath := filepath.Join(content.GetContentRoot(), "home.yaml")
 
 	entries, err := loadHome(indexPath)
 	if err != nil {
@@ -25,6 +26,27 @@ func GetHome() (string, error) {
 	}
 
 	return string(jsonData), nil
+}
+
+// GetNewArticles returns the number of articles newer than the specified number of days.
+func GetNewArticles(days int) (int, error) {
+	indexPath := filepath.Join(content.GetContentRoot(), "home.yaml")
+
+	entries, err := loadHome(indexPath)
+	if err != nil {
+		return 0, fmt.Errorf("error getting index: %w", err)
+	}
+
+	cutoffDate := time.Now().AddDate(0, 0, -days)
+
+	newArticleCount := 0
+	for _, entry := range entries {
+		if entry.Date.After(cutoffDate) {
+			newArticleCount++
+		}
+	}
+
+	return newArticleCount, nil
 }
 
 // loadHome reads the content index file and returns its content as []IndexEntry.

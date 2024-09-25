@@ -48,6 +48,50 @@ paths:
             security:
                 - APIKeyAuth: []
 
+    /home/new/{days}:
+        get:
+            summary: Get the number of new articles
+            description: Retrieves the number of articles newer than the specified number of days.
+            parameters:
+                - in: path
+                  name: days
+                  schema:
+                      type: integer
+                  required: true
+                  description: The number of days to look back for new articles.
+                  example: 7
+            responses:
+                "200":
+                    description: Number of new articles retrieved successfully.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    new_articles:
+                                        type: integer
+                                        description: The number of new articles.
+                "400":
+                    description: Bad Request - Invalid 'days' parameter. Days must be an integer.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                "500":
+                    description: Internal server error.
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+            security:
+                - APIKeyAuth: []
+
     /article/{path}:
         get:
             summary: Get content by path

@@ -2,12 +2,13 @@ package router
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/incwadi-warehouse/monorepo-go/blog/apikey"
 	"github.com/incwadi-warehouse/monorepo-go/blog/content/article"
 	"github.com/incwadi-warehouse/monorepo-go/blog/content/home"
 	"github.com/incwadi-warehouse/monorepo-go/cors/cors"
+	"github.com/incwadi-warehouse/monorepo-go/framework/apikey"
 )
 
 // authMiddleware is a middleware to check for API key authentication.
@@ -41,6 +42,23 @@ func SetupRouter() *gin.Engine {
 			}
 
 			c.String(http.StatusOK, index)
+		})
+		api.GET("/home/new/:days", func(c *gin.Context) {
+			daysStr := c.Param("days")
+
+			days, err := strconv.Atoi(daysStr)
+			if err != nil {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid 'days' parameter"})
+				return
+			}
+
+			newCount, err := home.GetNewArticles(days)
+			if err != nil {
+				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return
+			}
+
+			c.JSON(http.StatusOK, gin.H{"new_articles": newCount})
 		})
 		api.GET("/article/*path", func(c *gin.Context) {
 			path := c.Param("path")
