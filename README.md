@@ -94,3 +94,10 @@ config.LoadAppConfig(config.WithName("myconfig"), config.WithFormat("json"), con
 
 viper.SetDefault("CORS_ALLOW_ORIGIN", "http://127.0.0.1")
 ```
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/blog/content/article"
+
+apikey.IsValidAPIKey("key")
+apikey.HasPermission("key", "permission")
+```
