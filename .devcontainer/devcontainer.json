@@ -1,11 +1,10 @@
 {
     "name": "Go",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "devcontainer",
+    "image": "mcr.microsoft.com/devcontainers/go:1-1.23-bullseye",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "features": {
         "ghcr.io/guiyomh/features/goreleaser:0": {},
-        "ghcr.io/abaldeweg/devcontainer_features/bash:latest": {},
+        "ghcr.io/abaldeweg/devcontainer_features/bash:latest": {}
     },
     "forwardPorts": [
         5984
@@ -13,11 +12,9 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "mikestead.dotenv",
                 "EditorConfig.EditorConfig",
                 "golang.go",
                 "DavidAnson.vscode-markdownlint",
-                "christian-kohler.path-intellisense",
                 "redhat.vscode-yaml",
                 "donjayamanne.githistory",
                 "42Crunch.vscode-openapi"
