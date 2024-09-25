@@ -1,12 +1,10 @@
 # monorepo-go
 
-incwadi is a book database to manage your books.
+monorepo-go is a database to manage your warhouse.
 
 ## Getting Started
 
-[Installing](https://github.com/incwadi-warehouse/docu)
-
-## conf
+## Conf
 
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/conf/manager"
@@ -23,20 +21,41 @@ data.Add("app.key2", '1')
 data.Rm("app.key2")
 ```
 
-## settings
+## Blog
 
-Create a `.env` file to define some settings.
+Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
 
-```env
-// .env
+## Framework
 
-ENV=prod
-DATA_DIR=./data/
-CORS_ALLOW_ORIGIN=http://localhost:8080
-BASE_PATH=/
-AUTH_API_ME=http://localhost:8000/api/me
-PROJECT_DIR=
+### Config
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/framework/config"
+
+config.LoadAppConfig(config.WithName("myconfig"), config.WithFormat("json"), config.WithPaths("./config", "."))
+
+viper.SetDefault("CORS_ALLOW_ORIGIN", "http://127.0.0.1")
 ```
+
+### ApiKey
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/framework/apikey"
+
+apikey.IsValidAPIKey("key")
+apikey.HasPermission("key", "permission")
+```
+
+### Cors
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
+
+cors.Headers("*")
+cors.Headers("http://127.0.0.1")
+```
+
+## Settings
 
 |Var                    |Used by                        |Description
 |-----------------------|-------------------------------|--------------------------------
@@ -63,48 +82,4 @@ Example
 ```yaml
 // admincli.yaml
 project_dir: .
-```
-
-## Testing
-
-```shell
-curl -X GET http://localhost:8080/api/user/1/snow -H "Content-Type: application/json" -H "Authorization: Bearer token"
-```
-
-```shell
-curl -X POST http://localhost:8080/api/user/1/snow2 -H "Content-Type: application/json" -H "Authorization: Bearer token" -d '{"value": 1 }'
-```
-
-```shell
-curl -X DELETE http://localhost:8080/api/user/1/snow2 -H "Content-Type: application/json" -H "Authorization: Bearer token"
-```
-
-## Blog
-
-Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
-
-## Framework
-
-### Config
-
-```go
-import "github.com/incwadi-warehouse/monorepo-go/framework/config"
-
-config.LoadAppConfig(config.WithName("myconfig"), config.WithFormat("json"), config.WithPaths("./config", "."))
-
-viper.SetDefault("CORS_ALLOW_ORIGIN", "http://127.0.0.1")
-```
-
-```go
-import "github.com/incwadi-warehouse/monorepo-go/blog/content/article"
-
-apikey.IsValidAPIKey("key")
-apikey.HasPermission("key", "permission")
-```
-
-```go
-import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
-
-cors.Headers("*")
-cors.Headers("http://127.0.0.1")
 ```
