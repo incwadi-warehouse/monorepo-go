@@ -4,7 +4,8 @@ go 1.23
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	github.com/incwadi-warehouse/monorepo-go/cors v0.0.0-20240925190312-4d7d21fda69e
+	github.com/incwadi-warehouse/monorepo-go/cors v0.0.0-20240925193720-d5686e2ba337
+	github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20240925193720-d5686e2ba337
 	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.9.0
 )
