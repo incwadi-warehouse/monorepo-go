@@ -7,8 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/blog/content/article"
 	"github.com/incwadi-warehouse/monorepo-go/blog/content/home"
-	"github.com/incwadi-warehouse/monorepo-go/cors/cors"
 	"github.com/incwadi-warehouse/monorepo-go/framework/apikey"
+	"github.com/incwadi-warehouse/monorepo-go/framework/cors"
+	"github.com/spf13/viper"
 )
 
 // authMiddleware is a middleware to check for API key authentication.
@@ -30,7 +31,7 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	r.Use(cors.Headers())
+	r.Use(cors.Headers(viper.GetString("CORS_ALLOW_ORIGIN")))
 
 	api := r.Group("/", authMiddleware)
 	{

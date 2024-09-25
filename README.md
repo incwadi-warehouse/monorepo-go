@@ -101,3 +101,10 @@ import "github.com/incwadi-warehouse/monorepo-go/blog/content/article"
 apikey.IsValidAPIKey("key")
 apikey.HasPermission("key", "permission")
 ```
+
+```go
+import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
+
+cors.Headers("*")
+cors.Headers("http://127.0.0.1")
+```
