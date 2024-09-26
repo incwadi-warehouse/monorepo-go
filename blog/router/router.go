@@ -24,6 +24,22 @@ func authMiddleware(c *gin.Context) {
 	c.Next()
 }
 
+// permissionsMiddleware is a middleware to check for API key permissions.
+func permissionsMiddleware(permissions ...string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		key := c.GetHeader("X-API-Key")
+
+		for _, permission := range permissions {
+			if !apikey.HasPermission(key, permission) {
+				c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "Forbidden"})
+				return
+			}
+		}
+
+		c.Next()
+	}
+}
+
 // setupRouter sets up the Gin router.
 func SetupRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
@@ -35,7 +51,7 @@ func SetupRouter() *gin.Engine {
 
 	api := r.Group("/", authMiddleware)
 	{
-		api.GET("/home", func(c *gin.Context) {
+		api.GET("/home", permissionsMiddleware("articles"), func(c *gin.Context) {
 			index, err := home.GetHome()
 			if err != nil {
 				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -44,7 +60,7 @@ func SetupRouter() *gin.Engine {
 
 			c.String(http.StatusOK, index)
 		})
-		api.GET("/home/new/:days", func(c *gin.Context) {
+		api.GET("/home/new/:days", permissionsMiddleware("articles"), func(c *gin.Context) {
 			daysStr := c.Param("days")
 
 			days, err := strconv.Atoi(daysStr)
@@ -61,7 +77,7 @@ func SetupRouter() *gin.Engine {
 
 			c.JSON(http.StatusOK, gin.H{"new_articles": newCount})
 		})
-		api.GET("/article/*path", func(c *gin.Context) {
+		api.GET("/article/*path", permissionsMiddleware("articles"), func(c *gin.Context) {
 			path := c.Param("path")
 
 			cnt, err := article.GetArticle(path)

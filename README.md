@@ -25,6 +25,8 @@ data.Rm("app.key2")
 
 Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
 
+The routes needs the API-Key to contain the `articles` permission.
+
 ## Framework
 
 ### Config
