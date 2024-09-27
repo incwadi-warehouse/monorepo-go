@@ -40,17 +40,21 @@ func permissionsMiddleware(permissions ...string) gin.HandlerFunc {
 	}
 }
 
-// setupRouter sets up the Gin router.
-func SetupRouter() *gin.Engine {
+func engine() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
-
 	r := gin.Default()
-	r.SetTrustedProxies(nil)
 
     corsConfig := cors.NewCors()
     corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN")}
     corsConfig.SetCorsHeaders()
 	r.Use(corsConfig.SetCorsHeaders())
+
+    return r
+}
+
+// setupRouter sets up the Gin router.
+func SetupRouter() *gin.Engine {
+	r := engine()
 
 	api := r.Group("/", authMiddleware)
 	{
