@@ -29,6 +29,24 @@ The routes needs the API-Key to contain the `articles` permission.
 
 ## Framework
 
+```go
+package main
+
+import (
+ "log"
+
+ "github.com/incwadi-warehouse/monorepo-go/blog/router"
+ "github.com/incwadi-warehouse/monorepo-go/framework/config"
+)
+
+func main() {
+    config.LoadAppConfig()
+
+    r := router.Routes()
+    log.Fatal(r.Run(":8080"))
+}
+```
+
 ### Config
 
 ```go
