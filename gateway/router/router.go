@@ -16,7 +16,10 @@ func Router() {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	r.Use(cors.SetCorsHeaders(os.Getenv("CORS_ALLOW_ORIGIN")))
+    corsConfig := cors.NewCors()
+    corsConfig.AllowOrigins = []string{os.Getenv("CORS_ALLOW_ORIGIN")}
+    corsConfig.SetCorsHeaders()
+	r.Use(corsConfig.SetCorsHeaders())
 
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
 		path := c.Param("path")

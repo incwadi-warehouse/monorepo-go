@@ -53,8 +53,9 @@ apikey.HasPermission("key", "permission")
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
 
-cors.Headers("*")
-cors.Headers("http://127.0.0.1")
+corsConfig := cors.NewCors()
+corsConfig.AllowOrigins = []string{"http://127.0.0.1"}
+corsConfig.SetCorsHeaders()
 ```
 
 ## Settings

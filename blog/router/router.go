@@ -47,7 +47,10 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	r.Use(cors.SetCorsHeaders(viper.GetString("CORS_ALLOW_ORIGIN")))
+    corsConfig := cors.NewCors()
+    corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN")}
+    corsConfig.SetCorsHeaders()
+	r.Use(corsConfig.SetCorsHeaders())
 
 	api := r.Group("/", authMiddleware)
 	{
