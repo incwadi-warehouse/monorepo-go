@@ -52,8 +52,8 @@ func engine() *gin.Engine {
     return r
 }
 
-// setupRouter sets up the Gin router.
-func SetupRouter() *gin.Engine {
+// Routes sets up the Gin router.
+func Routes() *gin.Engine {
 	r := engine()
 
 	api := r.Group("/", authMiddleware)

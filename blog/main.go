@@ -13,6 +13,6 @@ func main() {
 
     config.LoadAppConfig()
 
-	r := router.SetupRouter()
+	r := router.Routes()
 	log.Fatal(r.Run(":8080"))
 }
