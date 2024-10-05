@@ -71,26 +71,30 @@ apikey.HasPermission("key", "permission")
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
 
+r := gin.Default()
+
 corsConfig := cors.NewCors()
-corsConfig.AllowOrigins = []string{"http://127.0.0.1"}
+corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN"), "http://127.0.0.1"}
 corsConfig.SetCorsHeaders()
+
+r.Use(corsConfig.SetCorsHeaders())
 ```
 
 ## Settings
 
-|Var                    |Used by                        |Description
-|-----------------------|-------------------------------|--------------------------------
-|ENV                    |conf-api, search-api           |Set to `prod`, `dev` or `test`
-|DATA_DIR               |conf-api                       |Path where to store the files
-|CORS_ALLOW_ORIGIN      |conf-api, search-api, gateway  |Allowed origins
-|BASE_PATH              |conf-api, search-api           |Configure the base path
-|AUTH_API_ME            |conf-api, search-api           |API endpoint for the user object
-|ADMINCLI_PROJECT_DIR   |admincli                       |Where to execute the commands
-|MEILI                  |search-api                     |URL to meilisearch instance
-|MEILI_TOKEN            |search-api                     |API key for meilisearch
-|BRANCHES               |search-api                     |List of allowed branches, comma-separated
-|INDEXES                |search-api                     |List of allowed indexes, comma-separated
-|API_CORE               |gateway                        |API endpoint for the core
+|Var                    |Description                                |Used by
+|-----------------------|-------------------------------------------|--------------------------------
+|ENV                    |Set to `prod`, `dev` or `test`             |conf-api, search-api
+|DATA_DIR               |Path where to store the files              |conf-api
+|CORS_ALLOW_ORIGIN      |Allowed origins                            |conf-api, search-api, gateway, blog
+|BASE_PATH              |Configure the base path                    |conf-api, search-api
+|AUTH_API_ME            |API endpoint for the user object           |conf-api, search-api
+|ADMINCLI_PROJECT_DIR   |Where to execute the commands              |admincli
+|MEILI                  |URL to meilisearch instance                |search-api
+|MEILI_TOKEN            |API key for meilisearch                    |search-api
+|BRANCHES               |List of allowed branches, comma-separated  |search-api
+|INDEXES                |List of allowed indexes, comma-separated   |search-api
+|API_CORE               |API endpoint for the core                  |gateway
 
 admincli will read a config file from following paths:
 
