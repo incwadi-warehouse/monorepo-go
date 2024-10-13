@@ -59,6 +59,8 @@ github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241006184720-2c135db
 github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241006184720-2c135dbc2469/go.mod h1:xX9FQyY8/hBQ+7RMI9rlLu1eozuu7amRiZfA7f5H8y8=
 github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241008100133-19e2e60a3680 h1:YPL2YxzhEGtthEnOJcezu+/nROZUHy+ZGfIQh3d59UU=
 github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241008100133-19e2e60a3680/go.mod h1:xX9FQyY8/hBQ+7RMI9rlLu1eozuu7amRiZfA7f5H8y8=
+github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241013070531-fc716189a476 h1:/NdCaaAOWp5C8m5Q9wx4exOQL79csJPrZwSG7DSd7KQ=
+github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241013070531-fc716189a476/go.mod h1:xX9FQyY8/hBQ+7RMI9rlLu1eozuu7amRiZfA7f5H8y8=
 github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
