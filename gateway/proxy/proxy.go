@@ -24,19 +24,23 @@ func Proxy(c *gin.Context, serviceURL string, path string) error {
 }
 
 func request(ctx context.Context, c *gin.Context, serviceURL string, path string) (*http.Request, error) {
-	req, err := http.NewRequestWithContext(ctx, c.Request.Method, serviceURL+path, c.Request.Body)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
-		return nil, err
-	}
+    // Construct the full URL with path AND query parameters
+    fullURL := serviceURL + path + "?" + c.Request.URL.RawQuery
 
-	for key, values := range c.Request.Header {
-		for _, value := range values {
-			req.Header.Add(key, value)
-		}
-	}
-	return req, nil
+    req, err := http.NewRequestWithContext(ctx, c.Request.Method, fullURL, c.Request.Body)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
+        return nil, err
+    }
+
+    for key, values := range c.Request.Header {
+        for _, value := range values {
+            req.Header.Add(key, value)
+        }
+    }
+    return req, nil
 }
+
 
 func response(req *http.Request, c *gin.Context) error {
 	client := &http.Client{}
