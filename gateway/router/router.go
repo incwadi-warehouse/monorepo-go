@@ -2,11 +2,11 @@ package router
 
 import (
 	"net/http"
-	"os"
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	"github.com/incwadi-warehouse/monorepo-go/gateway/proxy"
+	"github.com/spf13/viper"
 )
 
 func Routes() *gin.Engine {
@@ -17,7 +17,7 @@ func Routes() *gin.Engine {
 
 		safePath := filepath.Join("/", path)
 
-		if err := proxy.Proxy(c, os.Getenv("API_CORE"), safePath); err != nil {
+		if err := proxy.Proxy(c, viper.GetString("API_CORE"), safePath); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"msg": "Internal Error"})
 			return
 		}

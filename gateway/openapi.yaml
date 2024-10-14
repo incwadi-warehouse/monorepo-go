@@ -12,7 +12,7 @@ tags:
     description: Proxy
 
 paths:
-  /1/{path}:
+  /apis/core/1/{path}:
     get:
       summary: Proxy GET request
       tags:
