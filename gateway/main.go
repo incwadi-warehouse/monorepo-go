@@ -11,18 +11,18 @@ import (
 )
 
 func main() {
-    godotenv.Load()
+	godotenv.Load()
 
-    config.LoadAppConfig()
+	config.LoadAppConfig()
 
-    viper.SetDefault("CORS_ALLOW_ORIGIN", "*")
+	viper.SetDefault("CORS_ALLOW_ORIGIN", "*")
 
-    corsConfig := cors.NewCors()
-    corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN")}
-    corsConfig.SetCorsHeaders()
+	corsConfig := cors.NewCors()
+	corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN")}
+	corsConfig.SetCorsHeaders()
 
-    r := router.Routes()
+	r := router.Routes()
 	r.Use(corsConfig.SetCorsHeaders())
 
-    log.Fatal(r.Run(":8080"))
+	log.Fatal(r.Run(":8080"))
 }
