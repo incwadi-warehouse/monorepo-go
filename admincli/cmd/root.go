@@ -27,11 +27,6 @@ func init() {
 	viper.SetConfigName("admincli")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("/etc/admincli/")
-	viper.AddConfigPath("$HOME/.admincli/")
-	viper.AddConfigPath("./")
-
-	viper.SetEnvPrefix("admincli")
-	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatal(err)

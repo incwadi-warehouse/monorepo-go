@@ -88,7 +88,6 @@ r.Use(corsConfig.SetCorsHeaders())
 |CORS_ALLOW_ORIGIN      |Allowed origins                            |conf-api, search-api, gateway, blog
 |BASE_PATH              |Configure the base path                    |conf-api, search-api
 |AUTH_API_ME            |API endpoint for the user object           |conf-api, search-api
-|ADMINCLI_PROJECT_DIR   |Where to execute the commands              |admincli
 |MEILI                  |URL to meilisearch instance                |search-api
 |MEILI_TOKEN            |API key for meilisearch                    |search-api
 |BRANCHES               |List of allowed branches, comma-separated  |search-api
@@ -98,8 +97,6 @@ r.Use(corsConfig.SetCorsHeaders())
 admincli will read a config file from following paths:
 
 - /etc/admincli/admincli.yaml
-- $HOME/.admincli/admincli.yaml
-- ./admincli.yaml
 
 Example
 
