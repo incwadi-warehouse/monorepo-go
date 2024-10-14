@@ -1,6 +1,8 @@
 [
-  {
-    "key": "test",
-    "permissions": ["articles"]
-  }
+    {
+        "key": "test",
+        "permissions": [
+            "articles"
+        ]
+    }
 ]

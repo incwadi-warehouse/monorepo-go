@@ -24,16 +24,16 @@ func Execute() {
 func init() {
 	viper.SetDefault("project_dir", ".")
 
-    viper.SetConfigName("admincli")
-    viper.SetConfigType("yaml")
-    viper.AddConfigPath("/etc/admincli/")
-    viper.AddConfigPath("$HOME/.admincli/")
-    viper.AddConfigPath("./")
+	viper.SetConfigName("admincli")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("/etc/admincli/")
+	viper.AddConfigPath("$HOME/.admincli/")
+	viper.AddConfigPath("./")
 
-    viper.SetEnvPrefix("admincli")
-    viper.AutomaticEnv()
+	viper.SetEnvPrefix("admincli")
+	viper.AutomaticEnv()
 
-    if err := viper.ReadInConfig(); err != nil {
-        log.Fatal(err)
-    }
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatal(err)
+	}
 }

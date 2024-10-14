@@ -9,14 +9,13 @@ import (
 )
 
 func main() {
-    config.LoadAppConfig()
+	config.LoadAppConfig()
+
+	corsConfig := cors.NewCors()
+	corsConfig.AllowOrigins = []string{"*"}
+	corsConfig.SetCorsHeaders()
 
 	r := router.Routes()
-
-    corsConfig := cors.NewCors()
-    corsConfig.AllowOrigins = []string{"*"}
-    corsConfig.SetCorsHeaders()
-
 	r.Use(corsConfig.SetCorsHeaders())
 
 	log.Fatal(r.Run(":8080"))

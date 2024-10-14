@@ -70,7 +70,6 @@ func loadHome(indexPath string) ([]content.Home, error) {
 }
 
 // createHomeFileIfNotExists creates the index file if it doesn't exist.
-// If the file is created, it will include an example entry.
 func createHomeFileIfNotExists(indexPath string) error {
 	if _, err := os.Stat(indexPath); os.IsNotExist(err) {
 		exampleContent := []byte("- slug: example\n  date: 2024-09-24\n  summary: This is an example article.\n")

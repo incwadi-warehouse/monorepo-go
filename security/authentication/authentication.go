@@ -48,6 +48,7 @@ func GetUser(token string) (Auth, error) {
 	if err != nil {
 		return auth, err
 	}
+    
 	if err := json.Unmarshal(io, &auth.User); err != nil {
 		return auth, err
 	}

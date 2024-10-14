@@ -71,12 +71,11 @@ apikey.HasPermission("key", "permission")
 ```go
 import "github.com/incwadi-warehouse/monorepo-go/framework/cors"
 
-r := gin.Default()
-
 corsConfig := cors.NewCors()
 corsConfig.AllowOrigins = []string{viper.GetString("CORS_ALLOW_ORIGIN"), "http://127.0.0.1"}
 corsConfig.SetCorsHeaders()
 
+r := gin.Default()
 r.Use(corsConfig.SetCorsHeaders())
 ```
 

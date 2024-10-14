@@ -16,5 +16,5 @@ const contentRoot = "data/content"
 
 // GetContentRoot returns the root directory for content files.
 func GetContentRoot() string {
-    return contentRoot
+	return contentRoot
 }

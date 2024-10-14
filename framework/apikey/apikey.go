@@ -41,7 +41,7 @@ func loadAPIKeys() ([]APIKey, error) {
 // If no keys are provided, it generates a new UUID as a default key.
 func createAPIKeysFile(keys []APIKey) error {
 	if len(keys) == 0 {
-		newKey := APIKey{Key: uuid.New().String(), Permissions: []string{}} 
+		newKey := APIKey{Key: uuid.New().String(), Permissions: []string{}}
 		keys = append(keys, newKey)
 	}
 

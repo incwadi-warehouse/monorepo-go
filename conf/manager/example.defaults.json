@@ -1,8 +1,8 @@
 {
-	"$schema": "example.schema.json",
-	"app": {
-		"string": "default 1",
+    "$schema": "example.schema.json",
+    "app": {
+        "string": "default 1",
         "bool": true,
-		"merge": true
-	}
+        "merge": true
+    }
 }
