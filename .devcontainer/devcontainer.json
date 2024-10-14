@@ -16,7 +16,6 @@
                 "golang.go",
                 "DavidAnson.vscode-markdownlint",
                 "redhat.vscode-yaml",
-                "donjayamanne.githistory",
                 "42Crunch.vscode-openapi"
             ]
         }
