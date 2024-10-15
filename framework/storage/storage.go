@@ -17,19 +17,19 @@ type persistence interface {
 
 // Storage represents a storage object with configurable parameters.
 type Storage struct {
-	Type         StorageType
-	ResourceName string
-	Namespace    string
-	Key          string
+	Type     StorageType
+	Resource string // e.g. BucketName, DB Name
+	Location string // e.g. Directory
+	Name     string // e.g. Filename, Table Name
 }
 
 // NewStorage creates a new Storage instance with default values.
-func NewStorage(resourceName, namespace, key string) *Storage {
+func NewStorage(resource, location, name string) *Storage {
 	return &Storage{
-		Type:         StorageTypeFilesystem,
-		ResourceName: resourceName,
-		Namespace:    namespace,
-		Key:          key,
+		Type:     StorageTypeFilesystem,
+		Resource: resource,
+		Location: location,
+		Name:     name,
 	}
 }
 
@@ -51,10 +51,10 @@ func (s *Storage) Load() ([]byte, error) {
 func (s *Storage) getStorage() persistence {
 	switch s.Type {
 	case StorageTypeCloud:
-		return &cloudStorage{bucketName: s.ResourceName, directory: s.Namespace, name: s.Key}
+		return &cloudStorage{bucketName: s.Resource, directory: s.Location, name: s.Name}
 	case StorageTypeFilesystem:
 		fallthrough
 	default:
-		return &filesystemStorage{basePath: s.Namespace, name: s.Key}
+		return &filesystemStorage{basePath: s.Location, name: s.Name}
 	}
 }
