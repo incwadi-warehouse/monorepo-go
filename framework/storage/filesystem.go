@@ -31,3 +31,10 @@ func (s *filesystemStorage) load() ([]byte, error) {
 
 	return os.ReadFile(fullPath)
 }
+
+// remove deletes the file from the filesystem.
+func (s *filesystemStorage) remove() error {
+	fullPath := filepath.Join(s.basePath, s.name)
+
+	return os.Remove(fullPath)
+}

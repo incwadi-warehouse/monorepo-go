@@ -40,7 +40,7 @@ func (s *cloudStorage) save(data []byte) error {
 	return nil
 }
 
-// load downloads data from Google Cloud Storage.
+// load downloads data from Cloud.
 func (s *cloudStorage) load() ([]byte, error) {
 	ctx := context.Background()
 	client, err := storage.NewClient(ctx)
@@ -65,4 +65,19 @@ func (s *cloudStorage) load() ([]byte, error) {
 	}
 
 	return data, nil
+}
+
+// remove deletes the object from Cloud.
+func (s *cloudStorage) remove() error {
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		return fmt.Errorf("creating cloud storage client: %w", err)
+	}
+	defer client.Close()
+
+	bucket := client.Bucket(s.bucketName)
+	object := bucket.Object(filepath.Join(s.directory, s.name))
+
+	return object.Delete(ctx)
 }

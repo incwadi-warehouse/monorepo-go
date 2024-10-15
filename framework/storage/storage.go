@@ -13,6 +13,7 @@ const (
 type persistence interface {
 	save(data []byte) error
 	load() ([]byte, error)
+	remove() error
 }
 
 // Storage represents a storage object with configurable parameters.
@@ -45,6 +46,13 @@ func (s *Storage) Load() ([]byte, error) {
 	storage := s.getStorage()
 
 	return storage.load()
+}
+
+// Remove deletes data using the configured storage mechanism.
+func (s *Storage) Remove() error {
+	storage := s.getStorage()
+
+	return storage.remove()
 }
 
 // getStorage returns the appropriate storage implementation based on the provided type.
