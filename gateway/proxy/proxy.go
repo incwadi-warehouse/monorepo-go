@@ -70,6 +70,8 @@ func response(req *http.Request, c *gin.Context) error {
 		c.Header(key, value[0])
 	}
 
+	c.Header("Content-Length", resp.Header.Get("Content-Length"))
+
 	c.Data(resp.StatusCode, resp.Header.Get("Content-Type"), body)
 
 	return nil
