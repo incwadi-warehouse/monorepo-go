@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241015090909-8ba509eec0c6
+	github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241015103903-18b8a9a878b9
 	github.com/spf13/viper v1.19.0
 	gopkg.in/yaml.v3 v3.0.1
 )
