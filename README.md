@@ -1,6 +1,6 @@
 # monorepo-go
 
-monorepo-go is a database to manage your warhouse.
+monorepo-go is a database to manage your warehouse.
 
 ## Getting Started
 
