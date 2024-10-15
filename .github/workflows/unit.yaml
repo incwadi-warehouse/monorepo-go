@@ -47,29 +47,3 @@ jobs:
         run: |
           go mod tidy
           go test ./...
-
-  test-search-api:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version: "1.23"
-      - name: Run search-api tests
-        working-directory: ./search-api
-        run: |
-          go mod tidy
-          go test ./...
-
-  test-security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version: "1.23"
-      - name: Run security tests
-        working-directory: ./security
-        run: |
-          go mod tidy
-          go test ./...

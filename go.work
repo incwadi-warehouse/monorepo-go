@@ -7,6 +7,4 @@ use (
 	./conf-api
 	./framework
 	./gateway
-	./search-api
-	./security
 )

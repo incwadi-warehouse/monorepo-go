@@ -85,15 +85,11 @@ r.Use(corsConfig.SetCorsHeaders())
 
 |Var                    |Description                                |Used by
 |-----------------------|-------------------------------------------|--------------------------------
-|ENV                    |Set to `prod`, `dev` or `test`             |conf-api, search-api
+|ENV                    |Set to `prod`, `dev` or `test`             |conf-api
 |DATA_DIR               |Path where to store the files              |conf-api
-|CORS_ALLOW_ORIGIN      |Allowed origins                            |conf-api, search-api, gateway, blog
-|BASE_PATH              |Configure the base path                    |conf-api, search-api
-|AUTH_API_ME            |API endpoint for the user object           |conf-api, search-api
-|MEILI                  |URL to meilisearch instance                |search-api
-|MEILI_TOKEN            |API key for meilisearch                    |search-api
-|BRANCHES               |List of allowed branches, comma-separated  |search-api
-|INDEXES                |List of allowed indexes, comma-separated   |search-api
+|CORS_ALLOW_ORIGIN      |Allowed origins                            |conf-api, gateway, blog
+|BASE_PATH              |Configure the base path                    |conf-api
+|AUTH_API_ME            |API endpoint for the user object           |conf-api
 |API_CORE               |API endpoint for the core                  |gateway
 
 admincli will read a config file from following paths:
