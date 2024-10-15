@@ -11,6 +11,7 @@ import (
 
 func Routes() *gin.Engine {
     gin.SetMode(gin.ReleaseMode)
+
 	r := gin.Default()
 
 	r.Any(`/apis/core/1/*path`, func(c *gin.Context) {
