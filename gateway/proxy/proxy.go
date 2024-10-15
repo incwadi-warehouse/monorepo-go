@@ -24,6 +24,8 @@ func Proxy(c *gin.Context, serviceURL string, path string) error {
 
 	req.Header = c.Request.Header
 
+	req.Header.Set("Content-Type", c.Request.Header.Get("Content-Type"))
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
