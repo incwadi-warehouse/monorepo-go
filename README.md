@@ -4,23 +4,6 @@ monorepo-go is a database to manage your warehouse.
 
 ## Getting Started
 
-## Conf
-
-```go
-import "github.com/incwadi-warehouse/monorepo-go/conf/manager"
-
-// Load config
-data, err := settings.LoadFromString(schema, file)
-if err != nil {
-    log.Fatal(err)
-}
-
-// Manipulation
-v := data.Get("app.key")
-data.Add("app.key2", '1')
-data.Rm("app.key2")
-```
-
 ## Blog
 
 Mount auth volume to `/usr/src/app/data/auth/` and data volume to `/usr/src/app/data/content/`.
@@ -85,11 +68,7 @@ r.Use(corsConfig.SetCorsHeaders())
 
 |Var                    |Description                                |Used by
 |-----------------------|-------------------------------------------|--------------------------------
-|ENV                    |Set to `prod`, `dev` or `test`             |conf-api
-|DATA_DIR               |Path where to store the files              |conf-api
-|CORS_ALLOW_ORIGIN      |Allowed origins                            |conf-api, gateway, blog
-|BASE_PATH              |Configure the base path                    |conf-api
-|AUTH_API_ME            |API endpoint for the user object           |conf-api
+|CORS_ALLOW_ORIGIN      |Allowed origins                            |gateway, blog
 |API_CORE               |API endpoint for the core                  |gateway
 |project_dir            |Path to docker compose                     |admincli
 |database               |Database name to dump                      |admincli

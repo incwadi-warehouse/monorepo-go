@@ -1,7 +1,0 @@
-{
-	"$schema": "example.schema.json",
-	"app": {
-		"string": "value 1",
-        "bool": true
-	}
-}
