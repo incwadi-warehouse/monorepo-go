@@ -24,7 +24,6 @@ func Proxy(c *gin.Context, serviceURL string, path string) error {
 }
 
 func request(ctx context.Context, c *gin.Context, serviceURL string, path string) (*http.Request, error) {
-    // Construct the full URL with path AND query parameters
     fullURL := serviceURL + path + "?" + c.Request.URL.RawQuery
 
     req, err := http.NewRequestWithContext(ctx, c.Request.Method, fullURL, c.Request.Body)
@@ -34,12 +33,13 @@ func request(ctx context.Context, c *gin.Context, serviceURL string, path string
     }
 
     for key, values := range c.Request.Header {
-        for _, value := range values {
-            req.Header.Add(key, value)
+        // Forward all headers EXCEPT Content-Type
+        if key != "Content-Type" {
+            for _, value := range values {
+                req.Header.Add(key, value)
+            }
         }
     }
-
-    req.Header.Set("Content-Type", c.Request.Header.Get("Content-Type"))
 
     return req, nil
 }
