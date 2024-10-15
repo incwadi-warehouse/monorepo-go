@@ -11,8 +11,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var service = "bw-db-1"
-
 var dumpCmd = &cobra.Command{
 	Use:   "dump",
 	Short: "Dump database",
@@ -21,7 +19,7 @@ var dumpCmd = &cobra.Command{
 		fmt.Println("Dumping database")
 
 		// command
-		c := exec.Command("docker", "exec", service, "sh", "-c", fmt.Sprintf("exec mysqldump %s -uroot -p\"%s\"", "$MYSQL_DATABASE", "$MYSQL_ROOT_PASSWORD"))
+		c := exec.Command("docker", "exec", viper.GetString("database"), "sh", "-c", fmt.Sprintf("exec mysqldump %s -uroot -p\"%s\"", "$MYSQL_DATABASE", "$MYSQL_ROOT_PASSWORD"))
 
 		// create directory
 		dirPath := fmt.Sprintf("%s/dump/", viper.GetString("project_dir"))

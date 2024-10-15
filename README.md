@@ -91,6 +91,8 @@ r.Use(corsConfig.SetCorsHeaders())
 |BASE_PATH              |Configure the base path                    |conf-api
 |AUTH_API_ME            |API endpoint for the user object           |conf-api
 |API_CORE               |API endpoint for the core                  |gateway
+|project_dir            |Path to docker compose                     |admincli
+|database               |Database name to dump                      |admincli
 
 admincli will read a config file from following paths:
 
@@ -101,4 +103,5 @@ Example
 ```yaml
 // admincli.yaml
 project_dir: .
+database: db-1
 ```
