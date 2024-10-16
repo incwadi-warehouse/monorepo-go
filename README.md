@@ -1,3 +1,5 @@
+This repo moved to <https://github.com/abaldeweg/warehouse-server>.
+
 # monorepo-go
 
 monorepo-go is a database to manage your warehouse.
