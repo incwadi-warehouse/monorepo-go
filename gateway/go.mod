@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241015103903-18b8a9a878b9
+	github.com/incwadi-warehouse/monorepo-go/framework v0.0.0-20241015163101-08b93c4b15a5
 	github.com/joho/godotenv v1.5.1
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
